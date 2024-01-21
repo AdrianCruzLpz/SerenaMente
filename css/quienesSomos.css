@@ -40,7 +40,7 @@ section h2{
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: repeat(4, 1fr);
     max-width: 60%;
-    margin: auto;
+    margin: 40px auto;
 }
 
 .celda{
@@ -68,7 +68,7 @@ button{
 .contenedorContacto{
     display: flex;
     width: 100%;
-    margin: auto;
+    margin: 30px auto;
 }
 
 form{
