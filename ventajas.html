@@ -4,16 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SerenaMente</title>
+    <title>Ventajas</title>
     <link rel="icon" type="image/x-icon" href="./img/LogoSerenaMente.png">
     <link rel="stylesheet" href="./css/slider.css">
     <link rel="stylesheet" href="./css/header_footer.css">
+    <link rel="stylesheet" href="./css/quienesSomos.css">
+    <link rel="stylesheet" href="./css/ventajas.css">
 </head>
 
 <body>
     <header>
         <div class="rectanguloAzul"></div>
-        </div>
 
         <div class="contenedor">
             <div class="izquierda"><img src="./img/LogoSerenaMente.png" width="206px" height="190px"></div>
@@ -51,6 +52,11 @@
     </header>
 
     <main style="margin-top: 20px;">
+
+        <div class="rectanguloAmarillo">
+            <h1>VENTAJAS</h1>
+        </div>
+
         <section class="section-flex-container">
             <iframe width="745px" height="420px" src="https://www.youtube.com/embed/OUHwZAzWYHE?si=wfN7ckVwnIIMgQ5F"
                 title="YouTube video player" frameborder="0"
@@ -58,7 +64,7 @@
                 allowfullscreen></iframe>
 
             <div style="width: 30%;">
-                <h1 class="titulo">Bienvenida/o a Serenamente</h1>
+                <h1 class="titulo">Ventajas</h1>
                 <p>Una aplicación móvil diseñada por profesionales en salud mental para mejorar tu bienestar emocional
                     con
                     herramientas respaldadas por la ciencia.</p>
@@ -66,47 +72,45 @@
         </section>
 
         <section>
-            <div class="slider">
-                <ul>
-                    <li>
-                        <img src="./img/saludMental.jpg" alt="">
-                    </li>
-                    <li>
-                        <img src="./img/disposicion-elemento-optimismo-espacio-copia.jpg" alt="">
-                    </li>
-                    <li>
-                        <img src="./img/meditacion.jpg" alt="">
-                    </li>
-                    <li>
-                        <img src="./img/healthyLifestyle.jpg" alt="">
-                    </li>
-                </ul>
+            <div class="contenedorAzul">
+                <div class="contenedorImagen">
+                    <img src="./img/imagenVentajas.png" alt="Ventajas">
+                </div>
+                <div class="contenedorTexto">
+                    <p>Esta apliación se encuentra disponibles las 24 horas del día, los 7 días de la semana,
+                        permitiéndote acceder a recurso de salud mental en cualquer momento y lugar que te resulte
+                        conveniente.</p>
+                    <p>Encontrarás información psicoemocional, que te auxiliara a comprender mejor lo que sientes y cómo
+                        abordar esas emociones.</p>
+                    <p> Puede llevar un registro de cómo te sientes día a día, ayudándote a ver patrones y progresos en
+                        tu estado de ánimo.</p>
+                </div>
             </div>
         </section>
 
-        <section>
-            <div class="section-flex-container">
-                <div>
-                    <img src="./img/letrasLogo.png" width="197px" height="50px">
-                </div>
-                <div style="width: 35%;">
-                    <p>Cuenta con el respaldo y
-                        colaboración de investigadoras e investigadores de las siguientes instituciones.
-                    </p>
-                </div>
-                <div>
+        <div class="contenedorContacto">
+            <div class="formulario">
+                <h3>CONTACTO</h3>
+                <form action="" method="post">
                     <ul>
-                        <li><img src="./img/cropped-logos2_-copia.png" width="365px" height="108px"
-                                alt="UNAM - SUAYED - LABPSIIT"></li>
-                        <li><img src="./img/LOGO POLI PANTONE 222 C.png" width="73px" height="108px"
-                                alt="Instituto Politécnico Nacional"></li>
-                        <li><img src="./img/escudoESCOM.png" width="142px" height="108px"
-                                alt="Escuela Superior de Cómputo">
-                        </li>
+                        <li><label for="name">NOMBRE</label><input type="text" id="name" name="user_name"
+                                class="input" /></li>
+                        <li><label for="email">CORREO ELECTRÓNICO</label><input type="text" id="mail" name="user_mail"
+                                class="input" /></li>
+                        <li><label for="message">MENSAJE</label><textarea name="user_message" id="message" cols="30"
+                                rows="10" class="input"></textarea></li>
                     </ul>
-                </div>
+                    <input type="button" value="ENVIAR" class="boton">
+                </form>
             </div>
-        </section>
+            <div class="comentario">
+                <h3>NOS GUSTARÍA AYUDARTE</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, adipisci eaque nam quibusdam
+                    vero voluptatum commodi sint dolore, blanditiis illo quod, officia ab cumque! Explicabo, cupiditate
+                    at! Fugiat, a provident.
+                </p>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -131,4 +135,5 @@
         </div>
     </footer>
 </body>
+
 </html>
