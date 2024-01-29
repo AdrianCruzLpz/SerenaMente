@@ -7,40 +7,53 @@
     <title>SerenaMente</title>
     <link rel="icon" type="image/x-icon" href="./img/LogoSerenaMente.png">
     <link rel="stylesheet" href="./css/slider.css">
-    <link rel="stylesheet" href="./css/header_footer.css">
+    <link rel="stylesheet" href="./css/style-index.css">
+    <link rel="stylesheet" href="./css/style-slider.css">
+
 </head>
 
 <body>
     <header>
         <div class="rectanguloAzul"></div>
-        </div>
 
-        <div class="contenedor">
-            <div class="izquierda"><img src="./img/LogoSerenaMente.png" width="206px" height="190px"></div>
-            <div class="derecha">
-                <div class="fila">
-                    <div class="columna"><a href="#">contacto@serenamente.com.mx</a></div>
-                    <div class="columna">
-                        <h5>SÍGUENOS</h5>
+        <div class="contenedor-header">
+
+            <div class="contenedor-izquierda-logo">
+                <figure>
+                    <img src="./img/LogoSerenaMente.png" class="logoSerenaMente">
+                </figure>
+            </div>
+
+            <div class="contenedor-derecha">
+                <div class="contenedor-derecha-fila">
+                    <div class="contenedor-derecha-columna">
                         <ul>
-                            <li><a href="#"><img src="./img/facebook.png" class="redeSociales"
-                                        alt="Facebook_Serene" /></a></li>
-                            <li><a href="#"><img src="./img/instagram.png" class="redeSociales"
-                                        alt="Instagram_Serene" /></a></li>
-                            <li><a href="#"><img src="./img/youtube.png" class="redeSociales"
-                                        alt="YouTube_Serene" /></a></li>
+                            <li><img src="./img/envelope-regular.svg" class="redeSociales"></li>
+                            <li><a
+                                    href="mailto:serenamente@iztacala.unam.mx?subject=Asunto del correo">serenamente@iztacala.unam.mx</a>
+                            </li>
                         </ul>
                     </div>
-                    <div class="columna"><a href="#">INICIAR SESIÓN / REGISTRO</a></div>
+                    <div class="contenedor-derecha-columna">
+                        <p>SÍGUENOS</p>
+                        <ul>
+                            <li><a href="https://web.facebook.com/SerenaMenteUNAM" target="_blank"><img
+                                        src="./img/facebook.svg" class="redeSociales" alt="Facebook_Serene" /></a></li>
+                            <li><a href="https://instagram.com/serenamente_app?igshid=YTQwZjQ0NmI0OA=="
+                                    target="_blank"><img src="./img/instagram.svg" class="redeSociales"
+                                        alt="Instagram_Serene" /></a></li>
+                        </ul>
+                    </div>
+                    <div class="contenedor-derecha-columna"><a href="#">INICIAR SESIÓN / REGISTRO</a></div>
                 </div>
-                <div class="fila">
-                    <div class="columna">
-                        <nav>
+                <div class="contenedor-derecha-fila">
+                    <div class="contenedor-derecha-columna">
+                        <nav class="menu">
                             <ul>
                                 <li><a href="./index.html">INICIO</a></li>
-                                <li><a href="./equipo.html">¿QUIÉNES SOMOS?</a></li>
+                                <li><a href="./quienesSomos.html">¿QUIÉNES SOMOS?</a></li>
                                 <li><a href="./ventajas.html">VENTAJAS</a></li>
-                                <li><a href="#">CONTENIDOS</a></li>
+                                <li><a href="./contenidos.html">CONTENIDOS</a></li>
                                 <li><a href="./preguntasFrecuentes.html">PREGUNTAS FRECUENTES</a></li>
                             </ul>
                         </nav>
@@ -50,7 +63,7 @@
         </div>
     </header>
 
-    <main style="margin-top: 20px;">
+    <main style="margin-top: 40px;">
         <section class="section-flex-container">
             <iframe width="745px" height="420px" src="https://www.youtube.com/embed/OUHwZAzWYHE?si=wfN7ckVwnIIMgQ5F"
                 title="YouTube video player" frameborder="0"
@@ -58,30 +71,32 @@
                 allowfullscreen></iframe>
 
             <div style="width: 30%;">
-                <h1 class="titulo">Bienvenida/o a Serenamente</h1>
+                <h1 class="titulo">Bienvenida/o a SerenaMente</h1>
                 <p>Una aplicación móvil diseñada por profesionales en salud mental para mejorar tu bienestar emocional
                     con
                     herramientas respaldadas por la ciencia.</p>
             </div>
         </section>
 
-        <section>
-            <div class="slider">
-                <ul>
-                    <li>
-                        <img src="./img/saludMental.jpg" alt="">
-                    </li>
-                    <li>
-                        <img src="./img/disposicion-elemento-optimismo-espacio-copia.jpg" alt="">
-                    </li>
-                    <li>
-                        <img src="./img/meditacion.jpg" alt="">
-                    </li>
-                    <li>
-                        <img src="./img/healthyLifestyle.jpg" alt="">
-                    </li>
-                </ul>
+        <section id="gallery" class="gallery">
+            <div class="gallery-container">
+                <figure class="gallery-item">
+                    <img src="./img/disposicion-elemento-optimismo-espacio-copia.jpg" alt="Imagen 1">
+                </figure>
+                <figure class="gallery-item">
+                    <img src="./img/healthyLifestyle.jpg" alt="Imagen 2">
+                </figure>
+                <figure class="gallery-item">
+                    <img src="./img/meditacion.jpg" alt="Imagen 3">
+                </figure>
+                <figure class="gallery-item">
+                    <img src="./img/saludMental.jpg" alt="Imagen 3">
+                </figure>
             </div>
+            <nav class="gallery-navigation">
+                <button class="nav-button prev-button"><span>&#129092;</span></button>
+                <button class="nav-button next-button"><span>&#129094;</span></button>
+            </nav>
         </section>
 
         <section>
@@ -96,13 +111,13 @@
                 </div>
                 <div>
                     <ul>
-                        <li><img src="./img/cropped-logos2_-copia.png" width="365px" height="108px"
-                                alt="UNAM - SUAYED - LABPSIIT"></li>
-                        <li><img src="./img/LOGO POLI PANTONE 222 C.png" width="73px" height="108px"
-                                alt="Instituto Politécnico Nacional"></li>
-                        <li><img src="./img/escudoESCOM.png" width="142px" height="108px"
-                                alt="Escuela Superior de Cómputo">
-                        </li>
+                        <li><a href="https://labpsiit.iztacala.unam.mx/" target="_blank"><img
+                                    src="./img/cropped-logos2_-copia.png" width="365px" height="108px"
+                                    alt="UNAM - SUAYED - LABPSIIT"></a></li>
+                        <li><a href="https://www.ipn.mx/" target="_blank"><img src="./img/LOGO POLI PANTONE 222 C.png"
+                                    width="73px" height="108px" alt="Instituto Politécnico Nacional"></a></li>
+                        <li><a href="https://www.escom.ipn.mx/" target="_blank"><img src="./img/escudoESCOM.png"
+                                    width="142px" height="108px" alt="Escuela Superior de Cómputo"></a></li>
                     </ul>
                 </div>
             </div>
@@ -110,25 +125,33 @@
     </main>
 
     <footer>
-        <div class="flex-container">
+        <div class="contenedorFooter">
             <div><img src="./img/LogoSerenaMente.png" width="206px" height="190px"></div>
-            <div><a href="#">contacto@serenamente.com.mx</a></div>
+            <div><a
+                    href="mailto:serenamente@iztacala.unam.mx?subject=Asunto del correo">serenamente@iztacala.unam.mx</a>
+            </div>
             <div>
-                <h3>SÍGUENOS</h3>
+                <p>SÍGUENOS</p>
                 <ul>
-                    <li><a href="#"><img src="./img/facebook.png" class="redeSociales" alt="Facebook_Serene" /></a></li>
-                    <li><a href="#"><img src="./img/instagram.png" class="redeSociales" alt="Instagram_Serene" /></a>
+                    <li><a href="https://web.facebook.com/SerenaMenteUNAM" target="_blank"><img src="./img/facebook.svg"
+                                class="redeSociales" alt="Facebook_Serene" /></a></li>
+                    <li><a href="https://instagram.com/serenamente_app?igshid=YTQwZjQ0NmI0OA==" target="_blank"><img
+                                src="./img/instagram.svg" class="redeSociales" alt="Instagram_Serene" /></a>
                     </li>
-                    <li><a href="#"><img src="./img/youtube.png" class="redeSociales" alt="YouTube_Serene" /></a></li>
                 </ul>
             </div>
             <div><a href="#">AVISO DE PRIVACIDAD</a></div>
         </div>
 
         <div class="rectanguloAzul">
-            <p>Investigación realizada gracias al Programa UNAM-PAPIIT TA300223 / Copyright 2023 SERENAMENTE / Proyecto
+            <p>Investigación realizada gracias al Programa UNAM-PAPIIT TA300223 / &copy Copyright 2023 SERENAMENTE /
+                Proyecto
                 PAPIIT</p>
         </div>
     </footer>
+
+    <script src="script-slider.js"></script>
+
 </body>
+
 </html>

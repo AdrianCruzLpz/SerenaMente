@@ -1,0 +1,191 @@
+html, body, figure {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-family: "Montserrat";
+}
+
+
+/* INICIA HEADER */
+.rectanguloAzul {
+    background-color: #2DAAA4;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoSerenaMente {
+    width: 206px;
+    height: 190px;
+    margin: 32px 56px;
+}
+
+.contenedor-header {
+    display: flex;
+    align-items: center;
+    color: #2DAAA4;
+    height: auto;
+}
+
+.contenedor-izquierda-logo {
+    flex: 1;
+    text-align: center;
+}
+
+.contenedor-derecha {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedor-derecha ul {
+    list-style: none; 
+    padding: 0;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.contenedor-derecha li {
+    text-align: center;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #2DAAA4;
+}
+
+.contenedor-derecha-contacto-menu {
+    background-color: #737373;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedor-derecha-fila {
+    display: flex;
+    align-items: center;
+}
+
+.contenedor-derecha-columna {
+    flex: 1;
+    margin: 4px 8px;
+    padding: 0 16px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.contenedor-derecha-columna a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+    font-size: 20px;
+    color: #2DAAA4;
+}
+
+.contenedor-derecha-columna p, ul{
+    margin: 8px auto;
+}
+
+.contenedor-derecha-columna nav{
+    border-top: 2px solid #2DAAA4;
+}
+
+.redeSociales {
+    width: 25px;
+    height: 25px;
+}
+
+.menu a{
+    padding: 12px;
+    color: #737373;
+}
+
+/* TERMINA HEADER */
+
+
+
+/* INICIA CONTENIDO PRINCIPAL */
+
+.section-flex-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 96px 0 24px 0;
+}
+
+.section-flex-container h1{
+    color: #2DAAA4;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.section-flex-container p {
+    font-size: 25px;
+    color: #737373;
+    text-align: justify;
+}
+
+.section-flex-container ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.section-flex-container li {
+    margin-right: 8px;
+}
+
+/* TERMINA CONTENIDO PRINCIPAL */
+
+
+
+/*INICIA FOOTER*/
+
+.contenedorFooter {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-weight: bold;
+    font-size: 15px;
+    color: #2DAAA4;
+    margin: 40px auto;
+}
+
+.contenedorFooter a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.contenedorFooter ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.contenedorFooter li {
+    text-align: center;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #2DAAA4;
+}
+
+.contenedorFooter :where(p, a){
+    text-align: center;
+    font-size: 20px;
+    margin: 8px auto;
+}
+
+/*TERMINA FOOTER*/

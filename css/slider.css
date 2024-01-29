@@ -1,11 +1,20 @@
+.contenedor-slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 56px 0;
+}
+
 .slider {
     width: 70%;
-    margin: auto;
     overflow: hidden;
 }
 
 .slider ul {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     padding: 0;
     width: 400%;
     margin: 0;
@@ -13,13 +22,12 @@
 }
 
 .slider li {
-    width: 25%;
+    max-width: 25%;
     list-style: none;
 }
 
 .slider img {
     width: 60%;
-    max-height: 720px;
     height: auto;
     display: block;
     margin: 0 auto;
