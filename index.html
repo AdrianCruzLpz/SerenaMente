@@ -14,7 +14,9 @@
 
 <body>
     <header>
-        <div class="rectanguloAzul"></div>
+        <div class="rectanguloAzul">
+           <!-- <img src="./img/LogoSerenaMente.png" class="logoSerenaMente-nav"> -->
+        </div>
 
         <div class="contenedor-header">
 
@@ -25,7 +27,7 @@
             </div>
 
             <div class="contenedor-derecha">
-                <div class="contenedor-derecha-fila">
+                <div class="contenedor-derecha-fila-redes">
                     <div class="contenedor-derecha-columna">
                         <ul>
                             <li><img src="./img/envelope-regular.svg" class="redeSociales"></li>
@@ -48,8 +50,10 @@
                 </div>
                 <div class="contenedor-derecha-fila">
                     <div class="contenedor-derecha-columna">
-                        <nav class="menu">
-                            <ul>
+                        <button class="abrir-menu" id="abrir">abrir</button>
+                        <nav class="menu" id="menu">
+                            <button class="cerrar-menu" id="cerrar">Cerrar</button>
+                            <ul class="menu-lista">
                                 <li><a href="./index.html">INICIO</a></li>
                                 <li><a href="./quienesSomos.html">¿QUIÉNES SOMOS?</a></li>
                                 <li><a href="./ventajas.html">VENTAJAS</a></li>
@@ -65,12 +69,17 @@
 
     <main style="margin-top: 40px;">
         <section class="section-flex-container">
-            <iframe width="745px" height="420px" src="https://www.youtube.com/embed/OUHwZAzWYHE?si=wfN7ckVwnIIMgQ5F"
+            <div style="width: 90%;" class="bienvenida-cel">
+                <h1 class="titulo">Bienvenida/o a SerenaMente</h1>
+                <p>Una aplicación móvil diseñada por profesionales en salud mental para mejorar tu bienestar emocional
+                    con herramientas respaldadas por la ciencia.</p>
+            </div>
+            <iframe  src="https://www.youtube.com/embed/OUHwZAzWYHE?si=wfN7ckVwnIIMgQ5F"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen></iframe>
 
-            <div style="width: 30%;">
+            <div style="width: 30%;" class="bienvenida">
                 <h1 class="titulo">Bienvenida/o a SerenaMente</h1>
                 <p>Una aplicación móvil diseñada por profesionales en salud mental para mejorar tu bienestar emocional
                     con
@@ -78,7 +87,7 @@
             </div>
         </section>
 
-        <section id="gallery" class="gallery">
+        <section  id="gallery" class="gallery">
             <div class="gallery-container">
                 <figure class="gallery-item">
                     <img src="./img/disposicion-elemento-optimismo-espacio-copia.jpg" alt="Imagen 1">
@@ -102,9 +111,9 @@
         <section>
             <div class="section-flex-container">
                 <div>
-                    <img src="./img/letrasLogo.png" width="197px" height="50px">
+                    <img src="./img/letrasLogo.png" class="letras-logo">
                 </div>
-                <div style="width: 35%;">
+                <div class="respaldo-div">
                     <p>Cuenta con el respaldo y
                         colaboración de investigadoras e investigadores de las siguientes instituciones.
                     </p>
@@ -114,6 +123,10 @@
                         <li><a href="https://labpsiit.iztacala.unam.mx/" target="_blank"><img
                                     src="./img/cropped-logos2_-copia.png" width="365px" height="108px"
                                     alt="UNAM - SUAYED - LABPSIIT"></a></li>
+                        </ul>
+                </div>
+                <div>
+                    <ul>
                         <li><a href="https://www.ipn.mx/" target="_blank"><img src="./img/LOGO POLI PANTONE 222 C.png"
                                     width="73px" height="108px" alt="Instituto Politécnico Nacional"></a></li>
                         <li><a href="https://www.escom.ipn.mx/" target="_blank"><img src="./img/escudoESCOM.png"
@@ -126,7 +139,7 @@
 
     <footer>
         <div class="contenedorFooter">
-            <div><img src="./img/LogoSerenaMente.png" width="206px" height="190px"></div>
+            <div><img src="./img/LogoSerenaMente.png" width="206px" height="190px" class="logoFotter"></div>
             <div><a
                     href="mailto:serenamente@iztacala.unam.mx?subject=Asunto del correo">serenamente@iztacala.unam.mx</a>
             </div>

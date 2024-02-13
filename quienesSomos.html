@@ -4,17 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿Quénes somos?</title>
+    <title>SerenaMente</title>
     <link rel="icon" type="image/x-icon" href="./img/LogoSerenaMente.png">
     <link rel="stylesheet" href="./css/slider.css">
     <link rel="stylesheet" href="./css/style-index.css">
+    <link rel="stylesheet" href="./css/style-slider.css">
+    
     <link rel="stylesheet" href="./css/style-quienesSomos.css">
+    
     <link rel="stylesheet" href="./css/reset.css">
+
 </head>
 
 <body>
     <header>
-        <div class="rectanguloAzul"></div>
+        <div class="rectanguloAzul">
+           <!-- <img src="./img/LogoSerenaMente.png" class="logoSerenaMente-nav"> -->
+        </div>
 
         <div class="contenedor-header">
 
@@ -25,7 +31,7 @@
             </div>
 
             <div class="contenedor-derecha">
-                <div class="contenedor-derecha-fila">
+                <div class="contenedor-derecha-fila-redes">
                     <div class="contenedor-derecha-columna">
                         <ul>
                             <li><img src="./img/envelope-regular.svg" class="redeSociales"></li>
@@ -37,7 +43,6 @@
                     <div class="contenedor-derecha-columna">
                         <p>SÍGUENOS</p>
                         <ul>
-                            <!--<li>SÍGUENOS</li>-->
                             <li><a href="https://web.facebook.com/SerenaMenteUNAM" target="_blank"><img
                                         src="./img/facebook.svg" class="redeSociales" alt="Facebook_Serene" /></a></li>
                             <li><a href="https://instagram.com/serenamente_app?igshid=YTQwZjQ0NmI0OA=="
@@ -49,8 +54,10 @@
                 </div>
                 <div class="contenedor-derecha-fila">
                     <div class="contenedor-derecha-columna">
-                        <nav class="menu">
-                            <ul>
+                        <button class="abrir-menu" id="abrir">abrir</button>
+                        <nav class="menu" id="menu">
+                            <button class="cerrar-menu" id="cerrar">Cerrar</button>
+                            <ul class="menu-lista">
                                 <li><a href="./index.html">INICIO</a></li>
                                 <li><a href="./quienesSomos.html">¿QUIÉNES SOMOS?</a></li>
                                 <li><a href="./ventajas.html">VENTAJAS</a></li>
@@ -64,8 +71,7 @@
         </div>
     </header>
 
-    <main>
-
+    <main style="margin-top: 40px;">
         <div class="rectanguloAmarillo">
             <h1>¿QUIÉNES SOMOS?</h1>
         </div>
@@ -87,63 +93,100 @@
         <section>
             <h1>EQUIPO SERENAMENTE</h1>
             <div class="contenedor-grid">
-                <div class="celda"><img src="./img/usuario.png" alt="usuario1">
+                <div class="celda"><img src="./fotos equipo/lorena.jpg" alt="usuario1" >
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
                         perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
                         tempore! Rerum, sed facere!</p>
                     <button>VER SEMBLANZA</button>
                 </div>
-                <div class="celda"><img src="./img/usuario.png" alt="usuario2">
+                <div class="celda"><img src="./fotos equipo/anel.jpg" alt="usuario2">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
                         perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
                         tempore! Rerum, sed facere!</p>
                     <button>VER SEMBLANZA</button>
                 </div>
-                <div class="celda"><img src="./img/usuario.png" alt="usuario3">
+                <div class="celda"><img src="./fotos equipo/zuleyca.jpg" alt="usuario3">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
                         perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
                         tempore! Rerum, sed facere!</p>
                     <button>VER SEMBLANZA</button>
                 </div>
-                <div class="celda"><img src="./img/usuario.png" alt="usuario4">
+                <div class="celda"><img src="./fotos equipo/javier.jpg" alt="usuario4">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
                         perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
                         tempore! Rerum, sed facere!</p>
                     <button>VER SEMBLANZA</button>
                 </div>
-                <div class="celda"><img src="./img/usuario.png" alt="usuario5">
+                <div class="celda"><img src="./fotos equipo/liliana.jpg" alt="usuario5">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
                         perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
                         tempore! Rerum, sed facere!</p>
                     <button>VER SEMBLANZA</button>
                 </div>
-                <div class="celda"><img src="./img/usuario.png" alt="usuario6">
+                <div class="celda"><img src="./fotos equipo/anabel.jpeg" alt="usuario6">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
                         perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
                         tempore! Rerum, sed facere!</p>
                     <button>VER SEMBLANZA</button>
                 </div>
-                <div class="celda"><img src="./img/usuario.png" alt="usuario7">
+                <div class="celda"><img src="./fotos equipo/steph.jpg" alt="usuario7">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
                         perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
                         tempore! Rerum, sed facere!</p>
                     <button>VER SEMBLANZA</button>
                 </div>
-                <div class="celda"><img src="./img/usuario.png" alt="usuario8">
+                <div class="celda"><img src="./fotos equipo/gris.png" alt="usuario8">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
                         perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
                         tempore! Rerum, sed facere!</p>
                     <button>VER SEMBLANZA</button>
                 </div>
+                <div class="celda"><img src="./fotos equipo/frida.jpg" alt="usuario9">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
+                        perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
+                        tempore! Rerum, sed facere!</p>
+                    <button>VER SEMBLANZA</button>
+                </div>
+                <div class="celda"><img src="./fotos equipo/adrian.jpg" alt="usuario10">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
+                        perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
+                        tempore! Rerum, sed facere!</p>
+                    <button>VER SEMBLANZA</button>
+                </div>
+                <div class="celda"><img src="./fotos equipo/alberto.png" alt="usuario11">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
+                        perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
+                        tempore! Rerum, sed facere!</p>
+                    <button>VER SEMBLANZA</button>
+                </div>
+                <div class="celda"><img src="./img/usuario.png" alt="usuario12">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
+                        perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
+                        tempore! Rerum, sed facere!</p>
+                    <button>VER SEMBLANZA</button>
+                </div>
+                <div class="celda"><img src="./img/usuario.png" alt="usuario13">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
+                        perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
+                        tempore! Rerum, sed facere!</p>
+                    <button>VER SEMBLANZA</button>
+                </div>
+                <div class="celda"><img src="./img/usuario.png" alt="usuario14">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam autem itaque error laboriosam
+                        perferendis minima, nulla, minus vel, voluptas ut quae alias sapiente esse. Voluptate, porro
+                        tempore! Rerum, sed facere!</p>
+                    <button>VER SEMBLANZA</button>
+                </div>
+
             </div>
         </section>
 
         <section>
             <div class="section-flex-container">
                 <div>
-                    <img src="./img/letrasLogo.png" width="197px" height="50px">
+                    <img src="./img/letrasLogo.png" class="letras-logo">
                 </div>
-                <div style="width: 35%;">
+                <div class="respaldo-div">
                     <p>Cuenta con el respaldo y
                         colaboración de investigadoras e investigadores de las siguientes instituciones.
                     </p>
@@ -153,6 +196,10 @@
                         <li><a href="https://labpsiit.iztacala.unam.mx/" target="_blank"><img
                                     src="./img/cropped-logos2_-copia.png" width="365px" height="108px"
                                     alt="UNAM - SUAYED - LABPSIIT"></a></li>
+                        </ul>
+                </div>
+                <div>
+                    <ul>
                         <li><a href="https://www.ipn.mx/" target="_blank"><img src="./img/LOGO POLI PANTONE 222 C.png"
                                     width="73px" height="108px" alt="Instituto Politécnico Nacional"></a></li>
                         <li><a href="https://www.escom.ipn.mx/" target="_blank"><img src="./img/escudoESCOM.png"
@@ -161,8 +208,20 @@
                 </div>
             </div>
         </section>
-
+        
         <div class="contenedorContacto">
+            <div class="comentario-cel">
+                <h3>NOS GUSTARÍA AYUDARTE</h3>
+                <p>En SerenaMente, estamos entusiasmados por ofrecerte nuestro apoyo. Nos comprometemos a potenciar tu
+                    bienestar a través de una variedad de actividades y reflexiones diseñadas para tu beneficio. Te
+                    extendemos una cordial invitación a hacer clic en el enlace de registro para iniciar tu proceso
+                    personal o bien escribirnos para resolver cualquier duda. Este programa abarca seis semanas
+                    dedicadas a fortalecer tu bienestar integral.
+
+                    <br><br>Estamos emocionados por acompañarte en esta travesía hacia una vida más serena y plena.
+                    <br><br>¡Esperamos ser parte de tu camino hacia el bienestar!
+                </p>
+            </div>
             <div class="formulario">
                 <h3>CONTACTO</h3>
                 <form action="" method="post">
@@ -190,11 +249,20 @@
                 </p>
             </div>
         </div>
+
+
+    
+        <section  id="gallery" class="gallery">
+            <nav class="gallery-navigation">
+                <button class="nav-button prev-button"><span>&#129092;</span></button>
+                <button class="nav-button next-button"><span>&#129094;</span></button>
+            </nav>
+        </section>
     </main>
 
     <footer>
         <div class="contenedorFooter">
-            <div><img src="./img/LogoSerenaMente.png" width="206px" height="190px"></div>
+            <div><img src="./img/LogoSerenaMente.png" width="206px" height="190px" class="logoFotter"></div>
             <div><a
                     href="mailto:serenamente@iztacala.unam.mx?subject=Asunto del correo">serenamente@iztacala.unam.mx</a>
             </div>
@@ -206,17 +274,20 @@
                     <li><a href="https://instagram.com/serenamente_app?igshid=YTQwZjQ0NmI0OA==" target="_blank"><img
                                 src="./img/instagram.svg" class="redeSociales" alt="Instagram_Serene" /></a>
                     </li>
-                    <!--<li><a href="#"><img src="./img/youtube.png" class="redeSociales" alt="YouTube_Serene" /></a></li>-->
                 </ul>
             </div>
             <div><a href="#">AVISO DE PRIVACIDAD</a></div>
         </div>
 
         <div class="rectanguloAzul">
-            <p>Investigación realizada gracias al Programa UNAM-PAPIIT TA300223 / Copyright 2023 SERENAMENTE / Proyecto
+            <p>Investigación realizada gracias al Programa UNAM-PAPIIT TA300223 / &copy Copyright 2023 SERENAMENTE /
+                Proyecto
                 PAPIIT</p>
         </div>
     </footer>
+
+    <script src="script-slider.js"></script>
+
 </body>
 
 </html>
