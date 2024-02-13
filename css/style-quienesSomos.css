@@ -38,8 +38,8 @@ section h1{
 
 .contenedor-grid{
     display: grid;
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr) 1fr;
     max-width: 60%;
     margin: 49px auto;
 }
@@ -59,10 +59,12 @@ section h1{
 }
 
 .contenedor-grid img{
-    max-width: 50%;
+    width: 90%;
+    height: 40%;
+    
 }
 
-button{
+section button{
     font-weight: bold;
     font-size: 25px;
     color: #2DAAA4;
@@ -152,4 +154,75 @@ form{
     font-weight: bold;
     font-size: 45px;
     margin: 0 auto;
+}
+
+@media screen and (min-width: 320px) and (max-width: 900px){
+    .rectanguloAmarillo h1{
+        font-size: 50px;
+    }
+    
+    article p{
+        font-size: 18px;
+        margin: 0 20px 0px 20px;
+    }
+
+    section h1{
+        font-size: 35px;
+        margin: 56px;
+        
+    }
+
+    .contenedor-grid{
+        grid-template-rows: repeat(7, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 60%;
+        margin: 20px auto;
+        max-width: 90%; 
+        margin: 10px auto;
+    }
+
+    .celda{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0px 0px;
+    }
+
+    .comentario{
+        display: none;
+    }
+    .comentario-cel{
+    flex: 45%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #FFC55C;
+    color: #FFF;
+    font-size: 18px;
+    text-align: justify;
+    padding: 30px 60px;
+    }
+    
+    .contenedorContacto{
+        flex-direction: column;
+    }
+
+    .formulario h3{
+        font-size: 25px;
+    }
+
+    .formulario label{
+        font-size: 18px;
+    }
+
+    .input{
+        min-width: 30px;
+    }
+}
+
+@media screen and (min-width: 900px){
+    .comentario-cel{
+        display: none;
+    }
 }

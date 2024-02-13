@@ -24,3 +24,29 @@ article a{
     color: #2DAAA4;
     font-weight: bold;
 }
+
+@media screen and (min-width: 320px) and (max-width: 900px){
+    article h3{
+        text-align: center;
+        margin: 30px 20px 30px 20px;
+        padding-top: 32px;
+        font-size: 38px;
+    }
+    
+    article p{
+        text-align: justify;
+        margin: 24px 96px;
+        padding: 0px;
+        font-size: 28px;
+        color: #737373;
+    }
+    
+    article a{
+        text-decoration: none;
+        color: #2DAAA4;
+        font-weight: bold;
+    }
+}
+
+@media screen and (min-width: 900px){
+}

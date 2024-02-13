@@ -5,6 +5,7 @@
     justify-content: space-evenly;
     justify-items: center;
     text-align: center;
+    flex-direction: column;
 }
 
 .contenedorTexto :where(p){
@@ -12,3 +13,4 @@
     text-align: justify;
     padding: 16px;
 }
+
