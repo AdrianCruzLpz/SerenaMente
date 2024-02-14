@@ -26,6 +26,7 @@
 article p{
     text-align: justify;
     font-size: 22px;
+    color: #737373;
     margin: 0 96px 56px 96px;
 }
 
@@ -56,6 +57,7 @@ section h1{
 .celda p {
     padding: 8px;
     font-size: 18px;
+    color: #737373;
 }
 
 .contenedor-grid img{
