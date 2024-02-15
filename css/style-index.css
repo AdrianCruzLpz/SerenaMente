@@ -325,5 +325,9 @@ html, body, figure {
     .section-flex-container {
         margin: 100px 0 32px 0;
     }
+
+    .respaldo-div{
+        width:35%;
+    }
 }
 
