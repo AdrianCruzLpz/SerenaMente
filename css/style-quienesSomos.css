@@ -26,6 +26,7 @@
 article p{
     text-align: justify;
     font-size: 22px;
+    color: #737373;
     margin: 0 96px 56px 96px;
 }
 
@@ -56,12 +57,18 @@ section h1{
 .celda p {
     padding: 8px;
     font-size: 18px;
+    color: #737373;
 }
 
 .contenedor-grid img{
-    width: 90%;
-    height: 40%;
+    width: 150px;
+    height: 150px;
     
+}
+
+.contenedor-nombre{
+    width: 150px;
+    height: 120px;
 }
 
 section button{
@@ -158,7 +165,7 @@ form{
 
 @media screen and (min-width: 320px) and (max-width: 900px){
     .rectanguloAmarillo h1{
-        font-size: 50px;
+        font-size: 46px;
     }
     
     article p{
@@ -226,3 +233,54 @@ form{
         display: none;
     }
 }
+
+
+.ov-btn-slide-top {
+    background: #fff; /* color de fondo */
+    color: #2DAAA4;; /* color de fuente */
+    border: 2px solid #2DAAA4;; /* tamaño y color de borde */
+    padding: 8px 10px;
+    border-radius: 3px; /* redondear bordes */
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    display: inline-block;
+    font-size: 18px;
+  }
+  .ov-btn-slide-top:hover {
+    color: #fff; /* color de fuente hover */
+  }
+  .ov-btn-slide-top::after {
+    content: "";
+    background: #2DAAA4;; /* color de fondo hover */
+    position: absolute;
+    z-index: -1;
+    padding: 16px 20px;
+    display: block;
+    left: 0;
+    right: 0;
+    top: -100%;
+    bottom: 100%;
+    -webkit-transition: all 0.35s;
+    transition: all 0.35s;
+  }
+  .ov-btn-slide-top:hover::after {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    -webkit-transition: all 0.35s;
+    transition: all 0.35s;
+  }
+
+dialog{
+    width: 70%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.99); /* Color de fondo con transparencia */
+    border-radius: 10px;
+}
+
+h2{
+    color: grey;
+}
+
