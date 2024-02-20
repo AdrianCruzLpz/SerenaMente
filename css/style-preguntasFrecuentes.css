@@ -2,18 +2,25 @@ article {
     margin: 56px auto;
 }
 
-article h3{
+.preguntas{
+    width: 90%;
+    margin: 0 auto;
+}
+
+article h3 {
     text-align: justify;
-    margin: 40px 96px 0 96px;
+    /* margin: 40px 96px 0 96px; */
     padding-top: 32px;
     color: #2DAAA4;
     font-size: 38px;
     font-weight: bold;
+    width: 76%;
+    margin: 40px 5% 0;
 }
 
-article p{
+article p {
     text-align: justify;
-    margin: 24px 96px;
+    margin: 24px 5%;
     padding: 0px;
     font-size: 28px;
     color: #737373;
