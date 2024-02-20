@@ -245,11 +245,14 @@ form{
     z-index: 1;
     overflow: hidden;
     display: inline-block;
-    font-size: 18px;
+    font-size: 16px;
+    font-family: "Montserrat";
   }
+
   .ov-btn-slide-top:hover {
     color: #fff; /* color de fuente hover */
   }
+  
   .ov-btn-slide-top::after {
     content: "";
     background: #2DAAA4;; /* color de fondo hover */
