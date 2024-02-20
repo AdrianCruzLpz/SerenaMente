@@ -24,10 +24,12 @@
 }
 
 article p{
-    text-align: justify;
-    font-size: 22px;
+    width: 75%;
+    margin: 0 auto 56px;
     color: #737373;
-    margin: 0 96px 56px 96px;
+    font-size: 22px;
+    text-align: justify;
+    line-height: 1.5em;
 }
 
 section h1{
