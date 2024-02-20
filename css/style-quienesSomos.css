@@ -194,7 +194,6 @@ form{
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: 0px 0px;
     }
 
     .comentario{
@@ -225,6 +224,17 @@ form{
 
     .input{
         min-width: 30px;
+    }
+
+    .contenedor-nombre {
+        width: 150px;
+        height: 88px;
+        display: flex;
+        align-items: center;
+    }
+
+    h2{
+        font-size: 18px;
     }
 }
 
@@ -284,6 +294,6 @@ dialog{
 }
 
 h2{
-    color: grey;
+    color: #737373;
 }
 
