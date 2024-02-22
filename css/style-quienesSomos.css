@@ -17,10 +17,16 @@
     text-align: center;
 }
 
+
+.contenedorLetrasLogo{
+    width: 50%;
+    margin: 56px auto 32px;
+}
+
 .letrasLogo{
     width: 197px;
     height: 50px;
-    margin: 72px 96px;
+    /*margin: 72px 96px;*/
 }
 
 article p{
