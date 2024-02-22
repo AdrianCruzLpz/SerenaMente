@@ -299,3 +299,26 @@ h2{
     color: #737373;
 }
 
+@media screen and (min-width: 320px) and (max-width: 900px) {
+    .formulario label{
+        min-width: 50px;
+        margin-right: 10px;
+    }
+
+    .formulario{
+        padding: 5px;
+    }
+
+    .displaynone{
+        display: none;
+    }
+
+    section p{
+        padding: 20px;
+    }
+
+    .celda{
+        padding: 40px 0;
+    }
+}
+
