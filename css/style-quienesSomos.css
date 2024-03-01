@@ -95,7 +95,7 @@ section button{
     margin: 72px auto;
 }
 
-form{
+#formulario-contacto{
     display: flex;
     flex-direction: column;
     max-width: 300px;
