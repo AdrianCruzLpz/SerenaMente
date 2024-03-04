@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Previa</title>
+    <link rel="stylesheet" href="./css/style-evaluacionPrevia.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Cuestionario Sociodemográfico</h1>
+        <!-- Cuestionario Sociodemográfico -->
+        <div class="question">
+            <label for="sexo">Sexo:</label>
+            <div class="options">
+                <label><input type="radio" name="sexo" value="mujer"> Mujer</label>
+                <label><input type="radio" name="sexo" value="hombre"> Hombre</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label for="edad">Edad:</label>
+            <input type="number" name="edad" min="18">
+        </div>
+
+        <div class="question">
+            <label for="estado_civil">Estado civil:</label>
+            <select name="estado_civil">
+                <option value="soltero">Soltero(a)</option>
+                <option value="union_libre">Unión libre</option>
+                <option value="casado">Casado(a)</option>
+                <option value="divorciado">Divorciado(a)</option>
+                <option value="separado">Separado(a)</option>
+                <option value="viudo">Viudo(a)</option>
+                <option value="otro">Otro</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label for="nivel_estudios">¿Cuál es su nivel de estudios?</label>
+            <select name="nivel_estudios">
+                <option value="ninguno">No estudié</option>
+                <option value="primaria">Primaria</option>
+                <option value="secundaria">Secundaria</option>
+                <option value="preparatoria">Preparatoria</option>
+                <option value="licenciatura">Licenciatura</option>
+                <option value="maestria">Maestría</option>
+                <option value="doctorado">Doctorado</option>
+                <option value="otro">Otro</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label for="ocupacion">Ocupación:</label>
+            <select name="ocupacion">
+                <option value="hogar">Encargado(a) del hogar</option>
+                <option value="estudiante">Estudiante</option>
+                <option value="empleado">Empleado(a)</option>
+                <option value="desempleado">Desempleado(a)</option>
+                <option value="autoempleo">Autoempleo</option>
+                <option value="profesionista">Profesionista</option>
+                <option value="jubilado">Jubilado(a)</option>
+                <option value="otro">Otro</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label for="residencia">Lugar de residencia:</label>
+            <select name="residencia">
+                <option value="Aguascalientes">Aguascalientes</option>
+                <option value="Baja California">Baja California</option>
+                <option value="Baja California Sur">Baja California Sur</option>
+                <option value="Campeche">Campeche</option>
+                <option value="Chiapas">Chiapas</option>
+                <option value="Chihuahua">Chihuahua</option>
+                <option value="Ciudad de México">Ciudad de México</option>
+                <option value="Coahuila">Coahuila</option>
+                <option value="Colima">Colima</option>
+                <option value="Durango">Durango</option>
+                <option value="Estado de México">Estado de México</option>
+                <option value="Guanajuato">Guanajuato</option>
+                <option value="Guerrero">Guerrero</option>
+                <option value="Hidalgo">Hidalgo</option>
+                <option value="Jalisco">Jalisco</option>
+                <option value="Michoacán">Michoacán</option>
+                <option value="Morelos">Morelos</option>
+                <option value="Nayarit">Nayarit</option>
+                <option value="Nuevo León">Nuevo León</option>
+                <option value="Oaxaca">Oaxaca</option>
+                <option value="Puebla">Puebla</option>
+                <option value="Querétaro">Querétaro</option>
+                <option value="Quintana Roo">Quintana Roo</option>
+                <option value="San Luis Potosí">San Luis Potosí</option>
+                <option value="Sinaloa">Sinaloa</option>
+                <option value="Sonora">Sonora</option>
+                <option value="Tabasco">Tabasco</option>
+                <option value="Tamaulipas">Tamaulipas</option>
+                <option value="Tlaxcala">Tlaxcala</option>
+                <option value="Veracruz">Veracruz</option>
+                <option value="Yucatán">Yucatán</option>
+                <option value="Zacatecas">Zacatecas</option>
+                <option value="Extranjero">Extranjero</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label for="tratamiento">¿Actualmente está en tratamiento psicológico o psiquiátrico?</label>
+            <div class="options">
+                <label><input type="radio" name="tratamiento" value="si"> Sí</label>
+                <label><input type="radio" name="tratamiento" value="no"> No</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label for="medicamento">En caso de haber respondido Sí, ¿toma algún medicamento como parte de este
+                tratamiento?</label>
+            <div class="options">
+                <label><input type="radio" name="medicamento" value="si"> Sí</label>
+                <label><input type="radio" name="medicamento" value="no"> No</label>
+                <label><input type="radio" name="medicamento" value="no_aplica"> No aplica</label>
+            </div>
+            <label for="medicamento_cual">¿Cuál?</label>
+            <input type="text" name="medicamento_cual">
+        </div>
+
+        <h1>Inventario de Ansiedad de Beck</h1>
+        <p>Indique para cada uno de los siguientes síntomas el grado en que se ha visto afectado por cada uno de ellos
+            durante la <strong>última semana</strong> y en el <strong>momento actual</strong>. Elija de entre las
+            siguientes opciones. <br><br>Durante la última
+            semana sentí…</p>
+        <form id="anxiety-form">
+            <table>
+                <tr>
+                    <td></td>
+                    <td>No, en absoluto</td>
+                    <td>Levemente, no me molesta mucho</td>
+                    <td>Moderadamente, fue muy desagradable, pero podía soportarlo</td>
+                    <td>Gravemente, casi no podía soportarlo</td>
+                </tr>
+                <tr>
+                    <td>1. Hormigueo o entumecimiento</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>2. Sensación de calor</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+                <tr>
+                    <td>3. Temblor en las piernas</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                </tr>
+                <tr>
+                    <td>4. Incapacidad de relajarse</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>5. Miedo a que suceda lo peor</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+                <tr>
+                    <td>6. Mareo o aturdimiento</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                </tr>
+                <tr>
+                    <td>7. Palpitaciones o taquicardia</td>
+                    <td><input type="radio" name="question7" value="0"></td>
+                    <td><input type="radio" name="question7" value="1"></td>
+                    <td><input type="radio" name="question7" value="2"></td>
+                    <td><input type="radio" name="question7" value="3"></td>
+                </tr>
+                <tr>
+                    <td>8. Sensación de inestabilidad e inseguridad física</td>
+                    <td><input type="radio" name="question8" value="0"></td>
+                    <td><input type="radio" name="question8" value="1"></td>
+                    <td><input type="radio" name="question8" value="2"></td>
+                    <td><input type="radio" name="question8" value="3"></td>
+                </tr>
+                <tr>
+                    <td>9. Terrores</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>10. Nerviosismo</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+                <tr>
+                    <td>11. Sensación de ahogo</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                </tr>
+                <tr>
+                    <td>12. Temblores de manos</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>13. Temblor generalizado o estremecimiento</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+                <tr>
+                    <td>14. Miedo a perder el control</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                </tr>
+                <tr>
+                    <td>15. Dificultad para respirar</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>16. Miedo a morirse</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+                <tr>
+                    <td>17. Sobresaltos</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                </tr>
+                <tr>
+                    <td>18. Molestias digestivas o abdominales</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>19. Palidez</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+                <tr>
+                    <td>20. Rubor facial</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                </tr>
+            </table>
+            <!--<button type="submit" class="btn-submit">Siguiente</button>-->
+        </form>
+
+        <h1>Inventario de Depresión de Beck</h1>
+        <p>Por favor, lea cada grupo cuidadosamente y elija una oración en cada conjunto, la que mejor describa cómo se
+            ha sentido en las últimas dos semanas, incluido el día de hoy. Si considera que varias oraciones en un mismo
+            grupo reflejan cómo se ha sentido, elija la opción más alta. </p>
+        <form id="quiz-form">
+            <div class="question">
+                <label for="q1">1. Tristeza</label>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="0"> No me siento triste.</label>
+                    <label><input type="radio" name="q1" value="1"> Me siento triste la mayor parte del tiempo.</label>
+                    <label><input type="radio" name="q1" value="2"> Estoy triste todo el tiempo.</label>
+                    <label><input type="radio" name="q1" value="3"> Estoy tan triste o infeliz que no puedo
+                        soportarlo.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div class="question">
+                <label for="q2">2. Pesimismo</label>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="0"> No estoy desanimado(a) por mi futuro.</label>
+                    <label><input type="radio" name="q2" value="1"> Me siento más desanimado(a) por mi futuro que de
+                        costumbre.</label>
+                    <label><input type="radio" name="q2" value="2"> No espero que las cosas mejoren para mí.</label>
+                    <label><input type="radio" name="q2" value="3"> Siento que mi futuro es desalentador y puede
+                        empeorar.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="question">
+                <label for="q3">3. Fracasos del pasado</label>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="0"> No me siento un(a) fracasado(a).</label>
+                    <label><input type="radio" name="q3" value="1"> He fracasado más de lo que debería.</label>
+                    <label><input type="radio" name="q3" value="2"> Cuando miro hacia atrás, veo muchos fracasos en mi
+                        vida.</label>
+                    <label><input type="radio" name="q3" value="3"> Siento que como persona soy un total
+                        fracaso.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div class="question">
+                <label for="q4">4. Pérdida del placer</label>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="0"> Obtengo el mismo placer de siempre por las cosas que
+                        disfruto.</label>
+                    <label><input type="radio" name="q4" value="1"> No disfruto las cosas tanto como antes.</label>
+                    <label><input type="radio" name="q4" value="2"> Obtengo muy poco placer de cosas que antes
+                        disfrutaba.</label>
+                    <label><input type="radio" name="q4" value="3"> No logro placer alguno de las cosas que solía
+                        disfrutar.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 5 -->
+            <div class="question">
+                <label for="q5">5. Sentimientos de culpa</label>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="0"> No me siento especialmente culpable.</label>
+                    <label><input type="radio" name="q5" value="1"> Me siento culpable por muchas cosas que he hecho o
+                        que debí haber hecho.</label>
+                    <label><input type="radio" name="q5" value="2"> Me siento bastante culpable la mayor parte del
+                        tiempo.</label>
+                    <label><input type="radio" name="q5" value="3"> Me siento culpable todo el tiempo.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 6 -->
+            <div class="question">
+                <label for="q6">6. Sentimientos de castigo</label>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="0"> No siento que estoy siendo castigado(a).</label>
+                    <label><input type="radio" name="q6" value="1"> Siento que podría ser castigado(a).</label>
+                    <label><input type="radio" name="q6" value="2"> Espero ser castigado(a).</label>
+                    <label><input type="radio" name="q6" value="3"> Siento que estoy siendo castigado(a).</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 7 -->
+            <div class="question">
+                <label for="q7">7. Desagrado con uno mismo</label>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="0"> Me siento igual que siempre sobre mi
+                        persona.</label>
+                    <label><input type="radio" name="q7" value="1"> He perdido confianza en mí mismo(a).</label>
+                    <label><input type="radio" name="q7" value="2"> Me siento desilusionado(a) de mí mismo(a).</label>
+                    <label><input type="radio" name="q7" value="3"> No me gusta como soy.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 8 -->
+            <div class="question">
+                <label for="q8">8. Auto-crítica</label>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="0"> No me critico(a) ni me culpo más de lo
+                        debido.</label>
+                    <label><input type="radio" name="q8" value="1"> Soy más crítico(a) de mi persona de lo que solía
+                        ser.</label>
+                    <label><input type="radio" name="q8" value="2"> Me autocritico por todas las faltas que
+                        cometo.</label>
+                    <label><input type="radio" name="q8" value="3"> Me culpo por todo lo malo que sucede.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 9 -->
+            <div class="question">
+                <label for="q9">9. Ideación o deseos suicidas</label>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="0"> No tengo pensamientos suicidas.</label>
+                    <label><input type="radio" name="q9" value="1"> Tengo pensamientos suicidas, pero NO los llevaría a
+                        cabo.</label>
+                    <label><input type="radio" name="q9" value="2"> Me gustaría suicidarme.</label>
+                    <label><input type="radio" name="q9" value="3"> Me suicidaría si tuviera la oportunidad.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 10 -->
+            <div class="question">
+                <label for="q10">10. Llanto</label>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="0"> No lloro más que antes.</label>
+                    <label><input type="radio" name="q10" value="1"> Lloro más de lo que acostumbraba.</label>
+                    <label><input type="radio" name="q10" value="2"> Lloro por cualquier cosa.</label>
+                    <label><input type="radio" name="q10" value="3"> Siento ganas de llorar pero NO puedo.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 11 -->
+            <div class="question">
+                <label for="q11">11. Inquietud</label>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="0"> No estoy más inquieto(a) o agitado(a) que de
+                        costumbre.</label>
+                    <label><input type="radio" name="q11" value="1"> Me siento más inquieto(a) o agitado(a) que de
+                        costumbre.</label>
+                    <label><input type="radio" name="q11" value="2"> Estoy tan inquieto(a) o agitado(a) que me es
+                        difícil quedarme quieto.</label>
+                    <label><input type="radio" name="q11" value="3"> Estoy tan inquieto(a) o agitado(a) que tengo que
+                        estarme moviendo o haciendo algo.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 12 -->
+            <div class="question">
+                <label for="q12">12. Pérdida del interés</label>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="0"> No he perdido el interés en otras personas ni en
+                        otras actividades.</label>
+                    <label><input type="radio" name="q12" value="1"> Estoy menos interesado en otras personas o en otras
+                        cosas que antes.</label>
+                    <label><input type="radio" name="q12" value="2"> He perdido casi todo el interés en otras personas y
+                        en otras cosas.</label>
+                    <label><input type="radio" name="q12" value="3"> Me resulta difícil interesarme por algo.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 13 -->
+            <div class="question">
+                <label for="q13">13. Indecisión</label>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="0"> Tomo decisiones igual que siempre.</label>
+                    <label><input type="radio" name="q13" value="1"> Encuentro más difícil tomar decisiones que
+                        antes.</label>
+                    <label><input type="radio" name="q13" value="2"> Tengo mucha más dificultad para tomar decisiones
+                        que antes.</label>
+                    <label><input type="radio" name="q13" value="3"> Tengo problemas para tomar cualquier
+                        decisión.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 14 -->
+            <div class="question">
+                <label for="q14">14. Inutilidad</label>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="0"> No siento que sea un inútil.</label>
+                    <label><input type="radio" name="q14" value="1"> No me considero tan útil como antes.</label>
+                    <label><input type="radio" name="q14" value="2"> Me siento más inútil comparado con otras
+                        personas.</label>
+                    <label><input type="radio" name="q14" value="3"> Me siento totalmente inútil.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 15 -->
+            <div class="question">
+                <label for="q15">15. Pérdida de energía</label>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="0"> Tengo la misma energía de siempre.</label>
+                    <label><input type="radio" name="q15" value="1"> Tengo menos energía de la que tenía antes.</label>
+                    <label><input type="radio" name="q15" value="2"> No tengo la energía suficiente para hacer muchas
+                        cosas.</label>
+                    <label><input type="radio" name="q15" value="3"> No tengo suficiente energía para hacer cualquier
+                        cosa.</label>
+                </div>
+            </div>
+
+
+            <!-- Pregunta 16 -->
+            <div class="question">
+                <label for="q16">16. Cambios en los patrones de sueño</label>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="0"> Mis patrones de sueño NO han cambiado.</label>
+                    <label><input type="radio" name="q16" value="1a"> Duermo un poco más que de costumbre.</label>
+                    <label><input type="radio" name="q16" value="1b"> Duermo un poco menos que de costumbre.</label>
+                    <label><input type="radio" name="q16" value="2a"> Duermo mucho más que de costumbre.</label>
+                    <label><input type="radio" name="q16" value="2b"> Duermo mucho menos que de costumbre.</label>
+                    <label><input type="radio" name="q16" value="3a"> Duermo la mayor parte del día.</label>
+                    <label><input type="radio" name="q16" value="3b"> Me despierto 1 o 2 horas más temprano y No me
+                        puedo volver a dormir.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 17 -->
+            <div class="question">
+                <label for="q17">17. Irritabilidad</label>
+                <div class="options">
+                    <label><input type="radio" name="q17" value="0"> No estoy más irritable que de costumbre.</label>
+                    <label><input type="radio" name="q17" value="1"> Estoy más irritable que de costumbre.</label>
+                    <label><input type="radio" name="q17" value="2"> Estoy mucho más irritable que de costumbre.</label>
+                    <label><input type="radio" name="q17" value="3"> Estoy irritable todo el tiempo.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 18 -->
+            <div class="question">
+                <label for="q18">18. Cambios en hábitos alimentarios</label>
+                <div class="options">
+                    <label><input type="radio" name="q18" value="0"> Mis hábitos alimentarios no han cambiado.</label>
+                    <label><input type="radio" name="q18" value="1a"> Mi apetito es menor que de costumbre.</label>
+                    <label><input type="radio" name="q18" value="1b"> Mi apetito es mayor que de costumbre.</label>
+                    <label><input type="radio" name="q18" value="2a"> Tengo mucha menos hambre de la que tenía
+                        antes.</label>
+                    <label><input type="radio" name="q18" value="2b"> Tengo mucha más hambre de la que tenía
+                        antes.</label>
+                    <label><input type="radio" name="q18" value="3a"> Tengo completa falta de apetito.</label>
+                    <label><input type="radio" name="q18" value="3b"> Tengo la necesidad de estar comiendo todo el
+                        día.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 19 -->
+            <div class="question">
+                <label for="q19">19. Dificultad para concentrarse</label>
+                <div class="options">
+                    <label><input type="radio" name="q19" value="0"> Me puedo concentrar tan bien como antes.</label>
+                    <label><input type="radio" name="q19" value="1"> No me puedo concentrar tan bien como antes.</label>
+                    <label><input type="radio" name="q19" value="2"> Se me dificulta pensar en cualquier cosa por mucho
+                        tiempo.</label>
+                    <label><input type="radio" name="q19" value="3"> Me he dado cuenta que ya no me puedo
+                        concentrar.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 20 -->
+            <div class="question">
+                <label for="q20">20. Cansancio o fatiga</label>
+                <div class="options">
+                    <label><input type="radio" name="q20" value="0"> No estoy más cansado(a) o fatigado(a) que de
+                        costumbre.</label>
+                    <label><input type="radio" name="q20" value="1"> Me canso o fatigo con más facilidad que de
+                        costumbre.</label>
+                    <label><input type="radio" name="q20" value="2"> Estoy tan cansado(a) o fatigado(a) que no puedo
+                        hacer lo que solía hacer.</label>
+                    <label><input type="radio" name="q20" value="3"> Estoy muy cansado(a) o fatigado(a) para hacer la
+                        mayoría de las cosas que solía hacer.</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 21 -->
+            <div class="question">
+                <label for="q21">21. Pérdida de interés en el sexo</label>
+                <div class="options">
+                    <label><input type="radio" name="q21" value="0"> No he notado recientemente algún cambio en mi
+                        interés por el sexo.</label>
+                    <label><input type="radio" name="q21" value="1"> Estoy menos interesado(a) en el sexo que de
+                        costumbre.</label>
+                    <label><input type="radio" name="q21" value="2"> El sexo me interesa mucho menos que antes.</label>
+                    <label><input type="radio" name="q21" value="3"> He perdido el interés por el sexo
+                        completamente.</label>
+                </div>
+            </div>
+        </form>
+
+        <h1>Escala de Estrés Percibido</h1>
+        <p>Marca la opción que mejor se adecúe a tu situación actual, teniendo en cuenta el último mes.</p>
+        <p>Durante el último mes,</p>
+        <form id="stress-form">
+            <table>
+                <tr>
+                    <td></td>
+                    <td>Nunca</td>
+                    <td>Casi nunca</td>
+                    <td>De vez en cuando</td>
+                    <td>A menudo</td>
+                    <td>Muy a menudo</td>
+                </tr>
+                <tr>
+                    <td>1. ¿Con qué frecuencia has estado afectado(a) por algo que ha ocurrido inesperadamente?</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                    <td><input type="radio" name="question4" value="4"></td>
+                </tr>
+                <tr>
+                    <td>2. ¿Con qué frecuencia te has sentido incapaz de controlar las cosas importantes de tu vida?
+                    </td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                    <td><input type="radio" name="question5" value="4"></td>
+                </tr>
+                <tr>
+                    <td>3. ¿Con qué frecuencia te has sentido nervioso(a) o estresado(a) (lleno de tensión)?</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                    <td><input type="radio" name="question6" value="4"></td>
+                </tr>
+                <tr>
+                    <td>4. ¿Con qué frecuencia has manejado con éxito los pequeños problemas irritantes de la vida?</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                    <td><input type="radio" name="question4" value="4"></td>
+                </tr>
+                <tr>
+                    <td>5. ¿Con qué frecuencia has sentido que has afrontado efectivamente los cambios importantes que
+                        han estado ocurriendo en tu vida?</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                    <td><input type="radio" name="question5" value="4"></td>
+                </tr>
+                <tr>
+                    <td>6. ¿Con qué frecuencia has estado seguro(a) sobre tu capacidad de manejar tus problemas
+                        personales?</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                    <td><input type="radio" name="question6" value="4"></td>
+                </tr>
+                <tr>
+                    <td>7. ¿Con qué frecuencia has sentido que las cosas te van bien?</td>
+                    <td><input type="radio" name="question7" value="0"></td>
+                    <td><input type="radio" name="question7" value="1"></td>
+                    <td><input type="radio" name="question7" value="2"></td>
+                    <td><input type="radio" name="question7" value="3"></td>
+                    <td><input type="radio" name="question7" value="4"></td>
+                </tr>
+                <tr>
+                    <td>8. ¿Con qué frecuencia has sentido que no podías afrontar todas las cosas que tenías que hacer?
+                    </td>
+                    <td><input type="radio" name="question8" value="0"></td>
+                    <td><input type="radio" name="question8" value="1"></td>
+                    <td><input type="radio" name="question8" value="2"></td>
+                    <td><input type="radio" name="question8" value="3"></td>
+                    <td><input type="radio" name="question8" value="4"></td>
+                </tr>
+                <tr>
+                    <td>9. ¿Con qué frecuencia has podido controlar las dificultades de tu vida?</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>10. ¿Con qué frecuencia has sentido que tienes el control de todo?</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                    <td><input type="radio" name="question5" value="4"></td>
+                </tr>
+                <tr>
+                    <td>11. ¿Con qué frecuencia has estado enfadado(a) porque las cosas que te han ocurrido estaban
+                        fuera
+                        de tu control?</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                    <td><input type="radio" name="question6" value="4"></td>
+                </tr>
+                <tr>
+                    <td>12. ¿Con qué frecuencia has pensado sobre las cosas que no has terminado (pendientes de hacer)?
+                    </td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                    <td><input type="radio" name="question4" value="4"></td>
+                </tr>
+                <tr>
+                    <td>13. ¿Con qué frecuencia has podido controlar la forma de pasar el tiempo (organizar)?</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                    <td><input type="radio" name="question5" value="4"></td>
+                </tr>
+                <tr>
+                    <td>14. ¿Con qué frecuencia has sentido que las dificultades se acumulan tanto que no puedes
+                        superarlas?</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                    <td><input type="radio" name="question6" value="4"></td>
+                </tr>
+            </table>
+            <!--<button type="submit" class="btn-submit">Siguiente</button>-->
+        </form>
+
+        <!-- Apartado riesgo suicida -->
+        <h1>MINI - Apartado riesgo suicida</h1>
+        <h2>Durante este último mes:</h2>
+        <div class="question">
+            <label for="q22">1. ¿Ha pensado que sería mejor morirse o ha deseado estar muerto(a)?</label>
+            <div class="options">
+                <label><input type="radio" name="q22" value="NO">NO</label>
+                <label><input type="radio" name="q22" value="SI">SI</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label for="q23">2. ¿Ha querido hacerse daño?</label>
+            <div class="options">
+                <label><input type="radio" name="q23" value="NO">NO</label>
+                <label><input type="radio" name="q23" value="SI">SI</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label for="q24">3. ¿Ha pensado en el suicidio?</label>
+            <div class="options">
+                <label><input type="radio" name="q24" value="NO">NO</label>
+                <label><input type="radio" name="q24" value="SI">SI</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label for="q25">4. ¿Ha planeado suicidarse?</label>
+            <div class="options">
+                <label><input type="radio" name="q25" value="NO">NO</label>
+                <label><input type="radio" name="q25" value="SI">SI</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <label for="q26">5. ¿Ha intentado suicidarse?</label>
+            <div class="options">
+                <label><input type="radio" name="q26" value="NO">NO</label>
+                <label><input type="radio" name="q26" value="SI">SI</label>
+            </div>
+        </div>
+
+        <h2>A lo largo de su vida:</h2>
+        <div class="question">
+            <label for="q27">6. ¿Alguna vez ha intentado suicidarse?</label>
+            <div class="options">
+                <label><input type="radio" name="q27" value="NO">NO</label>
+                <label><input type="radio" name="q27" value="SI">SI</label>
+            </div>
+        </div>
+
+        <h1>Índice de Bienestar General</h1>
+        <form id="who5-form">
+            <table>
+                <tr>
+                    <td></td>
+                    <td>Nunca</td>
+                    <td>Casi nunca</td>
+                    <td>Con frecuencia</td>
+                    <td>Siempre</td>
+                </tr>
+                <tr>
+                    <td>1. ¿Me he sentido alegre y de buen ánimo? </td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>2. ¿Me he sentido tranquilo(a) y relajado(a)?</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+                <tr>
+                    <td>3. ¿Me he sentido activo(a) y con energía</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                </tr>
+                <tr>
+                    <td>4. ¿Me he levantado sintiéndome bien y descansado(a)?</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>5. ¿Mi vida diaria ha tenido cosas interesantes para mí?</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+            </table>
+            <!--<button type="submit" class="btn-submit">Siguiente</button>-->
+        </form>
+
+
+        <h1>Índice de Calidad de Sueño de Pittsburgh</h1>
+        <p>Las siguientes preguntas hacen referencia a la manera en que ha dormido durante el último mes. Intente
+            responder de la manera más exacta posible lo ocurrido durante la mayor parte de los días y noches del último
+            mes. Por favor conteste TODAS las preguntas.</p>
+        <form id="sleepQuality-form">
+            <div class="question">
+                <label for="horaAcostarse">Durante el último mes, ¿cuál ha sido, usualmente, su hora de
+                    acostarse?</label>
+                <input type="text" name="horaAcostarse" id="horaAcostarse">
+            </div>
+            <div class="question">
+                <label for="tiempoDormirse">Durante el último mes, ¿cuánto tiempo ha tardado en dormirse en las noches
+                    del último mes?</label>
+                <input type="text" name="tiempoDormirse" id="tiempoDormirse">
+            </div>
+            <div class="question">
+                <label for="horaLevantarse">Durante el último mes, ¿a qué hora se ha estado levantando por la
+                    mañana?</label>
+                <input type="text" name="horaLevantarse" id="horaLevantarse">
+            </div>
+            <div class="question">
+                <label for="horasDormido">¿Cuántas horas calcula que habrá dormido verdaderamente cada noche durante
+                    el último mes?</label>
+                <input type="text" name="horasDormido" id="horasDormido">
+            </div>
+            <p>Para cada una de las siguientes preguntas, elija la respuesta que más se ajuste a su caso. Por favor,
+                conteste TODAS las preguntas.</p>
+            <p>5. Durante el último mes, ¿cuántas veces ha tenido problemas para dormir a causa de:</p>
+            <table>
+                <tr>
+                    <td></td>
+                    <td>Ninguna vez en el último mes</td>
+                    <td>Menos de una vez a la semana</td>
+                    <td>Una o dos veces a la semana</td>
+                    <td>Tres o más veces a la semana</td>
+                </tr>
+                <tr>
+                    <td>a) No poder conciliar el sueño en la primera media hora:</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>b) Despertarse durante la noche o de madrugada:</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+                <tr>
+                    <td>c) Tener que levantarse para ir al sanitario:</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                </tr>
+                <tr>
+                    <td>d) No poder respirar bien:</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>e) Toser o roncar ruidosamente:</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+                <tr>
+                    <td>f) Sentir frío:</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>g) Sentir demasiado calor:</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+                <tr>
+                    <td>h) Tener pesadillas o “malos sueños”:</td>
+                    <td><input type="radio" name="question6" value="0"></td>
+                    <td><input type="radio" name="question6" value="1"></td>
+                    <td><input type="radio" name="question6" value="2"></td>
+                    <td><input type="radio" name="question6" value="3"></td>
+                </tr>
+                <tr>
+                    <td>i) Sufrir dolores:</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>j) Otras razones (por favor descríbalas a continuación):
+                        <input type="text" name="razones" id="razones">
+                    </td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+            </table>
+
+            <div class="question">
+                <label for="calidadDormir">6. Durante el último mes ¿cómo valoraría, en conjunto, la calidad de su
+                    dormir?</label>
+                <div class="options">
+                    <label><input type="radio" name="calidadDormir" value="mujer">Bastante buena</label>
+                    <label><input type="radio" name="calidadDormir" value="hombre">Buena</label>
+                    <label><input type="radio" name="calidadDormir" value="mujer">Mala</label>
+                    <label><input type="radio" name="calidadDormir" value="hombre">Bastante mala</label>
+                </div>
+            </div>
+
+            <table>
+                <tr>
+                    <td></td>
+                    <td>Ninguna vez en el último mes</td>
+                    <td>Menos de una vez a la semana</td>
+                    <td>Una o dos veces a la semana</td>
+                    <td>Tres o más veces a la semana</td>
+                </tr>
+                <tr>
+                    <td>7. Durante el último mes, ¿cuántas veces habrá tomado medicinas (por su cuenta o recetadas por
+                        el médico)
+                        para dormir?</td>
+                    <td><input type="radio" name="question4" value="0"></td>
+                    <td><input type="radio" name="question4" value="1"></td>
+                    <td><input type="radio" name="question4" value="2"></td>
+                    <td><input type="radio" name="question4" value="3"></td>
+                </tr>
+                <tr>
+                    <td>8. Durante el último mes, ¿cuántas veces ha sentido somnolencia mientras conducía, comía o
+                        desarrollaba alguna otra actividad?</td>
+                    <td><input type="radio" name="question5" value="0"></td>
+                    <td><input type="radio" name="question5" value="1"></td>
+                    <td><input type="radio" name="question5" value="2"></td>
+                    <td><input type="radio" name="question5" value="3"></td>
+                </tr>
+            </table>
+
+            <div class="question">
+                <label for="calidadDormir">9. Durante el último mes, ¿ha representado para usted mucho problema el
+                    “tener ánimos” para realizar alguna de las actividades detalladas en la pregunta anterior?</label>
+                <div class="options">
+                    <label><input type="radio" name="calidadDormir" value="mujer">Ningún problema</label>
+                    <label><input type="radio" name="calidadDormir" value="hombre">Un problema muy ligero</label>
+                    <label><input type="radio" name="calidadDormir" value="mujer">Algo de problema</label>
+                    <label><input type="radio" name="calidadDormir" value="hombre">Un gran problema</label>
+                </div>
+            </div>
+
+            <!--<button type="submit" class="btn-submit">Siguiente</button>-->
+        </form>
+
+
+
+        <button type="submit" class="btn-submit">Enviar</button>
+    </div>
+
+    <script src="test.js"></script>
+</body>
+
+</html>
