@@ -75,8 +75,10 @@ section h1{
 }
 
 .contenedor-nombre{
+    display: flex;
+    align-items: center;
     width: 150px;
-    height: 120px;
+    height: 150px;
 }
 
 section button{
