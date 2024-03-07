@@ -24,82 +24,32 @@ body {
     overflow-y: auto; /* Muestra el scroll al pasar el mouse sobre el contenedor */
 }
 
-
 h1 {
     text-align: center;
     margin-bottom: 20px;
     color: #2DAAA4;
 }
 
-
-/* Estilos para el formulario de ansiedad */
-#anxiety-form {
-    margin-bottom: 20px;
-}
-
-#anxiety-form table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#anxiety-form th, #anxiety-form td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-    text-align: center;
-}
-
-#anxiety-form th {
-    background-color: #f2f2f2;
-}
-
-#anxiety-form select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-#anxiety-form .btn-submit {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#anxiety-form .btn-submit:hover {
-    background-color: #45a049;
-}
-
-
-p {
-    width: calc(85% - 5px);
-    text-align: justify;
-}
-
-input[type="text"] {
-    padding: 10px; /* Espacio interno para el texto */
-    border: 1px solid #ccc; /* Borde del input */
-    border-radius: 5px; /* Bordes redondeados */
+input[type="text"], input[type="number"] {
+    padding: 4px; /* Espacio interno para el texto */
+    border: 1px solid #CCC; /* Borde del input */
+    border-radius: 4px; /* Bordes redondeados */
     width: 30%; /* Ancho completo */
-    margin-bottom: 10px; /* Margen inferior */
+    margin-bottom: 8px; /* Margen inferior */
     font-family: "Montserrat"; /* Fuente */
     font-size: 14px; /* Tamaño de fuente */
     color: #333; /* Color del texto */
-    background-color: #fff; /* Color de fondo */
+    background-color: #FFF; /* Color de fondo */
 }
 
-/* Estilo al hacer hover sobre el input */
-input[type="text"]:hover {
+input[type="text"]:hover,
+input[type="number"]:hover {
     border-color: #2DAAA4; /* Cambia el color del borde al hacer hover */
 }
 
 /* Estilo cuando el input está enfocado */
-input[type="text"]:focus {
+input[type="text"]:focus, 
+input[type="number"]:focus {
     outline: none; /* Quita el contorno alrededor del input */
     border-color: #2DAAA4; /* Cambia el color del borde cuando está enfocado */
 }
@@ -116,17 +66,14 @@ select {
     background-color: #fff; /* Color de fondo */
 }
 
-/* Estilo al hacer hover sobre el select */
 select:hover {
     border-color: #2DAAA4; /* Cambia el color del borde al hacer hover */
 }
 
-/* Estilo cuando el select está enfocado */
 select:focus {
     outline: none; /* Quita el contorno alrededor del select */
     border-color: #2DAAA4; /* Cambia el color del borde cuando está enfocado */
 }
-
 
 .question {
     margin-bottom: 20px;
@@ -137,6 +84,8 @@ select:focus {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
+    width: calc(85% - 5px);
+    text-align: justify;
 }
 
 .options {
@@ -155,12 +104,16 @@ select:focus {
 }
 
 .options label:hover {
-    background-color: #e0e0e0;
+    background-color: #E0E0E0;
 }
 
-.btn-submit {
-    display: block;
-    margin: 20px auto 0;
+.btn-container {
+    text-align: center; 
+}
+
+.btn-next_prev {
+    display: inline-block; 
+    margin: 20px 10px;
     padding: 10px 20px;
     background-color: #2DAAA4;
     font-family: "Montserrat";
@@ -172,184 +125,42 @@ select:focus {
     cursor: pointer;
 }
 
-.btn-submit:hover {
-    background-color: #0056b3;
+.btn-next_prev:hover {
+    background-color: #0056B3;
 }
 
-h2{
-    color: #2DAAA4;
-}
-
-
-/*ESTRES*/
-#stress-form {
-    margin-bottom: 20px;
-}
-
-#stress-form table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#stress-form th, #stress-form td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-    text-align: center;
-}
-
-#stress-form th {
-    background-color: #f2f2f2;
-}
-
-#stress-form select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-#stress-form .btn-submit {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#stress-form .btn-submit:hover {
-    background-color: #45a049;
-}
-
-/* Estilos para el formulario de riesgo suicida */
-#suicide-risk-form {
-    margin-bottom: 20px;
-}
-
-#suicide-risk-form .question {
-    margin-bottom: 10px;
-    color: #2DAAA4;
-}
-
-#suicide-risk-form .question p {
-    margin-bottom: 5px;
-}
-
-#suicide-risk-form label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-#suicide-risk-form label input[type="radio"] {
-    margin-right: 10px;
-}
-
-#suicide-risk-form .btn-submit {
-    display: block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #2DAAA4;
-    font-family: "Montserrat";
-    color: #FFF;
+p {
+    width: calc(85% - 5px);
+    text-align: justify;
+    margin: 0 auto 32px;
     font-weight: bold;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
-#suicide-risk-form .btn-submit:hover {
-    background-color: #0056b3;
+.anxiety-form, #depression-form {
+    margin-top: 56px;
 }
 
-
-
-/*WHO 5*/
-#who5-form {
-    margin-bottom: 20px;
-}
-
-#who5-form table {
+.table-form table {
     width: 100%;
     border-collapse: collapse;
+    margin: 48px auto;
 }
 
-#who5-form th, #who5-form td {
+.table-form th, .table-form td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
     text-align: center;
 }
 
-#who5-form th {
+.table-form th {
     background-color: #f2f2f2;
 }
 
-#who5-form select {
+.table-form select {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-}
-
-#who5-form .btn-submit {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#who5-form .btn-submit:hover {
-    background-color: #45a049;
-}
-
-/*sleepQuality*/
-#sleepQuality-form {
-    margin-bottom: 20px;
-}
-
-#sleepQuality-form table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#sleepQuality-form th, #sleepQuality-form td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-    text-align: center;
-}
-
-#sleepQuality-form th {
-    background-color: #f2f2f2;
-}
-
-#sleepQuality-form select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-#sleepQuality-form .btn-submit {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#sleepQuality-form .btn-submit:hover {
-    background-color: #45a049;
 }
