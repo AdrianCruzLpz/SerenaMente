@@ -20,9 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const anterior7 = document.getElementById("anterior7");
   const enviar = document.getElementById("enviar");
   const resultadosDiv = document.getElementById("resultados");
-  const puntuacionTotalSpan = document.getElementById("puntuacionTotal");
+  const puntuacionTotalSpan = document.getElementById("puntuacionTotalSpan");
   const mensajeResultado = document.getElementById("mensajeResultado");
-  const termometroDiv = document.getElementById("termometro");
+  const termometroDiv = document.querySelector("#termometro .nivel");
 
   siguiente1.addEventListener("click", function (event) {
     event.preventDefault();
@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
     if (validarFormulario(formulario7)) {
       const puntuacionTotal = calcularPuntuacionTotal();
-      document.getElementById('form7').style.display = 'none';
-      document.getElementById('resultados').style.display = 'block';
+      document.getElementById("form7").style.display = "none";
+      document.getElementById("resultados").style.display = "block";
       mostrarResultados(puntuacionTotal);
     }
   });
@@ -151,22 +151,30 @@ document.addEventListener("DOMContentLoaded", function () {
   function mostrarResultados(puntuacionTotal) {
     let mensaje = "";
     let termometroColor = "";
+    let porcentaje = 0;
+
     if (puntuacionTotal >= 0 && puntuacionTotal <= 20) {
       mensaje = "Nivel de ansiedad leve.";
-      termometroColor = "green";
+      termometroColor = "verde";
+      porcentaje = (puntuacionTotal / 20) * 33;
     } else if (puntuacionTotal >= 21 && puntuacionTotal <= 34) {
       mensaje = "Nivel de ansiedad moderado.";
-      termometroColor = "orange";
+      termometroColor = "naranja";
+      porcentaje = 33 + ((puntuacionTotal - 21) / 13) * 33;
     } else if (puntuacionTotal >= 35 && puntuacionTotal <= 60) {
       mensaje = "Nivel de ansiedad severo.";
-      termometroColor = "red";
+      termometroColor = "rojo";
+      porcentaje = 66 + ((puntuacionTotal - 35) / 25) * 34;
     } else {
       mensaje = "ERROR.";
       termometroColor = "black";
     }
+
     puntuacionTotalSpan.textContent = puntuacionTotal;
     mensajeResultado.textContent = mensaje;
-    termometroDiv.style.backgroundColor = termometroColor;
+    termometroDiv.style.height = `${porcentaje}%`;
+    termometroDiv.className = `nivel ${termometroColor}`;
     resultadosDiv.style.display = "block";
   }
+  mostrarResultados(60);
 });

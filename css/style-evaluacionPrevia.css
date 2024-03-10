@@ -10,10 +10,14 @@ body {
 }
 
 .container {
-    max-width: 1000px; /* Ajustamos el ancho máximo del contenedor */
-    width: 90%; /* Ajustamos el ancho del contenedor para que sea responsivo */
-    max-height: 80vh; /* Establecemos una altura máxima y permitimos el desplazamiento vertical */
-    overflow-y: hidden; /* Agregamos un desplazamiento vertical cuando sea necesario */
+    max-width: 1000px;
+    /* Ajustamos el ancho máximo del contenedor */
+    width: 90%;
+    /* Ajustamos el ancho del contenedor para que sea responsivo */
+    max-height: 80vh;
+    /* Establecemos una altura máxima y permitimos el desplazamiento vertical */
+    overflow-y: hidden;
+    /* Agregamos un desplazamiento vertical cuando sea necesario */
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -21,7 +25,8 @@ body {
 }
 
 .container:hover {
-    overflow-y: auto; /* Muestra el scroll al pasar el mouse sobre el contenedor */
+    overflow-y: auto;
+    /* Muestra el scroll al pasar el mouse sobre el contenedor */
 }
 
 h1 {
@@ -30,49 +35,74 @@ h1 {
     color: #2DAAA4;
 }
 
-input[type="text"], input[type="number"] {
-    padding: 4px; /* Espacio interno para el texto */
-    border: 1px solid #CCC; /* Borde del input */
-    border-radius: 4px; /* Bordes redondeados */
-    width: 30%; /* Ancho completo */
-    margin-bottom: 8px; /* Margen inferior */
-    font-family: "Montserrat"; /* Fuente */
-    font-size: 14px; /* Tamaño de fuente */
-    color: #333; /* Color del texto */
-    background-color: #FFF; /* Color de fondo */
+input[type="text"],
+input[type="number"] {
+    padding: 4px;
+    /* Espacio interno para el texto */
+    border: 1px solid #CCC;
+    /* Borde del input */
+    border-radius: 4px;
+    /* Bordes redondeados */
+    width: 30%;
+    /* Ancho completo */
+    margin-bottom: 8px;
+    /* Margen inferior */
+    font-family: "Montserrat";
+    /* Fuente */
+    font-size: 14px;
+    /* Tamaño de fuente */
+    color: #333;
+    /* Color del texto */
+    background-color: #FFF;
+    /* Color de fondo */
 }
 
 input[type="text"]:hover,
 input[type="number"]:hover {
-    border-color: #2DAAA4; /* Cambia el color del borde al hacer hover */
+    border-color: #2DAAA4;
+    /* Cambia el color del borde al hacer hover */
 }
 
 /* Estilo cuando el input está enfocado */
-input[type="text"]:focus, 
+input[type="text"]:focus,
 input[type="number"]:focus {
-    outline: none; /* Quita el contorno alrededor del input */
-    border-color: #2DAAA4; /* Cambia el color del borde cuando está enfocado */
+    outline: none;
+    /* Quita el contorno alrededor del input */
+    border-color: #2DAAA4;
+    /* Cambia el color del borde cuando está enfocado */
 }
 
 select {
-    padding: 10px; /* Espacio interno para el texto */
-    border: 1px solid #ccc; /* Borde del select */
-    border-radius: 5px; /* Bordes redondeados */
-    width: calc(85% - 5px); /* Ancho completo */
-    margin-bottom: 10px; /* Margen inferior */
-    font-family: "Montserrat"; /* Fuente */
-    font-size: 14px; /* Tamaño de fuente */
-    color: #333; /* Color del texto */
-    background-color: #fff; /* Color de fondo */
+    padding: 10px;
+    /* Espacio interno para el texto */
+    border: 1px solid #ccc;
+    /* Borde del select */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    width: calc(85% - 5px);
+    /* Ancho completo */
+    margin-bottom: 10px;
+    /* Margen inferior */
+    font-family: "Montserrat";
+    /* Fuente */
+    font-size: 14px;
+    /* Tamaño de fuente */
+    color: #333;
+    /* Color del texto */
+    background-color: #fff;
+    /* Color de fondo */
 }
 
 select:hover {
-    border-color: #2DAAA4; /* Cambia el color del borde al hacer hover */
+    border-color: #2DAAA4;
+    /* Cambia el color del borde al hacer hover */
 }
 
 select:focus {
-    outline: none; /* Quita el contorno alrededor del select */
-    border-color: #2DAAA4; /* Cambia el color del borde cuando está enfocado */
+    outline: none;
+    /* Quita el contorno alrededor del select */
+    border-color: #2DAAA4;
+    /* Cambia el color del borde cuando está enfocado */
 }
 
 .question {
@@ -96,7 +126,8 @@ select:focus {
 }
 
 .options label {
-    flex-basis: calc(80% - 5px); /* Ajustamos el ancho de las opciones */
+    flex-basis: calc(80% - 5px);
+    /* Ajustamos el ancho de las opciones */
     padding: 10px 20px;
     background-color: #F4F4F4;
     border-radius: 5px;
@@ -108,11 +139,11 @@ select:focus {
 }
 
 .btn-container {
-    text-align: center; 
+    text-align: center;
 }
 
 .btn-next_prev {
-    display: inline-block; 
+    display: inline-block;
     margin: 20px 10px;
     padding: 10px 20px;
     background-color: #2DAAA4;
@@ -136,7 +167,8 @@ p {
     font-weight: bold;
 }
 
-.anxiety-form, #depression-form {
+.anxiety-form,
+#depression-form {
     margin-top: 56px;
 }
 
@@ -146,7 +178,8 @@ p {
     margin: 48px auto;
 }
 
-.table-form th, .table-form td {
+.table-form th,
+.table-form td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
@@ -167,22 +200,28 @@ p {
 
 
 #termometro {
-  width: 50px;
-  height: 200px;
-  background-color: gray;
-  border: 1px solid black;
-  position: relative;
-  margin: 0 auto;
+    width: 50px;
+    height: 200px;
+    background-color: #E0E0E0;
+    border: 1px none #000;
+    border-radius: 22px;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
-.verde {
-  background-color: green;
+#termometro .nivel {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: green;
+    transition: height 2s ease-in-out;
 }
 
-.naranja {
-  background-color: orange;
+#termometro .nivel.naranja {
+    background-color: orange;
 }
 
-.rojo {
-  background-color: red;
+#termometro .nivel.rojo {
+    background-color: red;
 }
