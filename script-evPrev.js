@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const anterior7 = document.getElementById("anterior7");
   const enviar = document.getElementById("enviar");
   const resultadosDiv = document.getElementById("resultados");
-  const puntuacionTotalSpan = document.getElementById("puntuacionTotalSpan");
+  const puntuacionTotalBAISpan = document.getElementById("puntuacionTotalBAISpan");
   const mensajeResultado = document.getElementById("mensajeResultado");
   const termometroDiv = document.querySelector("#termometro .nivel");
 
@@ -105,10 +105,10 @@ document.addEventListener("DOMContentLoaded", function () {
   enviar.addEventListener("click", function (event) {
     event.preventDefault();
     if (validarFormulario(formulario7)) {
-      const puntuacionTotal = calcularPuntuacionTotal();
+      const puntuacionTotalBAI = calcularpuntuacionTotalBAI();
       document.getElementById("form7").style.display = "none";
       document.getElementById("resultados").style.display = "block";
-      mostrarResultados(puntuacionTotal);
+      mostrarResultadosBAI(puntuacionTotalBAI);
     }
   });
 
@@ -136,41 +136,41 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
-  function calcularPuntuacionTotal() {
-    let puntuacionTotal = 0;
+  function calcularpuntuacionTotalBAI() {
+    let puntuacionTotalBAI = 0;
     const formularios = [formulario2];
     formularios.forEach((formulario) => {
       const inputs = formulario.querySelectorAll("input[type=radio]:checked");
       inputs.forEach((input) => {
-        puntuacionTotal += parseInt(input.value);
+        puntuacionTotalBAI += parseInt(input.value);
       });
     });
-    return puntuacionTotal;
+    return puntuacionTotalBAI;
   }
 
-  function mostrarResultados(puntuacionTotal) {
+  function mostrarResultadosBAI(puntuacionTotalBAI) {
     let mensaje = "";
     let termometroColor = "";
     let porcentaje = 0;
 
-    if (puntuacionTotal >= 0 && puntuacionTotal <= 20) {
+    if (puntuacionTotalBAI >= 0 && puntuacionTotalBAI <= 20) {
       mensaje = "Nivel de ansiedad leve.";
       termometroColor = "verde";
-      porcentaje = (puntuacionTotal / 20) * 33;
-    } else if (puntuacionTotal >= 21 && puntuacionTotal <= 34) {
+      porcentaje = (puntuacionTotalBAI / 20) * 33;
+    } else if (puntuacionTotalBAI >= 21 && puntuacionTotalBAI <= 34) {
       mensaje = "Nivel de ansiedad moderado.";
       termometroColor = "naranja";
-      porcentaje = 33 + ((puntuacionTotal - 21) / 13) * 33;
-    } else if (puntuacionTotal >= 35 && puntuacionTotal <= 60) {
+      porcentaje = 33 + ((puntuacionTotalBAI - 21) / 13) * 33;
+    } else if (puntuacionTotalBAI >= 35 && puntuacionTotalBAI <= 60) {
       mensaje = "Nivel de ansiedad severo.";
       termometroColor = "rojo";
-      porcentaje = 66 + ((puntuacionTotal - 35) / 25) * 34;
+      porcentaje = 66 + ((puntuacionTotalBAI - 35) / 25) * 34;
     } else {
       mensaje = "ERROR.";
       termometroColor = "black";
     }
 
-    puntuacionTotalSpan.textContent = puntuacionTotal;
+    puntuacionTotalBAISpan.textContent = puntuacionTotalBAI;
     mensajeResultado.textContent = mensaje;
     termometroDiv.style.height = `${porcentaje}%`;
     termometroDiv.className = `nivel ${termometroColor}`;
