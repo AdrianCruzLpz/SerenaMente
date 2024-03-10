@@ -176,5 +176,4 @@ document.addEventListener("DOMContentLoaded", function () {
     termometroDiv.className = `nivel ${termometroColor}`;
     resultadosDiv.style.display = "block";
   }
-  mostrarResultados(60);
 });
