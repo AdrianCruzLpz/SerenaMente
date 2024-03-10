@@ -164,3 +164,25 @@ p {
     border-radius: 4px;
     box-sizing: border-box;
 }
+
+
+#termometro {
+  width: 50px;
+  height: 200px;
+  background-color: gray;
+  border: 1px solid black;
+  position: relative;
+  margin: 0 auto;
+}
+
+.verde {
+  background-color: green;
+}
+
+.naranja {
+  background-color: orange;
+}
+
+.rojo {
+  background-color: red;
+}
