@@ -199,7 +199,20 @@ p {
 }
 
 
-#termometro {
+/* Estilos para los resultados del BAI */
+#resultadosBAI {
+    display: none;
+}
+
+#resultadosBAI h1 {
+    color: #2DAAA4;
+}
+
+#resultadosBAI p {
+    color: #333;
+}
+
+#termometroBAI {
     width: 50px;
     height: 200px;
     background-color: #E0E0E0;
@@ -210,7 +223,7 @@ p {
     overflow: hidden;
 }
 
-#termometro .nivel {
+#termometroBAI .nivel {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -218,10 +231,54 @@ p {
     transition: height 2s ease-in-out;
 }
 
-#termometro .nivel.naranja {
+#termometroBAI .nivel.naranja {
     background-color: orange;
 }
 
-#termometro .nivel.rojo {
+#termometroBAI .nivel.rojo {
     background-color: red;
+}
+
+/* Estilos para los resultados del BDI */
+#resultadosBDI {
+    display: none;
+}
+
+#resultadosBDI h1 {
+    color: #2DAAA4;
+}
+
+#resultadosBDI p {
+    color: #333;
+}
+
+#termometroBDI {
+    width: 50px;
+    height: 200px;
+    background-color: #E0E0E0;
+    border: 1px none #000;
+    border-radius: 22px;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#termometroBDI .nivel {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: green; /* Aquí estaba el problema */
+    transition: height 2s ease-in-out;
+}
+
+#termometroBDI .nivel.naranja {
+    background-color: orange;
+}
+
+#termometroBDI .nivel.rojo {
+    background-color: red;
+}
+
+#termometroBDI .nivel.negro {
+    background-color: black;
 }
