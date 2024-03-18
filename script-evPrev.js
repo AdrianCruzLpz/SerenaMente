@@ -19,12 +19,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const anterior6 = document.getElementById("anterior6");
   const anterior7 = document.getElementById("anterior7");
   const enviar = document.getElementById("enviar");
+  const resultadosDiv = document.getElementById("resultados");
   const puntuacionTotalSpan = document.getElementById("puntuacionTotalSpan");
   const puntuacionTotalSpan2 = document.getElementById("puntuacionTotalSpan2");
   const puntuacionTotalSpan3 = document.getElementById("puntuacionTotalSpan3");
   const termometroDiv = document.querySelector("#termometroBAI .nivel");
   const termometroDiv2 = document.querySelector("#termometroBDI .nivel");
-  const termometroDiv3 = document.querySelector("#termometroPSS .nivel")
+  const termometroDiv3 = document.querySelector("#termometroPSS .nivel");
 
   siguiente1.addEventListener("click", function (event) {
     event.preventDefault();
@@ -104,6 +105,12 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("form5").style.display = "block";
   });
 
+  anterior7.addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById("form7").style.display = "none";
+    document.getElementById("form6").style.display = "block";
+  });
+
   enviar.addEventListener("click", function (event) {
     event.preventDefault();
     if (validarFormulario(formulario7)) {
@@ -144,9 +151,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function calcularPuntuacionTotalBAI() {
     let puntuacionTotalBAI = 0;
-    const inputs = formulario2.querySelectorAll("input[type=radio]:checked");
-    inputs.forEach((input) => {
+    const formularios = [formulario2];
+    formularios.forEach((formulario) => {
+      const inputs = formulario.querySelectorAll("input[type=radio]:checked");
+      inputs.forEach((input) => {
         puntuacionTotalBAI += parseInt(input.value);
+      });
     });
     return puntuacionTotalBAI;
   }
@@ -165,17 +175,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function calcularPuntuacionTotalPSS() {
     let puntuacionTotalPSS = 0;
-    const inversos = [4, 5, 6, 7, 9, 10, 13];
-    const formularios = [formulario4]; // Suponiendo que los reactivos están en el formulario1
+    const formularios = [formulario4];
     formularios.forEach((formulario) => {
-        for (let i = 1; i <= 14; i++) {
-            const input = formulario.querySelector(`input[name="reactivo${i}"]:checked`);
-            let valor = parseInt(input.value);
-            if (inversos.includes(i)) {
-                valor = 4 - valor; // Invertir la puntuación para los reactivos indicados
-            }
-            puntuacionTotalPSS += valor;
-        }
+      const inputs = formulario.querySelectorAll("input[type=radio]:checked");
+      inputs.forEach((input) => {
+        puntuacionTotalPSS += parseInt(input.value);
+      });
     });
     return puntuacionTotalPSS;
   }
@@ -187,22 +192,24 @@ document.addEventListener("DOMContentLoaded", function () {
     let termometroColor = "";
 
     if (puntuacionTotalBAI >= 0 && puntuacionTotalBAI <= 20) {
-        mensaje = "Nivel de ansiedad leve.";
-        termometroColor = "verde";
+      mensaje = "Nivel de ansiedad leve.";
+      termometroColor = "verde";
     } else if (puntuacionTotalBAI <= 34) {
-        mensaje = "Nivel de ansiedad moderado.";
-        termometroColor = "naranja";
+      mensaje = "Nivel de ansiedad moderado.";
+      termometroColor = "naranja";
     } else if (puntuacionTotalBAI <= 60) {
-        mensaje = "Nivel de ansiedad severo.";
-        termometroColor = "rojo";
+      mensaje = "Nivel de ansiedad severo.";
+      termometroColor = "rojo";
     } else {
-        mensaje = "ERROR.";
-        termometroColor = "negro";
+      mensaje = "ERROR Fuera de rango.";
+      termometroColor = "negro";
     }
 
     puntuacionTotalSpan.textContent = puntuacionTotalBAI;
+    mensajeResultado.textContent = mensaje;
     termometroDiv.style.height = `${porcentaje}%`;
     termometroDiv.className = `nivel ${termometroColor}`;
+    resultadosDiv.style.display = "block";
   }
 
   function mostrarResultadosBDI(puntuacionTotalBDI) {
@@ -212,27 +219,24 @@ document.addEventListener("DOMContentLoaded", function () {
     let termometroColorBDI = "";
 
     if (puntuacionTotalBDI >= 0 && puntuacionTotalBDI <= 13) {
-        mensajeBDI = "Mínima depresión.";
-        termometroColorBDI = "verde";
-        
+      mensajeBDI = "Mínima depresión.";
+      termometroColorBDI = "verde";
     } else if (puntuacionTotalBDI >= 14 && puntuacionTotalBDI <= 19) {
-        mensajeBDI = "Depresión leve.";
-        termometroColorBDI = "amarillo";
-  
+      mensajeBDI = "Depresión leve.";
+      termometroColorBDI = "amarillo";
     } else if (puntuacionTotalBDI >= 20 && puntuacionTotalBDI <= 28) {
-        mensajeBDI = "Depresión moderada.";
-        termometroColorBDI = "naranja";
-        
+      mensajeBDI = "Depresión moderada.";
+      termometroColorBDI = "naranja";
     } else if (puntuacionTotalBDI >= 29 && puntuacionTotalBDI <= 63) {
       mensajeBDI = "Depresión grave.";
       termometroColorBDI = "rojo";
-      
     } else {
-        mensajeBDI = "ERROR.";
-        termometroColorBDI = "negro";    
+      mensajeBDI = "ERROR Fuera de rango.";
+      termometroColorBDI = "negro";
     }
 
     puntuacionTotalSpan2.textContent = puntuacionTotalBDI;
+    mensajeResultado2.textContent = mensajeBDI;
     termometroDiv2.style.height = `${porcentajeBDI}%`;
     termometroDiv2.className = `nivel ${termometroColorBDI}`;
   }
@@ -256,14 +260,13 @@ document.addEventListener("DOMContentLoaded", function () {
         mensajePSS = "Muy alto";
         termometroColorPSS = "rojo";
     } else{
-      mensajePSS = "Fuera de rango.";
+      mensajePSS = "ERROR Fuera de rango.";
       termometroColorPSS = "negro";
     }
 
     puntuacionTotalSpan3.textContent = puntuacionTotalPSS;
-    //mensajeResultado.textContent = mensajePSS;
+    mensajeResultado3.textContent = mensajePSS;
     termometroDiv3.style.height = `${porcentajePSS}%`;
     termometroDiv3.className = `nivel ${termometroColorPSS}`;
-    //resultadosDiv.style.display = "block";
   }
 });

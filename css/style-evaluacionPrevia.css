@@ -11,13 +11,9 @@ body {
 
 .container {
     max-width: 1000px;
-    /* Ajustamos el ancho máximo del contenedor */
     width: 90%;
-    /* Ajustamos el ancho del contenedor para que sea responsivo */
     max-height: 80vh;
-    /* Establecemos una altura máxima y permitimos el desplazamiento vertical */
     overflow-y: hidden;
-    /* Agregamos un desplazamiento vertical cuando sea necesario */
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -26,83 +22,57 @@ body {
 
 .container:hover {
     overflow-y: auto;
-    /* Muestra el scroll al pasar el mouse sobre el contenedor */
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 36px;
     color: #2DAAA4;
 }
 
 input[type="text"],
 input[type="number"] {
     padding: 4px;
-    /* Espacio interno para el texto */
     border: 1px solid #CCC;
-    /* Borde del input */
     border-radius: 4px;
-    /* Bordes redondeados */
     width: 30%;
-    /* Ancho completo */
     margin-bottom: 8px;
-    /* Margen inferior */
     font-family: "Montserrat";
-    /* Fuente */
     font-size: 14px;
-    /* Tamaño de fuente */
     color: #333;
-    /* Color del texto */
     background-color: #FFF;
-    /* Color de fondo */
 }
 
 input[type="text"]:hover,
 input[type="number"]:hover {
     border-color: #2DAAA4;
-    /* Cambia el color del borde al hacer hover */
 }
 
-/* Estilo cuando el input está enfocado */
 input[type="text"]:focus,
 input[type="number"]:focus {
     outline: none;
-    /* Quita el contorno alrededor del input */
     border-color: #2DAAA4;
-    /* Cambia el color del borde cuando está enfocado */
 }
 
 select {
     padding: 10px;
-    /* Espacio interno para el texto */
     border: 1px solid #ccc;
-    /* Borde del select */
     border-radius: 5px;
-    /* Bordes redondeados */
     width: calc(85% - 5px);
-    /* Ancho completo */
     margin-bottom: 10px;
-    /* Margen inferior */
     font-family: "Montserrat";
-    /* Fuente */
     font-size: 14px;
-    /* Tamaño de fuente */
     color: #333;
-    /* Color del texto */
     background-color: #fff;
-    /* Color de fondo */
 }
 
 select:hover {
     border-color: #2DAAA4;
-    /* Cambia el color del borde al hacer hover */
 }
 
 select:focus {
     outline: none;
-    /* Quita el contorno alrededor del select */
     border-color: #2DAAA4;
-    /* Cambia el color del borde cuando está enfocado */
 }
 
 .question {
@@ -127,7 +97,6 @@ select:focus {
 
 .options label {
     flex-basis: calc(80% - 5px);
-    /* Ajustamos el ancho de las opciones */
     padding: 10px 20px;
     background-color: #F4F4F4;
     border-radius: 5px;
@@ -199,112 +168,25 @@ p {
 }
 
 
-/* Estilos para los resultados del BAI */
-#resultadosBAI {
-    display: none;
+/* Estilos para los termometros */
+.resultadoEvPrev{
+    font-size: 18px;
+    color: #737373;
+    margin-bottom: 8px;
 }
 
-#resultadosBAI h1 {
+.puntuaciones{ 
     color: #2DAAA4;
 }
 
-#resultadosBAI p {
-    color: #333;
+.mensajesPuntuacion{
+    font-style: italic;
+    color: #464343;
+    margin-bottom: 16px;
 }
 
-#termometroBAI {
-    width: 50px;
-    height: 200px;
-    background-color: #E0E0E0;
-    border: 1px none #000;
-    border-radius: 22px;
-    position: relative;
-    margin: 0 auto;
-    overflow: hidden;
-}
-
-#termometroBAI .nivel {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: green;
-    transition: height 2s ease-in-out;
-}
-
-#termometroBAI .nivel.naranja {
-    background-color: orange;
-}
-
-#termometroBAI .nivel.rojo {
-    background-color: red;
-}
-
-#termometroBAI .nivel.negro {
-    background-color: black;
-}
-
-/* Estilos para los resultados del BDI */
-#resultadosBDI {
-    display: none;
-}
-
-#resultadosBDI h1 {
-    color: #2DAAA4;
-}
-
-#resultadosBDI p {
-    color: #333;
-}
-
-#termometroBDI {
-    width: 50px;
-    height: 200px;
-    background-color: #E0E0E0;
-    border: 1px none #000;
-    border-radius: 22px;
-    position: relative;
-    margin: 0 auto;
-    overflow: hidden;
-}
-
-#termometroBDI .nivel {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: green; /* Aquí estaba el problema */
-    transition: height 2s ease-in-out;
-}
-
-#termometroBDI .nivel.amarillo {
-    background-color: yellow;
-}
-
-#termometroBDI .nivel.naranja {
-    background-color: orange;
-}
-
-#termometroBDI .nivel.rojo {
-    background-color: red;
-}
-
-#termometroBDI .nivel.negro {
-    background-color: black;
-}
-
-
-/* Estilos para los resultados del PSS */
-#resultadosPSS {
-    display: none;
-}
-
-#resultadosPSS h1 {
-    color: #2DAAA4;
-}
-
-#resultadosPSS p {
-    color: #333;
-}
-
+#termometroBAI,
+#termometroBDI, 
 #termometroPSS {
     width: 50px;
     height: 200px;
@@ -312,30 +194,39 @@ p {
     border: 1px none #000;
     border-radius: 22px;
     position: relative;
-    margin: 0 auto;
+    margin: 0 auto 80px;
     overflow: hidden;
 }
 
+#termometroBAI .nivel,
+#termometroBDI .nivel, 
 #termometroPSS .nivel {
     position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: green; /* Aquí estaba el problema */
+    background-color: green;
     transition: height 2s ease-in-out;
 }
 
+#termometroBDI .nivel.amarillo, 
 #termometroPSS .nivel.amarillo {
     background-color: yellow;
 }
 
+#termometroBAI .nivel.naranja,
+#termometroBDI .nivel.naranja, 
 #termometroPSS .nivel.naranja {
     background-color: orange;
 }
 
+#termometroBAI .nivel.rojo,
+#termometroBDI .nivel.rojo, 
 #termometroPSS .nivel.rojo {
     background-color: red;
 }
 
+#termometroBAI .nivel.negro,
+#termometroBDI .nivel.negro, 
 #termometroPSS .nivel.negro {
     background-color: black;
 }
