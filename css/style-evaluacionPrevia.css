@@ -187,7 +187,8 @@ p {
 
 #termometroBAI,
 #termometroBDI, 
-#termometroPSS {
+#termometroPSS,
+#termometroMINI {
     width: 50px;
     height: 200px;
     background-color: #E0E0E0;
@@ -200,7 +201,8 @@ p {
 
 #termometroBAI .nivel,
 #termometroBDI .nivel, 
-#termometroPSS .nivel {
+#termometroPSS .nivel,
+#termometroMINI .nivel {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -209,19 +211,22 @@ p {
 }
 
 #termometroBDI .nivel.amarillo, 
-#termometroPSS .nivel.amarillo {
+#termometroPSS .nivel.amarillo,
+#termometroMINI .nivel.amarillo {
     background-color: yellow;
 }
 
 #termometroBAI .nivel.naranja,
 #termometroBDI .nivel.naranja, 
-#termometroPSS .nivel.naranja {
+#termometroPSS .nivel.naranja,
+#termometroMINI .nivel.naranja {
     background-color: orange;
 }
 
 #termometroBAI .nivel.rojo,
 #termometroBDI .nivel.rojo, 
-#termometroPSS .nivel.rojo {
+#termometroPSS .nivel.rojo,
+#termometroMINI .nivel.rojo {
     background-color: red;
 }
 

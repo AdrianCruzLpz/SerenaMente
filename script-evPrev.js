@@ -23,9 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const puntuacionTotalSpan = document.getElementById("puntuacionTotalSpan");
   const puntuacionTotalSpan2 = document.getElementById("puntuacionTotalSpan2");
   const puntuacionTotalSpan3 = document.getElementById("puntuacionTotalSpan3");
+  const puntuacionTotalSpan4 = document.getElementById("puntuacionTotalSpan4");
   const termometroDiv = document.querySelector("#termometroBAI .nivel");
   const termometroDiv2 = document.querySelector("#termometroBDI .nivel");
   const termometroDiv3 = document.querySelector("#termometroPSS .nivel");
+  const termometroDiv4= document.querySelector("#termometroMINI .nivel");
 
   siguiente1.addEventListener("click", function (event) {
     event.preventDefault();
@@ -117,11 +119,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const puntuacionTotalBAI = calcularPuntuacionTotalBAI();
       const puntuacionTotalBDI = calcularPuntuacionTotalBDI();
       const puntuacionTotalPSS = calcularPuntuacionTotalPSS();
+      const puntuacionTotalMINI = calcularPuntuacionTotalMINI();
       document.getElementById("form7").style.display = "none";
       document.getElementById("resultados").style.display = "block";
       mostrarResultadosBAI(puntuacionTotalBAI);
       mostrarResultadosBDI(puntuacionTotalBDI);
       mostrarResultadosPSS(puntuacionTotalPSS);
+      mostrarResultadosMINI(puntuacionTotalMINI);
     }
   });
 
@@ -184,6 +188,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     return puntuacionTotalPSS;
   }
+
+  function calcularPuntuacionTotalMINI() {
+    const respuestas = {
+      q22: formulario5.q22.value,
+      q23: formulario5.q23.value,
+      q24: formulario5.q24.value,
+      q25: formulario5.q25.value,
+      q26: formulario5.q26.value,
+      q27: formulario5.q27.value,
+    };
+
+    const siCount = Object.values(respuestas).filter(value => value === "SI").length;
+
+    if (siCount === 1 || siCount === 2 || respuestas.q2 === "SI" || respuestas.q6 === "SI") {
+      return "LIGERO";
+    } else if (siCount === 3 || (respuestas.q2 === "SI" && respuestas.q6 === "SI")) {
+      return "MODERADO";
+    } else if (siCount === 4 || siCount === 5 || siCount === 6 || (respuestas.q3 === "SI" && respuestas.q6 === "SI")) {
+      return "SEVERO";
+    } else {
+      return "NINGUNO";
+    }
+  }  
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
     const porcentaje = (puntuacionTotalBAI / 60) * 100;
@@ -269,4 +296,34 @@ document.addEventListener("DOMContentLoaded", function () {
     termometroDiv3.style.height = `${porcentajePSS}%`;
     termometroDiv3.className = `nivel ${termometroColorPSS}`;
   }
+
+  function mostrarResultadosMINI() {
+    const riesgoSuicida = calcularPuntuacionTotalMINI();
+    let porcentajeMINI = 0;
+    let termometroColorMINI = "";
+    let mensajeMINI = "";
+  
+    if (riesgoSuicida === "LIGERO") {
+      mensajeMINI = "Riesgo suicida ligero";
+      porcentajeMINI = 15;
+      termometroColorMINI = "amarillo";
+    } else if (riesgoSuicida === "MODERADO") {
+      mensajeMINI = "Riesgo suicida moderado";
+      porcentajeMINI = 66;
+      termometroColorMINI = "naranja";
+    } else if (riesgoSuicida === "SEVERO") {
+      mensajeMINI = "Riesgo suicida severo";
+      porcentajeMINI = 100;
+      termometroColorMINI = "rojo";
+    } else {
+      mensajeMINI = "No hay riesgo suicida";
+      termometroColorMINI = "verde";
+    }
+  
+    puntuacionTotalSpan4.textContent = riesgoSuicida;
+    mensajeResultado4.textContent = mensajeMINI;
+    termometroDiv4.style.height = `${porcentajeMINI}%`;
+    termometroDiv4.className = `nivel ${termometroColorMINI}`;
+  }
+  
 });
