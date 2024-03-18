@@ -21,8 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const enviar = document.getElementById("enviar");
   const puntuacionTotalSpan = document.getElementById("puntuacionTotalSpan");
   const puntuacionTotalSpan2 = document.getElementById("puntuacionTotalSpan2");
+  const puntuacionTotalSpan3 = document.getElementById("puntuacionTotalSpan3");
   const termometroDiv = document.querySelector("#termometroBAI .nivel");
   const termometroDiv2 = document.querySelector("#termometroBDI .nivel");
+  const termometroDiv3 = document.querySelector("#termometroPSS .nivel")
 
   siguiente1.addEventListener("click", function (event) {
     event.preventDefault();
@@ -107,10 +109,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (validarFormulario(formulario7)) {
       const puntuacionTotalBAI = calcularPuntuacionTotalBAI();
       const puntuacionTotalBDI = calcularPuntuacionTotalBDI();
+      const puntuacionTotalPSS = calcularPuntuacionTotalPSS();
       document.getElementById("form7").style.display = "none";
       document.getElementById("resultados").style.display = "block";
       mostrarResultadosBAI(puntuacionTotalBAI);
       mostrarResultadosBDI(puntuacionTotalBDI);
+      mostrarResultadosPSS(puntuacionTotalPSS);
     }
   });
 
@@ -157,6 +161,23 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
     return puntuacionTotalBDI;
+  }
+
+  function calcularPuntuacionTotalPSS() {
+    let puntuacionTotalPSS = 0;
+    const inversos = [4, 5, 6, 7, 9, 10, 13];
+    const formularios = [formulario4]; // Suponiendo que los reactivos están en el formulario1
+    formularios.forEach((formulario) => {
+        for (let i = 1; i <= 14; i++) {
+            const input = formulario.querySelector(`input[name="reactivo${i}"]:checked`);
+            let valor = parseInt(input.value);
+            if (inversos.includes(i)) {
+                valor = 4 - valor; // Invertir la puntuación para los reactivos indicados
+            }
+            puntuacionTotalPSS += valor;
+        }
+    });
+    return puntuacionTotalPSS;
   }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
@@ -214,5 +235,35 @@ document.addEventListener("DOMContentLoaded", function () {
     puntuacionTotalSpan2.textContent = puntuacionTotalBDI;
     termometroDiv2.style.height = `${porcentajeBDI}%`;
     termometroDiv2.className = `nivel ${termometroColorBDI}`;
+  }
+
+  function mostrarResultadosPSS(puntuacionTotalPSS) {
+    const porcentajePSS = (puntuacionTotalPSS / 56) * 100;
+
+    let mensajePSS = "";
+    let termometroColorPSS = "";
+
+    if (puntuacionTotalPSS >= 0 && puntuacionTotalPSS <= 14) {
+        mensajePSS = "Muy bajo";
+        termometroColorPSS = "verde";
+    } else if (puntuacionTotalPSS <= 28) {
+        mensajePSS = "Bajo";
+        termometroColorPSS = "amarillo";
+    } else if (puntuacionTotalPSS <= 42) {
+        mensajePSS = "Alto";
+        termometroColorPSS = "naranja";
+    } else if (puntuacionTotalPSS <= 56) {
+        mensajePSS = "Muy alto";
+        termometroColorPSS = "rojo";
+    } else{
+      mensajePSS = "Fuera de rango.";
+      termometroColorPSS = "negro";
+    }
+
+    puntuacionTotalSpan3.textContent = puntuacionTotalPSS;
+    //mensajeResultado.textContent = mensajePSS;
+    termometroDiv3.style.height = `${porcentajePSS}%`;
+    termometroDiv3.className = `nivel ${termometroColorPSS}`;
+    //resultadosDiv.style.display = "block";
   }
 });
