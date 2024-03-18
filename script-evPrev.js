@@ -19,10 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const anterior6 = document.getElementById("anterior6");
   const anterior7 = document.getElementById("anterior7");
   const enviar = document.getElementById("enviar");
-  const resultadosDiv = document.getElementById("resultados");
   const puntuacionTotalSpan = document.getElementById("puntuacionTotalSpan");
   const puntuacionTotalSpan2 = document.getElementById("puntuacionTotalSpan2");
-  const mensajeResultado = document.getElementById("mensajeResultado");
   const termometroDiv = document.querySelector("#termometroBAI .nivel");
   const termometroDiv2 = document.querySelector("#termometroBDI .nivel");
 
@@ -142,12 +140,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function calcularPuntuacionTotalBAI() {
     let puntuacionTotalBAI = 0;
-    const formularios = [formulario2];
-    formularios.forEach((formulario) => {
-      const inputs = formulario.querySelectorAll("input[type=radio]:checked");
-      inputs.forEach((input) => {
+    const inputs = formulario2.querySelectorAll("input[type=radio]:checked");
+    inputs.forEach((input) => {
         puntuacionTotalBAI += parseInt(input.value);
-      });
     });
     return puntuacionTotalBAI;
   }
@@ -165,62 +160,59 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
+    const porcentaje = (puntuacionTotalBAI / 60) * 100;
+
     let mensaje = "";
     let termometroColor = "";
-    let porcentaje = 0;
 
     if (puntuacionTotalBAI >= 0 && puntuacionTotalBAI <= 20) {
-      mensaje = "Nivel de ansiedad leve.";
-      termometroColor = "verde";
-      porcentaje = (puntuacionTotalBAI / 20) * 33;
-    } else if (puntuacionTotalBAI >= 21 && puntuacionTotalBAI <= 34) {
-      mensaje = "Nivel de ansiedad moderado.";
-      termometroColor = "naranja";
-      porcentaje = 33 + ((puntuacionTotalBAI - 21) / 13) * 33;
-    } else if (puntuacionTotalBAI >= 35 && puntuacionTotalBAI <= 60) {
-      mensaje = "Nivel de ansiedad severo.";
-      termometroColor = "rojo";
-      porcentaje = 66 + ((puntuacionTotalBAI - 35) / 25) * 34;
+        mensaje = "Nivel de ansiedad leve.";
+        termometroColor = "verde";
+    } else if (puntuacionTotalBAI <= 34) {
+        mensaje = "Nivel de ansiedad moderado.";
+        termometroColor = "naranja";
+    } else if (puntuacionTotalBAI <= 60) {
+        mensaje = "Nivel de ansiedad severo.";
+        termometroColor = "rojo";
     } else {
-      mensaje = "ERROR.";
-      termometroColor = "black";
+        mensaje = "ERROR.";
+        termometroColor = "negro";
     }
 
     puntuacionTotalSpan.textContent = puntuacionTotalBAI;
-    mensajeResultado.textContent = mensaje;
     termometroDiv.style.height = `${porcentaje}%`;
     termometroDiv.className = `nivel ${termometroColor}`;
-    resultadosDiv.style.display = "block";
   }
 
   function mostrarResultadosBDI(puntuacionTotalBDI) {
+    const porcentajeBDI = (puntuacionTotalBDI / 63) * 100;
+
     let mensajeBDI = "";
     let termometroColorBDI = "";
-    let porcentajeBDI = 0;
 
-    // Evaluación del Inventario de Depresión de Beck (BDI)
-    if (puntuacionTotalBDI >= 0 && puntuacionTotalBDI <= 9) {
-        mensajeBDI = "Ninguna o mínima depresión.";
+    if (puntuacionTotalBDI >= 0 && puntuacionTotalBDI <= 13) {
+        mensajeBDI = "Mínima depresión.";
         termometroColorBDI = "verde";
-        porcentajeBDI = (puntuacionTotalBDI / 9) * 33;
-    } else if (puntuacionTotalBDI >= 10 && puntuacionTotalBDI <= 18) {
-        mensajeBDI = "Depresión leve a moderada.";
+        
+    } else if (puntuacionTotalBDI >= 14 && puntuacionTotalBDI <= 19) {
+        mensajeBDI = "Depresión leve.";
+        termometroColorBDI = "amarillo";
+  
+    } else if (puntuacionTotalBDI >= 20 && puntuacionTotalBDI <= 28) {
+        mensajeBDI = "Depresión moderada.";
         termometroColorBDI = "naranja";
-        porcentajeBDI = 33 + ((puntuacionTotalBDI - 10) / 8) * 33;
-    } else if (puntuacionTotalBDI >= 19 && puntuacionTotalBDI <= 29) {
-        mensajeBDI = "Depresión moderada a grave.";
-        termometroColorBDI = "rojo";
-        porcentajeBDI = 66 + ((puntuacionTotalBDI - 19) / 10) * 34;
+        
+    } else if (puntuacionTotalBDI >= 29 && puntuacionTotalBDI <= 63) {
+      mensajeBDI = "Depresión grave.";
+      termometroColorBDI = "rojo";
+      
     } else {
-        mensajeBDI = "Depresión grave.";
-        termometroColorBDI = "negro";
-        porcentajeBDI = 100;
+        mensajeBDI = "ERROR.";
+        termometroColorBDI = "negro";    
     }
 
     puntuacionTotalSpan2.textContent = puntuacionTotalBDI;
-    mensajeResultado2.textContent = mensajeBDI;
     termometroDiv2.style.height = `${porcentajeBDI}%`;
     termometroDiv2.className = `nivel ${termometroColorBDI}`;
-    resultadosBDIDiv.style.display = "block";
-}
+  }
 });

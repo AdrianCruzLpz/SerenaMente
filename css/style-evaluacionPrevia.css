@@ -239,6 +239,10 @@ p {
     background-color: red;
 }
 
+#termometroBAI .nivel.negro {
+    background-color: black;
+}
+
 /* Estilos para los resultados del BDI */
 #resultadosBDI {
     display: none;
@@ -269,6 +273,10 @@ p {
     width: 100%;
     background-color: green; /* Aquí estaba el problema */
     transition: height 2s ease-in-out;
+}
+
+#termometroBDI .nivel.amarillo {
+    background-color: yellow;
 }
 
 #termometroBDI .nivel.naranja {
