@@ -24,10 +24,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const puntuacionTotalSpan2 = document.getElementById("puntuacionTotalSpan2");
   const puntuacionTotalSpan3 = document.getElementById("puntuacionTotalSpan3");
   const puntuacionTotalSpan4 = document.getElementById("puntuacionTotalSpan4");
+  const puntuacionTotalSpan5 = document.getElementById("puntuacionTotalSpan5");
   const termometroDiv = document.querySelector("#termometroBAI .nivel");
   const termometroDiv2 = document.querySelector("#termometroBDI .nivel");
   const termometroDiv3 = document.querySelector("#termometroPSS .nivel");
-  const termometroDiv4= document.querySelector("#termometroMINI .nivel");
+  const termometroDiv4 = document.querySelector("#termometroMINI .nivel");
+  const termometroDiv5 = document.querySelector("#termometroWBI .nivel");
 
   siguiente1.addEventListener("click", function (event) {
     event.preventDefault();
@@ -120,12 +122,14 @@ document.addEventListener("DOMContentLoaded", function () {
       const puntuacionTotalBDI = calcularPuntuacionTotalBDI();
       const puntuacionTotalPSS = calcularPuntuacionTotalPSS();
       const puntuacionTotalMINI = calcularPuntuacionTotalMINI();
+      const puntuacionTotalWBI = calcularPuntuacionTotalWBI();
       document.getElementById("form7").style.display = "none";
       document.getElementById("resultados").style.display = "block";
       mostrarResultadosBAI(puntuacionTotalBAI);
       mostrarResultadosBDI(puntuacionTotalBDI);
       mostrarResultadosPSS(puntuacionTotalPSS);
       mostrarResultadosMINI(puntuacionTotalMINI);
+      mostrarResultadosWBI(puntuacionTotalWBI);
     }
   });
 
@@ -192,26 +196,47 @@ document.addEventListener("DOMContentLoaded", function () {
   function calcularPuntuacionTotalMINI() {
     const respuestas = {
       q22: formulario5.q22.value, //1
-      q23: formulario5.q23.value, //2 
+      q23: formulario5.q23.value, //2
       q24: formulario5.q24.value, //3
       q25: formulario5.q25.value, //4
       q26: formulario5.q26.value, //5
       q27: formulario5.q27.value, //6
     };
 
-    const siCount = Object.values(respuestas).filter(value => value === "SI").length;
+    const siCount = Object.values(respuestas).filter(
+      (value) => value === "SI"
+    ).length;
 
     let riesgoSuicida = "";
 
-    if (respuestas.q25 === "SI" || respuestas.q26 === "SI" || (respuestas.q24 === "SI" && respuestas.q27 === "SI")) {
+    if (
+      respuestas.q25 === "SI" ||
+      respuestas.q26 === "SI" ||
+      (respuestas.q24 === "SI" && respuestas.q27 === "SI")
+    ) {
       riesgoSuicida = "SEVERO";
-    } else if (respuestas.q24 === "SI" || (respuestas.q23 === "SI" && respuestas.q27 === "SI")) {
+    } else if (
+      respuestas.q24 === "SI" ||
+      (respuestas.q23 === "SI" && respuestas.q27 === "SI")
+    ) {
       riesgoSuicida = "MODERADO";
-    } else{
+    } else {
       riesgoSuicida = "LIGERO";
     }
     return { nivel: riesgoSuicida, count: siCount };
-  }  
+  }
+
+  function calcularPuntuacionTotalWBI() {
+    let puntuacionTotalWBI = 0;
+    const formularios = [formulario6];
+    formularios.forEach((formulario) => {
+      const inputs = formulario.querySelectorAll("input[type=radio]:checked");
+      inputs.forEach((input) => {
+        puntuacionTotalWBI += parseInt(input.value);
+      });
+    });
+    return puntuacionTotalWBI;
+  }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
     const porcentaje = (puntuacionTotalBAI / 60) * 100;
@@ -276,18 +301,18 @@ document.addEventListener("DOMContentLoaded", function () {
     let termometroColorPSS = "";
 
     if (puntuacionTotalPSS >= 0 && puntuacionTotalPSS <= 14) {
-        mensajePSS = "Muy bajo";
-        termometroColorPSS = "verde";
+      mensajePSS = "Muy bajo";
+      termometroColorPSS = "verde";
     } else if (puntuacionTotalPSS <= 28) {
-        mensajePSS = "Bajo";
-        termometroColorPSS = "amarillo";
+      mensajePSS = "Bajo";
+      termometroColorPSS = "amarillo";
     } else if (puntuacionTotalPSS <= 42) {
-        mensajePSS = "Alto";
-        termometroColorPSS = "naranja";
+      mensajePSS = "Alto";
+      termometroColorPSS = "naranja";
     } else if (puntuacionTotalPSS <= 56) {
-        mensajePSS = "Muy alto";
-        termometroColorPSS = "rojo";
-    } else{
+      mensajePSS = "Muy alto";
+      termometroColorPSS = "rojo";
+    } else {
       mensajePSS = "ERROR Fuera de rango.";
       termometroColorPSS = "negro";
     }
@@ -303,7 +328,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let porcentajeMINI = (count / 6) * 100;
     let termometroColorMINI = "";
     let mensajeMINI = "";
-  
+
     if (nivel === "MODERADO") {
       mensajeMINI = "Riesgo suicida moderado.";
       termometroColorMINI = "naranja";
@@ -314,10 +339,33 @@ document.addEventListener("DOMContentLoaded", function () {
       mensajeMINI = "Riesgo suicida ligero.";
       termometroColorMINI = "verde";
     }
-  
+
     puntuacionTotalSpan4.textContent = nivel;
     mensajeResultado4.textContent = mensajeMINI;
     termometroDiv4.style.height = `${porcentajeMINI}%`;
     termometroDiv4.className = `nivel ${termometroColorMINI}`;
+  }
+
+  function mostrarResultadosWBI(puntuacionTotalWBI) {
+    const porcentajeWBI = (puntuacionTotalWBI / 15) * 100;
+
+    let mensajeWBI = "";
+    let termometroColorWBI = "";
+
+    if (puntuacionTotalWBI >= 0 && puntuacionTotalWBI <= 13) {
+      mensajeWBI = "Nivel de bienestar debajo del promedio.";
+      termometroColorWBI = "naranja";
+    } else if (puntuacionTotalWBI <=15) {
+      mensajeWBI = "Nivel de bienestar arriba del promedio.";
+      termometroColorWBI = "verde";
+    } else {
+      mensajeWBI = "ERROR Fuera de rango.";
+      termometroColorWBI = "negro";
+    }
+
+    puntuacionTotalSpan5.textContent = puntuacionTotalWBI;
+    mensajeResultado5.textContent = mensajeWBI;
+    termometroDiv5.style.height = `${porcentajeWBI}%`;
+    termometroDiv5.className = `nivel ${termometroColorWBI}`;
   }
 });
