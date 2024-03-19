@@ -191,25 +191,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function calcularPuntuacionTotalMINI() {
     const respuestas = {
-      q22: formulario5.q22.value,
-      q23: formulario5.q23.value,
-      q24: formulario5.q24.value,
-      q25: formulario5.q25.value,
-      q26: formulario5.q26.value,
-      q27: formulario5.q27.value,
+      q22: formulario5.q22.value, //1
+      q23: formulario5.q23.value, //2 
+      q24: formulario5.q24.value, //3
+      q25: formulario5.q25.value, //4
+      q26: formulario5.q26.value, //5
+      q27: formulario5.q27.value, //6
     };
 
     const siCount = Object.values(respuestas).filter(value => value === "SI").length;
 
-    if (siCount === 1 || siCount === 2 || respuestas.q2 === "SI" || respuestas.q6 === "SI") {
-      return "LIGERO";
-    } else if (siCount === 3 || (respuestas.q2 === "SI" && respuestas.q6 === "SI")) {
-      return "MODERADO";
-    } else if (siCount === 4 || siCount === 5 || siCount === 6 || (respuestas.q3 === "SI" && respuestas.q6 === "SI")) {
-      return "SEVERO";
-    } else {
-      return "NINGUNO";
+    let riesgoSuicida = "";
+
+    if (respuestas.q25 === "SI" || respuestas.q26 === "SI" || (respuestas.q24 === "SI" && respuestas.q27 === "SI")) {
+      riesgoSuicida = "SEVERO";
+    } else if (respuestas.q24 === "SI" || (respuestas.q23 === "SI" && respuestas.q27 === "SI")) {
+      riesgoSuicida = "MODERADO";
+    } else{
+      riesgoSuicida = "LIGERO";
     }
+
+    return { nivel: riesgoSuicida, count: siCount };
   }  
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
@@ -298,32 +300,25 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function mostrarResultadosMINI() {
-    const riesgoSuicida = calcularPuntuacionTotalMINI();
-    let porcentajeMINI = 0;
+    const { nivel, count } = calcularPuntuacionTotalMINI();
+    let porcentajeMINI = (count / 6) * 100;
     let termometroColorMINI = "";
     let mensajeMINI = "";
   
-    if (riesgoSuicida === "LIGERO") {
-      mensajeMINI = "Riesgo suicida ligero";
-      porcentajeMINI = 15;
-      termometroColorMINI = "amarillo";
-    } else if (riesgoSuicida === "MODERADO") {
-      mensajeMINI = "Riesgo suicida moderado";
-      porcentajeMINI = 66;
+    if (nivel === "MODERADO") {
+      mensajeMINI = "Riesgo suicida moderado.";
       termometroColorMINI = "naranja";
-    } else if (riesgoSuicida === "SEVERO") {
-      mensajeMINI = "Riesgo suicida severo";
-      porcentajeMINI = 100;
+    } else if (nivel === "SEVERO") {
+      mensajeMINI = "Riesgo suicida severo.";
       termometroColorMINI = "rojo";
     } else {
-      mensajeMINI = "No hay riesgo suicida";
+      mensajeMINI = "Riesgo suicida ligero.";
       termometroColorMINI = "verde";
     }
   
-    puntuacionTotalSpan4.textContent = riesgoSuicida;
+    puntuacionTotalSpan4.textContent = nivel;
     mensajeResultado4.textContent = mensajeMINI;
     termometroDiv4.style.height = `${porcentajeMINI}%`;
     termometroDiv4.className = `nivel ${termometroColorMINI}`;
   }
-  
 });
