@@ -210,7 +210,6 @@ document.addEventListener("DOMContentLoaded", function () {
     } else{
       riesgoSuicida = "LIGERO";
     }
-
     return { nivel: riesgoSuicida, count: siCount };
   }  
 
