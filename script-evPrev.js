@@ -25,11 +25,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const puntuacionTotalSpan3 = document.getElementById("puntuacionTotalSpan3");
   const puntuacionTotalSpan4 = document.getElementById("puntuacionTotalSpan4");
   const puntuacionTotalSpan5 = document.getElementById("puntuacionTotalSpan5");
+  const puntuacionTotalSpan6 = document.getElementById("puntuacionTotalSpan6");
   const termometroDiv = document.querySelector("#termometroBAI .nivel");
   const termometroDiv2 = document.querySelector("#termometroBDI .nivel");
   const termometroDiv3 = document.querySelector("#termometroPSS .nivel");
   const termometroDiv4 = document.querySelector("#termometroMINI .nivel");
   const termometroDiv5 = document.querySelector("#termometroWBI .nivel");
+  const termometroDiv6 = document.querySelector("#termometroICSP .nivel");
 
   siguiente1.addEventListener("click", function (event) {
     event.preventDefault();
@@ -123,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const puntuacionTotalPSS = calcularPuntuacionTotalPSS();
       const puntuacionTotalMINI = calcularPuntuacionTotalMINI();
       const puntuacionTotalWBI = calcularPuntuacionTotalWBI();
+      const puntuacionTotalICSP = calcularPuntuacionTotalICSP();
       document.getElementById("form7").style.display = "none";
       document.getElementById("resultados").style.display = "block";
       mostrarResultadosBAI(puntuacionTotalBAI);
@@ -130,6 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
       mostrarResultadosPSS(puntuacionTotalPSS);
       mostrarResultadosMINI(puntuacionTotalMINI);
       mostrarResultadosWBI(puntuacionTotalWBI);
+      mostrarResultadosICSP(puntuacionTotalICSP);
     }
   });
 
@@ -236,6 +240,12 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
     return puntuacionTotalWBI;
+  }
+
+  function calcularPuntuacionTotalICSP() {
+    // Obtiene el valor seleccionado en la pregunta 54 del formulario 7
+    const valorPregunta54 = formulario7.question54.value;
+    return valorPregunta54;
   }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
@@ -355,7 +365,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (puntuacionTotalWBI >= 0 && puntuacionTotalWBI <= 13) {
       mensajeWBI = "Nivel de bienestar debajo del promedio.";
       termometroColorWBI = "naranja";
-    } else if (puntuacionTotalWBI <=15) {
+    } else if (puntuacionTotalWBI <= 15) {
       mensajeWBI = "Nivel de bienestar arriba del promedio.";
       termometroColorWBI = "verde";
     } else {
@@ -368,4 +378,10 @@ document.addEventListener("DOMContentLoaded", function () {
     termometroDiv5.style.height = `${porcentajeWBI}%`;
     termometroDiv5.className = `nivel ${termometroColorWBI}`;
   }
+
+  function mostrarResultadosICSP(puntuacionTotalICSP) {
+    alert("El valor seleccionado en la pregunta 54 es: " + puntuacionTotalICSP);
+  }
 });
+
+//<!--HASTA AQUI CALCULA EL VALOR DEL COMPONENTE 1-->
