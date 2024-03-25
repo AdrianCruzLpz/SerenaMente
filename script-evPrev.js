@@ -243,9 +243,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function calcularPuntuacionTotalICSP() {
-    // Obtiene el valor seleccionado en la pregunta 54 del formulario 7
+    // Obtiene el valor seleccionado en la pregunta # del formulario 7
     const valorPregunta54 = formulario7.question54.value;
-    return valorPregunta54;
+    const valorPregunta44 = formulario7.question44.value;
+    
+    //return valorPregunta54;
+    return valorPregunta44;
   }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
@@ -380,7 +383,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function mostrarResultadosICSP(puntuacionTotalICSP) {
-    alert("El valor seleccionado en la pregunta 54 es: " + puntuacionTotalICSP);
+    //alert("El valor seleccionado en la pregunta 54 es: " + puntuacionTotalICSP);
+    alert("El valor seleccionado en la pregunta 44 es: " + puntuacionTotalICSP);
   }
 });
 
