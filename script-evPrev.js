@@ -244,11 +244,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function calcularPuntuacionTotalICSP() {
     // Obtiene el valor seleccionado en la pregunta # del formulario 7
-    const valorPregunta54 = formulario7.question54.value;
-    const valorPregunta44 = formulario7.question44.value;
+    const valorPregunta54 = parseInt(formulario7.question54.value);
+    const valorPregunta41 = parseInt(formulario7.question41.value);
+    const valorPregunta44 = parseInt(formulario7.question44.value);
+
+    let puntuacionPregunta41 = 0;
+    let sumaPuntuacionPregunta41Pregunta44 = 0;
+    let puntuacionTotalComponente2 = 0;
     
+    if(valorPregunta41 <= 15){
+      puntuacionPregunta41 = 0;
+    } else if (valorPregunta41 >= 16 && valorPregunta41 <= 30){
+      puntuacionPregunta41 = 1;
+    } else if (valorPregunta41 >= 31 && valorPregunta41 <= 60){
+      puntuacionPregunta41 = 2;
+    } else {
+      puntuacionPregunta41 = 3;
+    }
+
+    sumaPuntuacionPregunta41Pregunta44 = puntuacionPregunta41 + valorPregunta44;
+
+    if (sumaPuntuacionPregunta41Pregunta44 == 0){
+      puntuacionTotalComponente2 = 0;
+    } else if (sumaPuntuacionPregunta41Pregunta44 == 1 || sumaPuntuacionPregunta41Pregunta44 == 2){
+      puntuacionTotalComponente2 = 1;
+    } else if (sumaPuntuacionPregunta41Pregunta44 == 3 || sumaPuntuacionPregunta41Pregunta44 == 4){
+      puntuacionTotalComponente2 = 2;
+    } else {
+      puntuacionTotalComponente2 = 3;
+    }
+    
+    alert('La puntuación del "Componente 1: Calidad de sueño subjetiva" es: ' + valorPregunta54);
+    alert("La puntuación de la pregunta 41 (tardar en dormirse) es: " + puntuacionPregunta41);
+    alert("La puntuación de la pregunta 44 (conciliar sueño) es: " + valorPregunta44);
+    alert("La suma de los valores de 41 y 44 es: " + sumaPuntuacionPregunta41Pregunta44);
     //return valorPregunta54;
-    return valorPregunta44;
+    //return valorPregunta44;
+    //return puntuacionPregunta41;
+    return puntuacionTotalComponente2;
   }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
@@ -383,8 +416,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function mostrarResultadosICSP(puntuacionTotalICSP) {
-    //alert("El valor seleccionado en la pregunta 54 es: " + puntuacionTotalICSP);
-    alert("El valor seleccionado en la pregunta 44 es: " + puntuacionTotalICSP);
+    //alert("'La puntuación del "Componente 1: Calidad de sueño subjetiva" es: ' + puntuacionTotalICSP);
+    //alert("La puntuación de la pregunta 44 (conciliar sueño) es: " + puntuacionTotalICSP);
+    //alert("La puntuación de la pregunta 41 (tardar en dormirse) es: " + puntuacionTotalICSP);
+    alert('La puntuacion del "Componente 2: Latencia de sueño" es: ' + puntuacionTotalICSP);
   }
 });
 
