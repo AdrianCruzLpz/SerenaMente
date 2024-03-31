@@ -252,10 +252,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const valorPregunta56 = parseInt(formulario7.question56.value); //Componente 7.1, Pregunta 8 del ICSP
     const valorPregunta57 = parseInt(formulario7.question57.value); //Componente 7.2, Pregunta 9 del ICSP
 
+    const valoresPreguntasComponente5 = [
+      parseInt(formulario7.question45.value),
+      parseInt(formulario7.question46.value),
+      parseInt(formulario7.question47.value),
+      parseInt(formulario7.question48.value),
+      parseInt(formulario7.question49.value),
+      parseInt(formulario7.question50.value),
+      parseInt(formulario7.question51.value),
+      parseInt(formulario7.question52.value),
+      parseInt(formulario7.question53.value),
+    ]; //Componente 5, Preguntas 5b a 5j del ICSP
+
     let puntuacionPregunta41 = 0;
     let sumaPuntuacionPregunta41Pregunta44 = 0;
     let puntuacionTotalComponente2 = 0;
     let puntuacionTotalComponente3 = 0;
+    let sumaPuntuacionP45aP53 = 0;
+    let puntuacionTotalComponente5 = 0;
     let sumaPuntuacionPregunta55Pregunta56 = 0;
     let puntuacionTotalComponente7 = 0;
 
@@ -299,14 +313,35 @@ document.addEventListener("DOMContentLoaded", function () {
       puntuacionTotalComponente3 = 3;
     }
 
+    //Componente 5
+    valoresPreguntasComponente5.forEach((valoresPreguntasComponente5) => {
+      sumaPuntuacionP45aP53 += valoresPreguntasComponente5;
+    });
+
+    if (sumaPuntuacionP45aP53 == 0) {
+      puntuacionTotalComponente5 = 0;
+    } else if (sumaPuntuacionP45aP53 >= 1 && sumaPuntuacionP45aP53 <= 9) {
+      puntuacionTotalComponente5 = 1;
+    } else if (sumaPuntuacionP45aP53 >= 10 && sumaPuntuacionP45aP53 <= 18) {
+      puntuacionTotalComponente5 = 2;
+    } else {
+      puntuacionTotalComponente5 = 3;
+    }
+
     //Componente 7
     sumaPuntuacionPregunta55Pregunta56 = valorPregunta56 + valorPregunta57;
-    
-    if(sumaPuntuacionPregunta55Pregunta56 == 0){
+
+    if (sumaPuntuacionPregunta55Pregunta56 == 0) {
       puntuacionTotalComponente7 = 0;
-    } else if(sumaPuntuacionPregunta55Pregunta56 == 1 || sumaPuntuacionPregunta55Pregunta56 == 2){
+    } else if (
+      sumaPuntuacionPregunta55Pregunta56 == 1 ||
+      sumaPuntuacionPregunta55Pregunta56 == 2
+    ) {
       puntuacionTotalComponente7 = 1;
-    } else if(sumaPuntuacionPregunta55Pregunta56 == 3 || sumaPuntuacionPregunta55Pregunta56 == 4){
+    } else if (
+      sumaPuntuacionPregunta55Pregunta56 == 3 ||
+      sumaPuntuacionPregunta55Pregunta56 == 4
+    ) {
       puntuacionTotalComponente7 = 2;
     } else {
       puntuacionTotalComponente7 = 3;
@@ -338,23 +373,37 @@ document.addEventListener("DOMContentLoaded", function () {
         puntuacionTotalComponente3
     );
 
+    alert("La suma de los valores de 45 a 53 es: " + sumaPuntuacionP45aP53);
+
     alert(
       'La puntuación del "Componente 6: Uso de medicamentos para dormir es: ' +
         valorPregunta55
     );
 
-    alert("La puntuación de la pregunta 56 (sentido somnolencia) es: " + valorPregunta56);
-    alert("La puntuación de la pregunta 57 es (tener ánimos): " + valorPregunta57);
-    alert("La suma de los valores de 56 y 57 es: " + sumaPuntuacionPregunta55Pregunta56);
+    alert(
+      "La puntuación de la pregunta 56 (sentido somnolencia) es: " +
+        valorPregunta56
+    );
+    alert(
+      "La puntuación de la pregunta 57 es (tener ánimos): " + valorPregunta57
+    );
+    alert(
+      "La suma de los valores de 56 y 57 es: " +
+        sumaPuntuacionPregunta55Pregunta56
+    );
+    alert(
+      'La puntuación del "Componente 7: Disfunción diurna" es: ' +
+        puntuacionTotalComponente7
+    );
 
-    
     //return valorPregunta54;
     //return valorPregunta44;
     //return puntuacionPregunta41;
     //return puntuacionTotalComponente2;
     //return puntuacionTotalComponente3;
     //return valorPregunta55;
-    return puntuacionTotalComponente7;
+    //return puntuacionTotalComponente7;
+    return puntuacionTotalComponente5;
   }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
@@ -497,11 +546,18 @@ document.addEventListener("DOMContentLoaded", function () {
       'La puntuación del "Componente 3: Duración del dormir" es: ' +
         puntuacionTotalICSP
     );*/
+    alert(
+      'La puntuación del "Componente 5: Alteraciones del sueño es: ' +
+        puntuacionTotalICSP
+    );
     /*alert(
       'La puntuación del "Componente 6: Uso de medicamentos para dormir es: ' +
         puntuacionTotalICSP
     );*/
-    alert('La puntuación del "Componente 7: Disfunción diurna" es: ' + puntuacionTotalICSP);
+    /*alert(
+      'La puntuación del "Componente 7: Disfunción diurna" es: ' +
+        puntuacionTotalICSP
+    );*/
   }
 });
 
