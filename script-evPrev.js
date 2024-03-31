@@ -264,6 +264,8 @@ document.addEventListener("DOMContentLoaded", function () {
       parseInt(formulario7.question53.value),
     ]; //Componente 5, Preguntas 5b a 5j del ICSP
 
+    
+
     let puntuacionPregunta41 = 0;
     let sumaPuntuacionPregunta41Pregunta44 = 0;
     let puntuacionTotalComponente2 = 0;
@@ -311,6 +313,56 @@ document.addEventListener("DOMContentLoaded", function () {
       puntuacionTotalComponente3 = 2;
     } else {
       puntuacionTotalComponente3 = 3;
+    }
+
+    //Componente 4
+    // Obtener los valores de los inputs de hora de acostarse y hora de levantarse
+    const horaAcostarse = document.getElementById('question40').value;
+    const horaLevantarse = document.getElementById('question42').value;
+
+    alert("La hora de acostarse es: " + horaAcostarse + " y el tipo: " + typeof(horaAcostarse));
+    alert("La hora de levantarse es: " + horaLevantarse + " y el tipo: " + typeof(horaLevantarse));
+
+    // Convertir las horas de acostarse y levantarse a minutos
+    const minutosHoraAcostarse = convertirHoraAMinutos(horaAcostarse);
+    const minutosHoraLevantarse = convertirHoraAMinutos(horaLevantarse);
+
+    alert("Minutos acostarse: " + minutosHoraAcostarse + " y el tipo es: " + typeof(minutosHoraAcostarse));
+    alert("Minutos levantarse: " + minutosHoraLevantarse + " y el tipo es: " + typeof(minutosHoraLevantarse));
+
+    // Calcular la diferencia de minutos entre levantarse y acostarse
+    let diferenciaMinutos = minutosHoraLevantarse - minutosHoraAcostarse;
+
+    // Si la diferencia es negativa, sumar 24 horas en minutos
+    if (diferenciaMinutos < 0) {
+        diferenciaMinutos += 24 * 60; // 24 horas en minutos
+    }
+
+    // Calcular horas y minutos a partir de la diferencia
+    let horasDiferencia = Math.floor(diferenciaMinutos / 60);
+    let minutosDiferencia = diferenciaMinutos % 60;
+
+    // Calcular tiempo en cama como un número decimal
+    let tiempoCama = (horasDiferencia * 60 + minutosDiferencia) / 60;
+
+    // Imprimir el resultado en la consola
+    alert("Horas pasadas en la cama:" + horasDiferencia + " horas y " + minutosDiferencia + " minutos");
+    alert("El tiempo en cama es: " + tiempoCama);
+
+    //Parte 2
+    let eficienciaSueno = (valorPregunta43 / tiempoCama) * 100;
+    alert("La eficiencia de sueño es: " + eficienciaSueno);
+    
+    //Parte 3
+    let puntuacionTotalComponente4 = 0;
+    if(eficienciaSueno >= 85){
+      puntuacionTotalComponente4 = 0;
+    } else if(eficienciaSueno >= 75 && eficienciaSueno <= 84){
+      puntuacionTotalComponente4 = 1;
+    } else if(eficienciaSueno >= 65 && eficienciaSueno <= 74){
+      puntuacionTotalComponente4 = 2;
+    } else{
+      puntuacionTotalComponente4 = 3;
     }
 
     //Componente 5
@@ -403,7 +455,8 @@ document.addEventListener("DOMContentLoaded", function () {
     //return puntuacionTotalComponente3;
     //return valorPregunta55;
     //return puntuacionTotalComponente7;
-    return puntuacionTotalComponente5;
+    //return puntuacionTotalComponente5;
+    return puntuacionTotalComponente4;
   }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
@@ -546,10 +599,11 @@ document.addEventListener("DOMContentLoaded", function () {
       'La puntuación del "Componente 3: Duración del dormir" es: ' +
         puntuacionTotalICSP
     );*/
-    alert(
+    alert('La puntuación del "Componente 4: Eficiencia de sueño habitual es: ' + puntuacionTotalICSP);
+    /*alert(
       'La puntuación del "Componente 5: Alteraciones del sueño es: ' +
         puntuacionTotalICSP
-    );
+    );*/
     /*alert(
       'La puntuación del "Componente 6: Uso de medicamentos para dormir es: ' +
         puntuacionTotalICSP
@@ -559,6 +613,12 @@ document.addEventListener("DOMContentLoaded", function () {
         puntuacionTotalICSP
     );*/
   }
+
+  // Función auxiliar para parsear la hora en un objeto Date
+  function convertirHoraAMinutos(hora) {
+    const [hh, mm] = hora.split(":").map(Number); // Divide la hora y los minutos y los convierte en números
+    return hh * 60 + mm; // Retorna los minutos totales
+}
 });
 
 //<!--HASTA AQUI CALCULA EL VALOR DEL COMPONENTE 1-->
