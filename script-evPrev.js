@@ -432,10 +432,10 @@ document.addEventListener("DOMContentLoaded", function () {
       valorPregunta55 +
       puntuacionTotalComponente7;
 
-    alert(
+    /*alert(
       'La puntuación del "Componente 1: Calidad de sueño subjetiva" es: ' +
         valorPregunta54
-    );
+    );*/
     /*alert(
       "La puntuación de la pregunta 41 (tardar en dormirse) es: " +
         puntuacionPregunta41
@@ -448,32 +448,32 @@ document.addEventListener("DOMContentLoaded", function () {
         sumaPuntuacionPregunta41Pregunta44
     );*/
 
-    alert(
+    /*alert(
       'La puntuación del "Componente 2: Latencia de sueño" es: ' +
         puntuacionTotalComponente2
-    );
+    );*/
 
-    alert(
+    /*alert(
       'La puntuación del "Componente 3: Duración del dormir" es: ' +
         puntuacionTotalComponente3
-    );
+    );*/
 
     /*alert("La suma de los valores de 45 a 53 es: " + sumaPuntuacionP45aP53);*/
 
-    alert(
+    /*alert(
       'La puntuación del "Componente 4: Eficiencia de sueño habitual es: ' +
         puntuacionTotalComponente4
-    );
+    );*/
 
-    alert(
+    /*alert(
       'La puntuación del "Componente 5: Alteraciones del sueño es: ' +
         puntuacionTotalComponente5
-    );
+    );*/
 
-    alert(
+    /*alert(
       'La puntuación del "Componente 6: Uso de medicamentos para dormir es: ' +
         valorPregunta55
-    );
+    );*/
 
     /*alert(
       "La puntuación de la pregunta 56 (sentido somnolencia) es: " +
@@ -489,10 +489,10 @@ document.addEventListener("DOMContentLoaded", function () {
         sumaPuntuacionPregunta55Pregunta56
     );*/
 
-    alert(
+    /*alert(
       'La puntuación del "Componente 7: Disfunción diurna" es: ' +
         puntuacionTotalComponente7
-    );
+    );*/
 
     //return valorPregunta54;
     //return valorPregunta44;
@@ -668,7 +668,7 @@ document.addEventListener("DOMContentLoaded", function () {
         puntuacionTotalICSP
     );*/
 
-    alert("La calificación global del ICSP es: " + puntuacionTotalICSP);
+    /*alert("La calificación global del ICSP es: " + puntuacionTotalICSP);*/
 
     if (puntuacionTotalICSP <= 5) {
       mensajeICSP = "Calidad del sueño buena.";
