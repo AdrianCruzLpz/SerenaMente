@@ -244,16 +244,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function calcularPuntuacionTotalICSP() {
     // Obtiene el valor seleccionado en la pregunta # del formulario 7
-    const valorPregunta54 = parseInt(formulario7.question54.value);
-    const valorPregunta41 = parseInt(formulario7.question41.value);
-    const valorPregunta44 = parseInt(formulario7.question44.value);
+    const valorPregunta54 = parseInt(formulario7.question54.value); //Componente 1, Pregunta 6 del ICSP
+    const valorPregunta41 = parseInt(formulario7.question41.value); //Componente 2.1, Pregunta 2 del ICSP
+    const valorPregunta44 = parseInt(formulario7.question44.value); //Componente 2.2, Pregunta 5a del ICPS
     const valorPregunta43 = parseInt(formulario7.question43.value); //Componente 3, Pregunta 4 del ICSP
     const valorPregunta55 = parseInt(formulario7.question55.value); //Componente 6, Pregunta 7 del ICSP
+    const valorPregunta56 = parseInt(formulario7.question56.value); //Componente 7.1, Pregunta 8 del ICSP
+    const valorPregunta57 = parseInt(formulario7.question57.value); //Componente 7.2, Pregunta 9 del ICSP
 
     let puntuacionPregunta41 = 0;
     let sumaPuntuacionPregunta41Pregunta44 = 0;
     let puntuacionTotalComponente2 = 0;
     let puntuacionTotalComponente3 = 0;
+    let sumaPuntuacionPregunta55Pregunta56 = 0;
+    let puntuacionTotalComponente7 = 0;
 
     //Componente 2: Latencia del sueño
     if (valorPregunta41 <= 15) {
@@ -295,6 +299,19 @@ document.addEventListener("DOMContentLoaded", function () {
       puntuacionTotalComponente3 = 3;
     }
 
+    //Componente 7
+    sumaPuntuacionPregunta55Pregunta56 = valorPregunta56 + valorPregunta57;
+    
+    if(sumaPuntuacionPregunta55Pregunta56 == 0){
+      puntuacionTotalComponente7 = 0;
+    } else if(sumaPuntuacionPregunta55Pregunta56 == 1 || sumaPuntuacionPregunta55Pregunta56 == 2){
+      puntuacionTotalComponente7 = 1;
+    } else if(sumaPuntuacionPregunta55Pregunta56 == 3 || sumaPuntuacionPregunta55Pregunta56 == 4){
+      puntuacionTotalComponente7 = 2;
+    } else {
+      puntuacionTotalComponente7 = 3;
+    }
+
     alert(
       'La puntuación del "Componente 1: Calidad de sueño subjetiva" es: ' +
         valorPregunta54
@@ -321,16 +338,23 @@ document.addEventListener("DOMContentLoaded", function () {
         puntuacionTotalComponente3
     );
 
-    /*alert(
+    alert(
       'La puntuación del "Componente 6: Uso de medicamentos para dormir es: ' +
         valorPregunta55
-    );*/
+    );
+
+    alert("La puntuación de la pregunta 56 (sentido somnolencia) es: " + valorPregunta56);
+    alert("La puntuación de la pregunta 57 es (tener ánimos): " + valorPregunta57);
+    alert("La suma de los valores de 56 y 57 es: " + sumaPuntuacionPregunta55Pregunta56);
+
+    
     //return valorPregunta54;
     //return valorPregunta44;
     //return puntuacionPregunta41;
     //return puntuacionTotalComponente2;
     //return puntuacionTotalComponente3;
-    return valorPregunta55;
+    //return valorPregunta55;
+    return puntuacionTotalComponente7;
   }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
@@ -473,10 +497,11 @@ document.addEventListener("DOMContentLoaded", function () {
       'La puntuación del "Componente 3: Duración del dormir" es: ' +
         puntuacionTotalICSP
     );*/
-    alert(
+    /*alert(
       'La puntuación del "Componente 6: Uso de medicamentos para dormir es: ' +
         puntuacionTotalICSP
-    );
+    );*/
+    alert('La puntuación del "Componente 7: Disfunción diurna" es: ' + puntuacionTotalICSP);
   }
 });
 
