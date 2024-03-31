@@ -247,14 +247,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const valorPregunta54 = parseInt(formulario7.question54.value);
     const valorPregunta41 = parseInt(formulario7.question41.value);
     const valorPregunta44 = parseInt(formulario7.question44.value);
-    const valorPregunta43 = parseInt(formulario7.question43.value);
+    const valorPregunta43 = parseInt(formulario7.question43.value); //Componente 3, Pregunta 4 del ICSP
+    const valorPregunta55 = parseInt(formulario7.question55.value); //Componente 6, Pregunta 7 del ICSP
 
     let puntuacionPregunta41 = 0;
     let sumaPuntuacionPregunta41Pregunta44 = 0;
     let puntuacionTotalComponente2 = 0;
     let puntuacionTotalComponente3 = 0;
 
-    //Componente 1: Calidad de sueño subjetiva
+    //Componente 2: Latencia del sueño
     if (valorPregunta41 <= 15) {
       puntuacionPregunta41 = 0;
     } else if (valorPregunta41 >= 16 && valorPregunta41 <= 30) {
@@ -267,7 +268,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     sumaPuntuacionPregunta41Pregunta44 = puntuacionPregunta41 + valorPregunta44;
 
-    //Componente 2: Latencia de sueño
     if (sumaPuntuacionPregunta41Pregunta44 == 0) {
       puntuacionTotalComponente2 = 0;
     } else if (
@@ -311,17 +311,26 @@ document.addEventListener("DOMContentLoaded", function () {
         sumaPuntuacionPregunta41Pregunta44
     );
 
-    alert('La puntuación del "Componente 2: Latencia de sueño" es: ' + puntuacionTotalComponente2);
+    alert(
+      'La puntuación del "Componente 2: Latencia de sueño" es: ' +
+        puntuacionTotalComponente2
+    );
 
-    /*alert(
+    alert(
       'La puntuación del "Componente 3: Duración del dormir" es: ' +
         puntuacionTotalComponente3
+    );
+
+    /*alert(
+      'La puntuación del "Componente 6: Uso de medicamentos para dormir es: ' +
+        valorPregunta55
     );*/
     //return valorPregunta54;
     //return valorPregunta44;
     //return puntuacionPregunta41;
     //return puntuacionTotalComponente2;
-    return puntuacionTotalComponente3;
+    //return puntuacionTotalComponente3;
+    return valorPregunta55;
   }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
@@ -460,9 +469,13 @@ document.addEventListener("DOMContentLoaded", function () {
     //alert("La puntuación de la pregunta 44 (conciliar sueño) es: " + puntuacionTotalICSP);
     //alert("La puntuación de la pregunta 41 (tardar en dormirse) es: " + puntuacionTotalICSP);
     //alert('La puntuacion del "Componente 2: Latencia de sueño" es: ' + puntuacionTotalICSP);
-    alert(
+    /*alert(
       'La puntuación del "Componente 3: Duración del dormir" es: ' +
-      puntuacionTotalICSP
+        puntuacionTotalICSP
+    );*/
+    alert(
+      'La puntuación del "Componente 6: Uso de medicamentos para dormir es: ' +
+        puntuacionTotalICSP
     );
   }
 });
