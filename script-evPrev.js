@@ -264,8 +264,6 @@ document.addEventListener("DOMContentLoaded", function () {
       parseInt(formulario7.question53.value),
     ]; //Componente 5, Preguntas 5b a 5j del ICSP
 
-    
-
     let puntuacionPregunta41 = 0;
     let sumaPuntuacionPregunta41Pregunta44 = 0;
     let puntuacionTotalComponente2 = 0;
@@ -317,25 +315,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //Componente 4
     // Obtener los valores de los inputs de hora de acostarse y hora de levantarse
-    const horaAcostarse = document.getElementById('question40').value;
-    const horaLevantarse = document.getElementById('question42').value;
+    const horaAcostarse = document.getElementById("question40").value;
+    const horaLevantarse = document.getElementById("question42").value;
 
-    alert("La hora de acostarse es: " + horaAcostarse + " y el tipo: " + typeof(horaAcostarse));
-    alert("La hora de levantarse es: " + horaLevantarse + " y el tipo: " + typeof(horaLevantarse));
+    /*alert(
+      "La hora de acostarse es: " +
+        horaAcostarse +
+        " y el tipo: " +
+        typeof horaAcostarse
+    );
+    alert(
+      "La hora de levantarse es: " +
+        horaLevantarse +
+        " y el tipo: " +
+        typeof horaLevantarse
+    );*/
 
     // Convertir las horas de acostarse y levantarse a minutos
     const minutosHoraAcostarse = convertirHoraAMinutos(horaAcostarse);
     const minutosHoraLevantarse = convertirHoraAMinutos(horaLevantarse);
 
-    alert("Minutos acostarse: " + minutosHoraAcostarse + " y el tipo es: " + typeof(minutosHoraAcostarse));
-    alert("Minutos levantarse: " + minutosHoraLevantarse + " y el tipo es: " + typeof(minutosHoraLevantarse));
+    /*alert(
+      "Minutos acostarse: " +
+        minutosHoraAcostarse +
+        " y el tipo es: " +
+        typeof minutosHoraAcostarse
+    );
+    alert(
+      "Minutos levantarse: " +
+        minutosHoraLevantarse +
+        " y el tipo es: " +
+        typeof minutosHoraLevantarse
+    );*/
 
     // Calcular la diferencia de minutos entre levantarse y acostarse
     let diferenciaMinutos = minutosHoraLevantarse - minutosHoraAcostarse;
 
     // Si la diferencia es negativa, sumar 24 horas en minutos
     if (diferenciaMinutos < 0) {
-        diferenciaMinutos += 24 * 60; // 24 horas en minutos
+      diferenciaMinutos += 24 * 60; // 24 horas en minutos
     }
 
     // Calcular horas y minutos a partir de la diferencia
@@ -346,22 +364,28 @@ document.addEventListener("DOMContentLoaded", function () {
     let tiempoCama = (horasDiferencia * 60 + minutosDiferencia) / 60;
 
     // Imprimir el resultado en la consola
-    alert("Horas pasadas en la cama:" + horasDiferencia + " horas y " + minutosDiferencia + " minutos");
-    alert("El tiempo en cama es: " + tiempoCama);
+    /*alert(
+      "Horas pasadas en la cama:" +
+        horasDiferencia +
+        " horas y " +
+        minutosDiferencia +
+        " minutos"
+    );
+    alert("El tiempo en cama es: " + tiempoCama);*/
 
     //Parte 2
     let eficienciaSueno = (valorPregunta43 / tiempoCama) * 100;
-    alert("La eficiencia de sueño es: " + eficienciaSueno);
-    
+    //alert("La eficiencia de sueño es: " + eficienciaSueno);
+
     //Parte 3
     let puntuacionTotalComponente4 = 0;
-    if(eficienciaSueno >= 85){
+    if (eficienciaSueno >= 85) {
       puntuacionTotalComponente4 = 0;
-    } else if(eficienciaSueno >= 75 && eficienciaSueno <= 84){
+    } else if (eficienciaSueno >= 75 && eficienciaSueno <= 84) {
       puntuacionTotalComponente4 = 1;
-    } else if(eficienciaSueno >= 65 && eficienciaSueno <= 74){
+    } else if (eficienciaSueno >= 65 && eficienciaSueno <= 74) {
       puntuacionTotalComponente4 = 2;
-    } else{
+    } else {
       puntuacionTotalComponente4 = 3;
     }
 
@@ -399,11 +423,20 @@ document.addEventListener("DOMContentLoaded", function () {
       puntuacionTotalComponente7 = 3;
     }
 
+    let sumaCalificacionGlobal =
+      valorPregunta54 +
+      puntuacionTotalComponente2 +
+      puntuacionTotalComponente3 +
+      puntuacionTotalComponente4 +
+      puntuacionTotalComponente5 +
+      valorPregunta55 +
+      puntuacionTotalComponente7;
+
     alert(
       'La puntuación del "Componente 1: Calidad de sueño subjetiva" es: ' +
         valorPregunta54
     );
-    alert(
+    /*alert(
       "La puntuación de la pregunta 41 (tardar en dormirse) es: " +
         puntuacionPregunta41
     );
@@ -413,7 +446,7 @@ document.addEventListener("DOMContentLoaded", function () {
     alert(
       "La suma de los valores de 41 y 44 es: " +
         sumaPuntuacionPregunta41Pregunta44
-    );
+    );*/
 
     alert(
       'La puntuación del "Componente 2: Latencia de sueño" es: ' +
@@ -425,24 +458,37 @@ document.addEventListener("DOMContentLoaded", function () {
         puntuacionTotalComponente3
     );
 
-    alert("La suma de los valores de 45 a 53 es: " + sumaPuntuacionP45aP53);
+    /*alert("La suma de los valores de 45 a 53 es: " + sumaPuntuacionP45aP53);*/
+
+    alert(
+      'La puntuación del "Componente 4: Eficiencia de sueño habitual es: ' +
+        puntuacionTotalComponente4
+    );
+
+    alert(
+      'La puntuación del "Componente 5: Alteraciones del sueño es: ' +
+        puntuacionTotalComponente5
+    );
 
     alert(
       'La puntuación del "Componente 6: Uso de medicamentos para dormir es: ' +
         valorPregunta55
     );
 
-    alert(
+    /*alert(
       "La puntuación de la pregunta 56 (sentido somnolencia) es: " +
         valorPregunta56
     );
+    
     alert(
       "La puntuación de la pregunta 57 es (tener ánimos): " + valorPregunta57
     );
+    
     alert(
       "La suma de los valores de 56 y 57 es: " +
         sumaPuntuacionPregunta55Pregunta56
-    );
+    );*/
+
     alert(
       'La puntuación del "Componente 7: Disfunción diurna" es: ' +
         puntuacionTotalComponente7
@@ -456,7 +502,8 @@ document.addEventListener("DOMContentLoaded", function () {
     //return valorPregunta55;
     //return puntuacionTotalComponente7;
     //return puntuacionTotalComponente5;
-    return puntuacionTotalComponente4;
+    //return puntuacionTotalComponente4;
+    return sumaCalificacionGlobal;
   }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
@@ -591,6 +638,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function mostrarResultadosICSP(puntuacionTotalICSP) {
+    const porcentajeICSP = (puntuacionTotalICSP / 21) * 100;
+
+    let mensajeICSP = "";
+    let termometroColorICSP = "";
+
     //alert("'La puntuación del "Componente 1: Calidad de sueño subjetiva" es: ' + puntuacionTotalICSP);
     //alert("La puntuación de la pregunta 44 (conciliar sueño) es: " + puntuacionTotalICSP);
     //alert("La puntuación de la pregunta 41 (tardar en dormirse) es: " + puntuacionTotalICSP);
@@ -599,7 +651,10 @@ document.addEventListener("DOMContentLoaded", function () {
       'La puntuación del "Componente 3: Duración del dormir" es: ' +
         puntuacionTotalICSP
     );*/
-    alert('La puntuación del "Componente 4: Eficiencia de sueño habitual es: ' + puntuacionTotalICSP);
+    /*alert(
+      'La puntuación del "Componente 4: Eficiencia de sueño habitual es: ' +
+        puntuacionTotalICSP
+    );*/
     /*alert(
       'La puntuación del "Componente 5: Alteraciones del sueño es: ' +
         puntuacionTotalICSP
@@ -612,13 +667,31 @@ document.addEventListener("DOMContentLoaded", function () {
       'La puntuación del "Componente 7: Disfunción diurna" es: ' +
         puntuacionTotalICSP
     );*/
+
+    alert("La calificación global del ICSP es: " + puntuacionTotalICSP);
+
+    if (puntuacionTotalICSP <= 5) {
+      mensajeICSP = "Calidad del sueño buena.";
+      termometroColorICSP = "verde";
+    } else if(puntuacionTotalICSP > 5 && puntuacionTotalICSP <= 11){
+      mensajeICSP = "Calidad del sueño moderada.";
+      termometroColorICSP = "naranja";
+    } else {
+      mensajeICSP = "Calidad del sueño mala.";
+      termometroColorICSP = "rojo";
+    }
+
+    puntuacionTotalSpan6.textContent = puntuacionTotalICSP;
+    mensajeResultado6.textContent = mensajeICSP;
+    termometroDiv6.style.height = `${porcentajeICSP}%`;
+    termometroDiv6.className = `nivel ${termometroColorICSP}`;
   }
 
   // Función auxiliar para parsear la hora en un objeto Date
   function convertirHoraAMinutos(hora) {
     const [hh, mm] = hora.split(":").map(Number); // Divide la hora y los minutos y los convierte en números
     return hh * 60 + mm; // Retorna los minutos totales
-}
+  }
 });
 
 //<!--HASTA AQUI CALCULA EL VALOR DEL COMPONENTE 1-->
