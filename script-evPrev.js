@@ -247,16 +247,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const valorPregunta54 = parseInt(formulario7.question54.value);
     const valorPregunta41 = parseInt(formulario7.question41.value);
     const valorPregunta44 = parseInt(formulario7.question44.value);
+    const valorPregunta43 = parseInt(formulario7.question43.value);
 
     let puntuacionPregunta41 = 0;
     let sumaPuntuacionPregunta41Pregunta44 = 0;
     let puntuacionTotalComponente2 = 0;
-    
-    if(valorPregunta41 <= 15){
+    let puntuacionTotalComponente3 = 0;
+
+    //Componente 1: Calidad de sueño subjetiva
+    if (valorPregunta41 <= 15) {
       puntuacionPregunta41 = 0;
-    } else if (valorPregunta41 >= 16 && valorPregunta41 <= 30){
+    } else if (valorPregunta41 >= 16 && valorPregunta41 <= 30) {
       puntuacionPregunta41 = 1;
-    } else if (valorPregunta41 >= 31 && valorPregunta41 <= 60){
+    } else if (valorPregunta41 >= 31 && valorPregunta41 <= 60) {
       puntuacionPregunta41 = 2;
     } else {
       puntuacionPregunta41 = 3;
@@ -264,24 +267,61 @@ document.addEventListener("DOMContentLoaded", function () {
 
     sumaPuntuacionPregunta41Pregunta44 = puntuacionPregunta41 + valorPregunta44;
 
-    if (sumaPuntuacionPregunta41Pregunta44 == 0){
+    //Componente 2: Latencia de sueño
+    if (sumaPuntuacionPregunta41Pregunta44 == 0) {
       puntuacionTotalComponente2 = 0;
-    } else if (sumaPuntuacionPregunta41Pregunta44 == 1 || sumaPuntuacionPregunta41Pregunta44 == 2){
+    } else if (
+      sumaPuntuacionPregunta41Pregunta44 == 1 ||
+      sumaPuntuacionPregunta41Pregunta44 == 2
+    ) {
       puntuacionTotalComponente2 = 1;
-    } else if (sumaPuntuacionPregunta41Pregunta44 == 3 || sumaPuntuacionPregunta41Pregunta44 == 4){
+    } else if (
+      sumaPuntuacionPregunta41Pregunta44 == 3 ||
+      sumaPuntuacionPregunta41Pregunta44 == 4
+    ) {
       puntuacionTotalComponente2 = 2;
     } else {
       puntuacionTotalComponente2 = 3;
     }
-    
-    alert('La puntuación del "Componente 1: Calidad de sueño subjetiva" es: ' + valorPregunta54);
-    alert("La puntuación de la pregunta 41 (tardar en dormirse) es: " + puntuacionPregunta41);
-    alert("La puntuación de la pregunta 44 (conciliar sueño) es: " + valorPregunta44);
-    alert("La suma de los valores de 41 y 44 es: " + sumaPuntuacionPregunta41Pregunta44);
+
+    //Componente 3: Duracion del dormir
+    if (valorPregunta43 >= 7) {
+      puntuacionTotalComponente3 = 0;
+    } else if (valorPregunta43 >= 6) {
+      puntuacionTotalComponente3 = 1;
+    } else if (valorPregunta43 >= 5) {
+      puntuacionTotalComponente3 = 2;
+    } else {
+      puntuacionTotalComponente3 = 3;
+    }
+
+    alert(
+      'La puntuación del "Componente 1: Calidad de sueño subjetiva" es: ' +
+        valorPregunta54
+    );
+    alert(
+      "La puntuación de la pregunta 41 (tardar en dormirse) es: " +
+        puntuacionPregunta41
+    );
+    alert(
+      "La puntuación de la pregunta 44 (conciliar sueño) es: " + valorPregunta44
+    );
+    alert(
+      "La suma de los valores de 41 y 44 es: " +
+        sumaPuntuacionPregunta41Pregunta44
+    );
+
+    alert('La puntuación del "Componente 2: Latencia de sueño" es: ' + puntuacionTotalComponente2);
+
+    /*alert(
+      'La puntuación del "Componente 3: Duración del dormir" es: ' +
+        puntuacionTotalComponente3
+    );*/
     //return valorPregunta54;
     //return valorPregunta44;
     //return puntuacionPregunta41;
-    return puntuacionTotalComponente2;
+    //return puntuacionTotalComponente2;
+    return puntuacionTotalComponente3;
   }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
@@ -419,7 +459,11 @@ document.addEventListener("DOMContentLoaded", function () {
     //alert("'La puntuación del "Componente 1: Calidad de sueño subjetiva" es: ' + puntuacionTotalICSP);
     //alert("La puntuación de la pregunta 44 (conciliar sueño) es: " + puntuacionTotalICSP);
     //alert("La puntuación de la pregunta 41 (tardar en dormirse) es: " + puntuacionTotalICSP);
-    alert('La puntuacion del "Componente 2: Latencia de sueño" es: ' + puntuacionTotalICSP);
+    //alert('La puntuacion del "Componente 2: Latencia de sueño" es: ' + puntuacionTotalICSP);
+    alert(
+      'La puntuación del "Componente 3: Duración del dormir" es: ' +
+      puntuacionTotalICSP
+    );
   }
 });
 
