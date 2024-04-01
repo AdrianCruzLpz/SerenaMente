@@ -149,7 +149,7 @@ p {
 
 .table-form th,
 .table-form td {
-    border: 1px solid #ddd;
+    border: 1px solid #DDD;
     padding: 8px;
     text-align: left;
     text-align: center;
@@ -167,6 +167,17 @@ p {
     box-sizing: border-box;
 }
 
+.mensajeAdvertencia{
+    color: #AA2D33;
+    margin: 0 auto 72px;
+}
+
+.acercaDe{
+    font-size: 18px;
+    /*color: #37A389;*/
+    color: #278580;
+    /*color: #DE9016;*/
+}
 
 /* Estilos para los termometros */
 .resultadoEvPrev{
@@ -183,6 +194,11 @@ p {
     font-style: italic;
     color: #464343;
     margin-bottom: 16px;
+}
+
+.mensajesCriterio{
+    font-size: 16px;
+    color: #37A389;
 }
 
 #termometroBAI,

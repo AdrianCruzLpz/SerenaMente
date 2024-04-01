@@ -314,41 +314,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     //Componente 4
-    // Obtener los valores de los inputs de hora de acostarse y hora de levantarse
     const horaAcostarse = document.getElementById("question40").value;
     const horaLevantarse = document.getElementById("question42").value;
-
-    /*alert(
-      "La hora de acostarse es: " +
-        horaAcostarse +
-        " y el tipo: " +
-        typeof horaAcostarse
-    );
-    alert(
-      "La hora de levantarse es: " +
-        horaLevantarse +
-        " y el tipo: " +
-        typeof horaLevantarse
-    );*/
-
-    // Convertir las horas de acostarse y levantarse a minutos
     const minutosHoraAcostarse = convertirHoraAMinutos(horaAcostarse);
     const minutosHoraLevantarse = convertirHoraAMinutos(horaLevantarse);
 
-    /*alert(
-      "Minutos acostarse: " +
-        minutosHoraAcostarse +
-        " y el tipo es: " +
-        typeof minutosHoraAcostarse
-    );
-    alert(
-      "Minutos levantarse: " +
-        minutosHoraLevantarse +
-        " y el tipo es: " +
-        typeof minutosHoraLevantarse
-    );*/
-
-    // Calcular la diferencia de minutos entre levantarse y acostarse
     let diferenciaMinutos = minutosHoraLevantarse - minutosHoraAcostarse;
 
     // Si la diferencia es negativa, sumar 24 horas en minutos
@@ -360,22 +330,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let horasDiferencia = Math.floor(diferenciaMinutos / 60);
     let minutosDiferencia = diferenciaMinutos % 60;
 
-    // Calcular tiempo en cama como un número decimal
+    // Calcular tiempo en cama
     let tiempoCama = (horasDiferencia * 60 + minutosDiferencia) / 60;
-
-    // Imprimir el resultado en la consola
-    /*alert(
-      "Horas pasadas en la cama:" +
-        horasDiferencia +
-        " horas y " +
-        minutosDiferencia +
-        " minutos"
-    );
-    alert("El tiempo en cama es: " + tiempoCama);*/
 
     //Parte 2
     let eficienciaSueno = (valorPregunta43 / tiempoCama) * 100;
-    //alert("La eficiencia de sueño es: " + eficienciaSueno);
 
     //Parte 3
     let puntuacionTotalComponente4 = 0;
@@ -432,77 +391,6 @@ document.addEventListener("DOMContentLoaded", function () {
       valorPregunta55 +
       puntuacionTotalComponente7;
 
-    /*alert(
-      'La puntuación del "Componente 1: Calidad de sueño subjetiva" es: ' +
-        valorPregunta54
-    );*/
-    /*alert(
-      "La puntuación de la pregunta 41 (tardar en dormirse) es: " +
-        puntuacionPregunta41
-    );
-    alert(
-      "La puntuación de la pregunta 44 (conciliar sueño) es: " + valorPregunta44
-    );
-    alert(
-      "La suma de los valores de 41 y 44 es: " +
-        sumaPuntuacionPregunta41Pregunta44
-    );*/
-
-    /*alert(
-      'La puntuación del "Componente 2: Latencia de sueño" es: ' +
-        puntuacionTotalComponente2
-    );*/
-
-    /*alert(
-      'La puntuación del "Componente 3: Duración del dormir" es: ' +
-        puntuacionTotalComponente3
-    );*/
-
-    /*alert("La suma de los valores de 45 a 53 es: " + sumaPuntuacionP45aP53);*/
-
-    /*alert(
-      'La puntuación del "Componente 4: Eficiencia de sueño habitual es: ' +
-        puntuacionTotalComponente4
-    );*/
-
-    /*alert(
-      'La puntuación del "Componente 5: Alteraciones del sueño es: ' +
-        puntuacionTotalComponente5
-    );*/
-
-    /*alert(
-      'La puntuación del "Componente 6: Uso de medicamentos para dormir es: ' +
-        valorPregunta55
-    );*/
-
-    /*alert(
-      "La puntuación de la pregunta 56 (sentido somnolencia) es: " +
-        valorPregunta56
-    );
-    
-    alert(
-      "La puntuación de la pregunta 57 es (tener ánimos): " + valorPregunta57
-    );
-    
-    alert(
-      "La suma de los valores de 56 y 57 es: " +
-        sumaPuntuacionPregunta55Pregunta56
-    );*/
-
-    /*alert(
-      'La puntuación del "Componente 7: Disfunción diurna" es: ' +
-        puntuacionTotalComponente7
-    );*/
-
-    //return valorPregunta54;
-    //return valorPregunta44;
-    //return puntuacionPregunta41;
-    //return puntuacionTotalComponente2;
-    //return puntuacionTotalComponente3;
-    //return valorPregunta55;
-    //return puntuacionTotalComponente7;
-    //return puntuacionTotalComponente5;
-    //return puntuacionTotalComponente4;
     return sumaCalificacionGlobal;
   }
 
@@ -510,9 +398,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const porcentaje = (puntuacionTotalBAI / 60) * 100;
 
     let mensaje = "";
+    let criterio = "";
     let termometroColor = "";
 
-    if (puntuacionTotalBAI >= 0 && puntuacionTotalBAI <= 20) {
+    //Punciaciones según los cuestionarios validados
+    /*if (puntuacionTotalBAI >= 0 && puntuacionTotalBAI <= 20) {
       mensaje = "Nivel de ansiedad leve.";
       termometroColor = "verde";
     } else if (puntuacionTotalBAI <= 34) {
@@ -524,10 +414,30 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       mensaje = "ERROR Fuera de rango.";
       termometroColor = "negro";
+    }*/
+
+    //Punciaciones requeridas en el proyecto
+    if (puntuacionTotalBAI >= 0 && puntuacionTotalBAI < 16) {
+      mensaje = "Nivel de ansiedad leve.";
+      criterio =
+        "Tus respuestas nos hacen considerar que puedes beneficiarte de un apoyo psicológicocomo el que ofrece SerenaMente a través del aprendizaje de habilidades emocionales, y así evitar que la ansiedadse vuelva una dificultad en tu vida.";
+      termometroColor = "verde";
+    } else if (puntuacionTotalBAI >= 16 && puntuacionTotalBAI < 31) {
+      mensaje = "Nivel de ansiedad moderado.";
+      criterio =
+        "Tus respuestas nos hacen considerar que mejorar tu estado emocional de intranquilidad puede ser un objetivo de trabajo. Puedes beneficiarte de identificar estrategias de manejo de la ansiedad como las que realizarás a lo largo de SerenaMente.";
+      termometroColor = "naranja";
+    } else if (puntuacionTotalBAI >= 32 && puntuacionTotalBAI <= 60) {
+      mensaje = "Nivel de ansiedad severo.";
+      termometroColor = "rojo";
+    } else {
+      mensaje = "ERROR Fuera de rango.";
+      termometroColor = "negro";
     }
 
     puntuacionTotalSpan.textContent = puntuacionTotalBAI;
     mensajeResultado.textContent = mensaje;
+    mensajeCriterioBAI.textContent = criterio;
     termometroDiv.style.height = `${porcentaje}%`;
     termometroDiv.className = `nivel ${termometroColor}`;
     resultadosDiv.style.display = "block";
@@ -537,9 +447,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const porcentajeBDI = (puntuacionTotalBDI / 63) * 100;
 
     let mensajeBDI = "";
+    let criterioBDI = "";
     let termometroColorBDI = "";
 
-    if (puntuacionTotalBDI >= 0 && puntuacionTotalBDI <= 13) {
+    //Punciaciones según los cuestionarios validados
+    /*if (puntuacionTotalBDI >= 0 && puntuacionTotalBDI <= 13) {
       mensajeBDI = "Mínima depresión.";
       termometroColorBDI = "verde";
     } else if (puntuacionTotalBDI >= 14 && puntuacionTotalBDI <= 19) {
@@ -554,10 +466,30 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       mensajeBDI = "ERROR Fuera de rango.";
       termometroColorBDI = "negro";
+    }*/
+
+    //Punciaciones requeridas en el proyecto
+    if (puntuacionTotalBDI >= 0 && puntuacionTotalBDI < 20) {
+      mensajeBDI = "Nivel de depresión leve.";
+      criterioBDI =
+        "En SerenaMente tenemos diferentes contenidos que te facilitarán el manejo de tus emociones y así evitar que la depresión se convierta en un desafío para tu bienestar.";
+      termometroColorBDI = "verde";
+    } else if (puntuacionTotalBDI >= 20 && puntuacionTotalBDI < 29) {
+      mensajeBDI = "Nivel de depresión moderada.";
+      criterioBDI =
+        "Tus respuestas nos llevan a pensar que trabajar en la mejora de tu estado emocional podría ser un objetivo valioso. En SerenaMente puedes beneficiarte al identificar estrategias, tal como las que llevarás a cabo a lo largo de los bloques en SerenaMente, y de esta manera, incrementar la plenitud en tu vida.";
+      termometroColorBDI = "naranja";
+    } else if (puntuacionTotalBDI >= 30 && puntuacionTotalBDI <= 63) {
+      mensajeBDI = "Depresión moderada.";
+      termometroColorBDI = "naranja";
+    } else {
+      mensajeBDI = "ERROR Fuera de rango.";
+      termometroColorBDI = "negro";
     }
 
     puntuacionTotalSpan2.textContent = puntuacionTotalBDI;
     mensajeResultado2.textContent = mensajeBDI;
+    mensajeCriterioBDI.textContent = criterioBDI;
     termometroDiv2.style.height = `${porcentajeBDI}%`;
     termometroDiv2.className = `nivel ${termometroColorBDI}`;
   }
@@ -566,9 +498,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const porcentajePSS = (puntuacionTotalPSS / 56) * 100;
 
     let mensajePSS = "";
+    let criterioPSS = "";
     let termometroColorPSS = "";
 
-    if (puntuacionTotalPSS >= 0 && puntuacionTotalPSS <= 14) {
+    //Punciaciones según los cuestionarios validados
+    /*if (puntuacionTotalPSS >= 0 && puntuacionTotalPSS <= 14) {
       mensajePSS = "Muy bajo";
       termometroColorPSS = "verde";
     } else if (puntuacionTotalPSS <= 28) {
@@ -583,10 +517,32 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       mensajePSS = "ERROR Fuera de rango.";
       termometroColorPSS = "negro";
+    }*/
+
+    //Punciaciones requeridas en el proyecto
+    if (puntuacionTotalPSS >= 0 && puntuacionTotalPSS <= 18) {
+      mensajePSS = "Nivel de estrés leve.";
+      criterioPSS =
+        "Muestras habilidades para hacer frente a las situaciones desafiantes de la vida; sin embargo, fortalecer tus herramientas para manejar el estrés y mejorar tu bienestar emocional contribuirá aún más a tu calidad de vida.";
+      termometroColorPSS = "verde";
+    } else if (puntuacionTotalPSS >= 19 && puntuacionTotalPSS <= 37) {
+      mensajePSS = "Nivel de estrés moderado.";
+      criterioPSS =
+        "En ocasiones, puedes sentirte abrumado por estrés moderado, pero logras afrontar las situaciones que se presentan. Completando los bloques de SerenaMente podrás ampliar tus habilidades para manejar esas situaciones sin poner en riesgo tu bienestar emocional.";
+      termometroColorPSS = "naranja";
+    } else if (puntuacionTotalPSS >= 38 && puntuacionTotalPSS <= 56) {
+      mensajePSS = "Nivel de estrés alto.";
+      criterioPSS =
+        "Estás experimentando un nivel de estrés significativo. Es esencial que incorpores los seis bloques de SerenaMente para expandir tus estrategias y así poder enfrentar las situaciones estresantes, evitando poner en riesgo tu bienestar físico y mental.";
+      termometroColorPSS = "rojo";
+    } else {
+      mensajePSS = "ERROR Fuera de rango.";
+      termometroColorPSS = "negro";
     }
 
     puntuacionTotalSpan3.textContent = puntuacionTotalPSS;
     mensajeResultado3.textContent = mensajePSS;
+    mensajeCriterioPSS.textContent = criterioPSS;
     termometroDiv3.style.height = `${porcentajePSS}%`;
     termometroDiv3.className = `nivel ${termometroColorPSS}`;
   }
@@ -618,9 +574,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const porcentajeWBI = (puntuacionTotalWBI / 15) * 100;
 
     let mensajeWBI = "";
+    let criterioWBI = "";
     let termometroColorWBI = "";
 
-    if (puntuacionTotalWBI >= 0 && puntuacionTotalWBI <= 13) {
+    //Punciaciones según los cuestionarios validados
+    /*if (puntuacionTotalWBI >= 0 && puntuacionTotalWBI <= 13) {
       mensajeWBI = "Nivel de bienestar debajo del promedio.";
       termometroColorWBI = "naranja";
     } else if (puntuacionTotalWBI <= 15) {
@@ -629,10 +587,24 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       mensajeWBI = "ERROR Fuera de rango.";
       termometroColorWBI = "negro";
+    }*/
+
+    //Punciaciones requeridas en el proyecto
+    if (puntuacionTotalWBI > 13) {
+      mensajeWBI = "Nivel de bienestar debajo del promedio.";
+      criterioWBI =
+        "Tu nivel de bienestar se encuentra por debajo del promedio, en los bloques de SerenaMente encontrarás actividades y recursos para cuidar de ti y mejorar tu estado de bienestar general.";
+      termometroColorWBI = "naranja";
+    } else {
+      mensajeWBI = "Nivel de bienestar muy alto.";
+      criterioWBI =
+        "Tu nivel de bienestar está por arriba del promedio, pero aún puedes tomar acciones para aumentarlo. En SerenaMente encontrarás recursos para cuidar de este estado positivo y cómo incrementarlo.";
+      termometroColorWBI = "verde";
     }
 
     puntuacionTotalSpan5.textContent = puntuacionTotalWBI;
     mensajeResultado5.textContent = mensajeWBI;
+    mensajeCriterioWBI.textContent = criterioWBI;
     termometroDiv5.style.height = `${porcentajeWBI}%`;
     termometroDiv5.className = `nivel ${termometroColorWBI}`;
   }
@@ -641,48 +613,29 @@ document.addEventListener("DOMContentLoaded", function () {
     const porcentajeICSP = (puntuacionTotalICSP / 21) * 100;
 
     let mensajeICSP = "";
+    let criterioICSP = "";
     let termometroColorICSP = "";
-
-    //alert("'La puntuación del "Componente 1: Calidad de sueño subjetiva" es: ' + puntuacionTotalICSP);
-    //alert("La puntuación de la pregunta 44 (conciliar sueño) es: " + puntuacionTotalICSP);
-    //alert("La puntuación de la pregunta 41 (tardar en dormirse) es: " + puntuacionTotalICSP);
-    //alert('La puntuacion del "Componente 2: Latencia de sueño" es: ' + puntuacionTotalICSP);
-    /*alert(
-      'La puntuación del "Componente 3: Duración del dormir" es: ' +
-        puntuacionTotalICSP
-    );*/
-    /*alert(
-      'La puntuación del "Componente 4: Eficiencia de sueño habitual es: ' +
-        puntuacionTotalICSP
-    );*/
-    /*alert(
-      'La puntuación del "Componente 5: Alteraciones del sueño es: ' +
-        puntuacionTotalICSP
-    );*/
-    /*alert(
-      'La puntuación del "Componente 6: Uso de medicamentos para dormir es: ' +
-        puntuacionTotalICSP
-    );*/
-    /*alert(
-      'La puntuación del "Componente 7: Disfunción diurna" es: ' +
-        puntuacionTotalICSP
-    );*/
-
-    /*alert("La calificación global del ICSP es: " + puntuacionTotalICSP);*/
 
     if (puntuacionTotalICSP <= 5) {
       mensajeICSP = "Calidad del sueño buena.";
+      criterioICSP =
+        "Tus resultados muestran que tienes una buena calidad de sueño ¡sigue así!";
       termometroColorICSP = "verde";
-    } else if(puntuacionTotalICSP > 5 && puntuacionTotalICSP <= 11){
+    } else if (puntuacionTotalICSP > 5 && puntuacionTotalICSP <= 11) {
       mensajeICSP = "Calidad del sueño moderada.";
+      criterioICSP =
+        "Parece que tu calidad de sueño puede mejorar si cuidamos de tus hábitos de salud y de tus emociones. En SerenaMente encontrarás contenidos y estrategias que te permitirán dormir mejor.";
       termometroColorICSP = "naranja";
     } else {
       mensajeICSP = "Calidad del sueño mala.";
+      criterioICSP =
+        "Puede que tus emociones y pensamientos estén afectando tu calidad de sueño y que está a su vez afecte tu estado de ánimo. En SerenaMente encontrarás contenidos y estrategias que te permitan cuidar de tus emociones y cómo impactan en tu descanso.";
       termometroColorICSP = "rojo";
     }
 
     puntuacionTotalSpan6.textContent = puntuacionTotalICSP;
     mensajeResultado6.textContent = mensajeICSP;
+    mensajeCriterioICSP.textContent = criterioICSP;
     termometroDiv6.style.height = `${porcentajeICSP}%`;
     termometroDiv6.className = `nivel ${termometroColorICSP}`;
   }
@@ -693,5 +646,3 @@ document.addEventListener("DOMContentLoaded", function () {
     return hh * 60 + mm; // Retorna los minutos totales
   }
 });
-
-//<!--HASTA AQUI CALCULA EL VALOR DEL COMPONENTE 1-->
