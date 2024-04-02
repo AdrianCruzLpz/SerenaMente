@@ -428,8 +428,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "Tus respuestas nos hacen considerar que mejorar tu estado emocional de intranquilidad puede ser un objetivo de trabajo. Puedes beneficiarte de identificar estrategias de manejo de la ansiedad como las que realizarás a lo largo de SerenaMente.";
       termometroColor = "naranja";
     } else if (puntuacionTotalBAI >= 32 && puntuacionTotalBAI <= 60) {
-      mensaje = "Nivel de ansiedad severo.";
-      termometroColor = "rojo";
+      /*mensaje = "Nivel de ansiedad severo.";
+      termometroColor = "rojo";*/
+      window.location.href = './atencionEspecializada.html';
+      return;
     } else {
       mensaje = "ERROR Fuera de rango.";
       termometroColor = "negro";
@@ -480,8 +482,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "Tus respuestas nos llevan a pensar que trabajar en la mejora de tu estado emocional podría ser un objetivo valioso. En SerenaMente puedes beneficiarte al identificar estrategias, tal como las que llevarás a cabo a lo largo de los bloques en SerenaMente, y de esta manera, incrementar la plenitud en tu vida.";
       termometroColorBDI = "naranja";
     } else if (puntuacionTotalBDI >= 30 && puntuacionTotalBDI <= 63) {
-      mensajeBDI = "Depresión moderada.";
-      termometroColorBDI = "naranja";
+      /*mensajeBDI = "Nivel de depresión severa.";
+      termometroColorBDI = "rojo";*/
+      window.location.href = './atencionEspecializada.html';
+      return;
     } else {
       mensajeBDI = "ERROR Fuera de rango.";
       termometroColorBDI = "negro";
