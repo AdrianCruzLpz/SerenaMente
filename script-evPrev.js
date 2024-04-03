@@ -134,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
       mostrarResultadosMINI(puntuacionTotalMINI);
       mostrarResultadosWBI(puntuacionTotalWBI);
       mostrarResultadosICSP(puntuacionTotalICSP);
+      criteriosExclusion();
     }
   });
 
@@ -159,6 +160,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
     return true;
+  }
+
+  function criteriosExclusion(){
+    const pregunta7SocioDemo = formulario1.tratamiento.value;
+    const pregunta9BDI = formulario3.q9.value;
+
+    if(pregunta7SocioDemo === 'SI' || pregunta9BDI === '2' || pregunta9BDI === '3'){
+      window.location.href = './atencionEspecializada.html';
+    }
   }
 
   function calcularPuntuacionTotalBAI() {
@@ -558,11 +568,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let mensajeMINI = "";
 
     if (nivel === "MODERADO") {
-      mensajeMINI = "Riesgo suicida moderado.";
-      termometroColorMINI = "naranja";
+      window.location.href = './atencionEspecializada.html';
+      return;
+      /*mensajeMINI = "Riesgo suicida moderado.";
+      termometroColorMINI = "naranja";*/
     } else if (nivel === "SEVERO") {
-      mensajeMINI = "Riesgo suicida severo.";
-      termometroColorMINI = "rojo";
+      /*mensajeMINI = "Riesgo suicida severo.";
+      termometroColorMINI = "rojo";*/
+      window.location.href = './atencionEspecializada.html';
+      return;
     } else {
       mensajeMINI = "Riesgo suicida ligero.";
       termometroColorMINI = "verde";
