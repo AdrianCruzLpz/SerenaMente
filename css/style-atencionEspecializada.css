@@ -1,0 +1,42 @@
+html, body, figure, main {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-family: "Montserrat";
+}
+
+main {
+    width: 85%;
+    margin: 32px auto;
+}
+
+h1 {
+    text-align: center;
+    color: #2DAAA4;
+}
+
+p {
+    text-align: justify;
+}
+
+li {
+    list-style-type: none;
+    padding: 4px 0;
+}
+
+.punto {
+    list-style-type: disc;
+    font-weight: bold;
+}
+
+.iconos {
+    color: #2DAAA4;
+    padding-right: 8px;
+}
+
+a {
+    text-decoration: none;
+    color: #2DAAA4;
+    font-weight: 500;
+}
