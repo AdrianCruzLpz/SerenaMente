@@ -7,7 +7,7 @@
 
 .container {
     max-width: 1000px;
-    width: 45%;
+    width: 40%;
     max-height: 80vh;
     overflow-y: hidden;
     background-color: #FFF;
@@ -29,8 +29,9 @@ input[type="password"] {
     padding: 4px;
     border: 1px solid #CCC;
     border-radius: 4px;
-    width: 60%;
-    margin-bottom: 8px;
+    width: 80%;
+    /*margin-bottom: 8px;*/
+    margin: 0 auto 8px;
     font-family: "Montserrat";
     font-size: 14px;
     color: #333;
@@ -56,8 +57,9 @@ select {
     padding: 6px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: calc(62% - 8px);
-    margin-bottom: 10px;
+    width: calc(83% - 6px);
+    /*margin-bottom: 10px;*/
+    margin: 0 auto 10px;
     font-family: "Montserrat";
     font-size: 14px;
     color: #333;
@@ -74,15 +76,20 @@ select:focus {
 }
 
 .question {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 20px;
+    flex-wrap: wrap;
     color: #2DAAA4;
 }
 
 .question label {
     display: block;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
     font-weight: bold;
-    width: calc(65% - 5px);
+    width: calc(83% - 6px);
+    margin: 0 auto 10px;
     text-align: justify;
 }
 
@@ -95,8 +102,10 @@ select:focus {
 }
 
 .options label {
-    flex-basis: calc(56% - 4px);
-    padding: 10px 20px;
+    /*flex-basis: calc(76% - 8px);*/
+    width: calc(95%);
+    margin: 2px auto;
+    padding: 8px 14px;
     background-color: #F4F4F4;
     border-radius: 5px;
     cursor: pointer;
@@ -108,7 +117,8 @@ select:focus {
 
 .aceptar {
     padding: 0;
-    max-width: 60%;
+    max-width: 80%;
+    margin: 0 auto;
     text-align: center;
 }
 
@@ -125,8 +135,8 @@ a {
 .btn-next_prev {
     display: inline-block;
     width: 112px;
-    margin: 20px 10px;
-    padding: 10px 20px;
+    margin: 24px 8px;
+    padding: 8px 24px;
     background-color: #2DAAA4;
     font-family: "Montserrat";
     color: #FFF;
