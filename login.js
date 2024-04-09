@@ -34,15 +34,13 @@ document.addEventListener("DOMContentLoaded", function () {
       // Obtener los valores del formulario
       const email = emailInput ? emailInput.value : "";
       const password = passwordInput ? passwordInput.value : "";
-      console.log("Email:", email);
-      console.log("Password: ", password);
 
       // Iniciar sesión con Firebase Authentication
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       alert("Inicio de Sesión exitoso");
-      window.location.href = '/evaluacionPrevia.html';
+      window.location.href = './evaluacionPrevia.html';
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
