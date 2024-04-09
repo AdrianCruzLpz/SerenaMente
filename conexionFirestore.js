@@ -68,16 +68,6 @@ document.addEventListener("DOMContentLoaded", function() {
       const password = passwordInput ? passwordInput.value : "";
       const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : "";
 
-      console.log("Datos del usuario:");
-      console.log("Nombre:", name);
-      console.log("Apellido:", lastname);
-      console.log("Edad:", age);
-      console.log("Estado civil:", civilStatus);
-      console.log("Género:", gender);
-      console.log("Ocupación:", occupation);
-      console.log("Nivel de estudios:", educationLevel);
-      console.log("Email:", email);
-
       // Validar que las contraseñas coincidan
       if (password !== confirmPassword) {
         alert("Las contraseñas no coinciden");
