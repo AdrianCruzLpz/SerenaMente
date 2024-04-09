@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+
+    <!--Icono de la aplicacion-->
+    <link rel="icon" type="image/x-icon" href="./img/LogoSerenaMente.png">
+
+    <!--Fuente de Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <!--Iconos de Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!--Estilos personales-->
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style-index.css">
+    <link rel="stylesheet" href="./css/style-quienesSomos.css">
+    <link rel="stylesheet" href="./css/style-registro2.css">
+
+</head>
+
+<body>
+    <header>
+        <div class="rectanguloAzul">
+        </div>
+
+        <div class="contenedor-header">
+
+            <div class="contenedor-izquierda-logo">
+                <figure>
+                    <img src="./img/LogoSerenaMente.png" class="logoSerenaMente">
+                </figure>
+            </div>
+
+            <div class="contenedor-derecha">
+                <div class="contenedor-derecha-fila-redes">
+                    <div class="contenedor-derecha-columna">
+                        <ul>
+                            <li><img src="./img/envelope-regular.svg" class="redeSociales"></li>
+                            <li><a
+                                    href="mailto:serenamente@iztacala.unam.mx?subject=Asunto del correo">serenamente@iztacala.unam.mx</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="contenedor-derecha-columna">
+                        <p>SÍGUENOS</p>
+                        <ul>
+                            <li><a href="https://web.facebook.com/SerenaMenteUNAM" target="_blank"><img
+                                        src="./img/facebook.svg" class="redeSociales" alt="Facebook_Serene" /></a></li>
+                            <li><a href="https://instagram.com/serenamente_app?igshid=YTQwZjQ0NmI0OA=="
+                                    target="_blank"><img src="./img/instagram.svg" class="redeSociales"
+                                        alt="Instagram_Serene" /></a></li>
+                        </ul>
+                    </div>
+                    <!--<div class="contenedor-derecha-columna"><a href="#">INICIAR SESIÓN / REGISTRO</a></div>-->
+                </div>
+                <div class="contenedor-derecha-fila">
+                    <div class="contenedor-derecha-columna">
+                        <nav class="menu" id="menu">
+                            <button class="cerrar-menu" id="cerrar"><i class="fa-solid fa-xmark fa-2x"></i></button>
+                            <ul class="menu-lista">
+                                <li><a href="./index.html">INICIO</a></li>
+                                <li><a href="./quienesSomos.html">¿QUIÉNES SOMOS?</a></li>
+                                <li><a href="./ventajas.html">VENTAJAS</a></li>
+                                <li><a href="./contenidos.html">CONTENIDOS</a></li>
+                                <li><a href="./preguntasFrecuentes.html">PREGUNTAS FRECUENTES</a></li>
+                                <li><a href="./evaluacionPrevia.html">EVALUACION PREVIA</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <button class="abrir-menu" id="abrir"><i class="fa-solid fa-bars fa-2x"></i></button>
+        </div>
+    </header>
+
+    <main>
+        <div class="rectanguloAmarillo">
+            <h1>INICIAR SESIÓN</h1>
+        </div>
+
+        <div class="principal">
+            <section class="container">
+                <form id="loginForm">
+
+                    <!--PREGUNTA 8-->
+                    <div class="question">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" name="email" id="email">
+                    </div>
+
+                    <!--PREGUNTA 9-->
+                    <div class="question">
+                        <label for="pass">Contraseña</label>
+                        <input type="password" name="pass" id="pass">
+                    </div>
+
+                    <div class="btn-container">
+                        <input type="submit" class="btn-next_prev" name="login_submit" id="Login" value="Iniciar Sesión">
+                    </div>
+
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="contenedorFooter">
+            <div><img src="./img/LogoSerenaMente.png" width="206px" height="190px" class="logoFotter"></div>
+            <div><a
+                    href="mailto:serenamente@iztacala.unam.mx?subject=Asunto del correo">serenamente@iztacala.unam.mx</a>
+            </div>
+            <div>
+                <p>SÍGUENOS</p>
+                <ul>
+                    <li><a href="https://web.facebook.com/SerenaMenteUNAM" target="_blank"><img src="./img/facebook.svg"
+                                class="redeSociales" alt="Facebook_Serene" /></a></li>
+                    <li><a href="https://instagram.com/serenamente_app?igshid=YTQwZjQ0NmI0OA==" target="_blank"><img
+                                src="./img/instagram.svg" class="redeSociales" alt="Instagram_Serene" /></a>
+                    </li>
+                </ul>
+            </div>
+            <div><a href="./avisoPrivacidad.html">AVISO DE PRIVACIDAD</a></div>
+        </div>
+
+        <div class="rectanguloAzul">
+            <p>Investigación realizada gracias al Programa UNAM-PAPIIT TA300223 / &copyCopyright 2023 SERENAMENTE /
+                Proyecto
+                PAPIIT</p>
+        </div>
+    </footer>
+
+    <script type="module" src="./login.js"></script>
+
+</body>
+
+</html>

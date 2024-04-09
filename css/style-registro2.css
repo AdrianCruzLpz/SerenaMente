@@ -135,9 +135,9 @@ a {
 
 .btn-next_prev {
     display: inline-block;
-    width: 112px;
+    width: 128px;
     margin: 24px 8px;
-    padding: 8px 24px;
+    padding: 8px;
     background-color: #2DAAA4;
     font-family: "Montserrat";
     color: #FFF;
