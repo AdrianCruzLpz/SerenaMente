@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+//import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, reload } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -19,7 +19,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+//const database = getDatabase(app);
 const auth = getAuth();
 const db = getFirestore(app);
 
@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", function() {
   // Función para registrar al usuario
   async function registerUser() {
     try {
-      // Obtener los valores del formulario
       const name = nameInput ? nameInput.value : "";
       const lastname = lastnameInput ? lastnameInput.value : "";
       const age = ageInput ? parseInt(ageInput.value) : 0;
@@ -78,7 +77,20 @@ document.addEventListener("DOMContentLoaded", function() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
+      // Enviar email de verificación
       await sendEmailVerification(user);
+      alert("Se ha enviado un correo de verificación a tu cuenta de email.");
+
+      // Ejecutar la función de verificación cada 5 segundos
+      let verificationInterval;
+      verificationInterval = setInterval(async () => {
+        await reload(user);
+        //console.log(`Correo verificado: ${user.emailVerified}`);
+        if (user.emailVerified) {
+          clearInterval(verificationInterval);
+          window.location.href = "./evaluacionPrevia.html";
+        }
+      }, 5000);
 
       // Guardar los datos del usuario en Firestore
       await setDoc(doc(db, "users", user.uid), {
