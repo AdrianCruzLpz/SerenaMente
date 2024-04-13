@@ -102,10 +102,27 @@
                         <input type="password" name="pass" id="pass">
                     </div>
 
-                    <div class="btn-container">
-                        <input type="submit" class="btn-next_prev" name="login_submit" id="Login" value="Iniciar Sesión">
+                    <div class="question">
+                        <a href="" id="olvide">Olvide mi contraseña</a>
                     </div>
 
+                    <div class="btn-container">
+                        <input type="submit" class="btn-next_prev" name="login_submit" id="Login"
+                            value="Iniciar Sesión">
+                    </div>
+
+                </form>
+
+                <form id="restorePass" style="display: none;">
+                    <div class="question">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" name="email" id="resetPasswordInput">
+                    </div>
+
+                    <div class="btn-container">
+                        <input type="submit" class="btn-next_prev" name="reset_submit" id="resetPasswordButton" value="Restablecer">
+                        <button class="btn-next_prev" name="backToLogin" id="backToLogin">Regresar Login</button>
+                    </div>
                 </form>
             </section>
         </div>
