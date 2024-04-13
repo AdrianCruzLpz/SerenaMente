@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 //import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, reload } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, reload, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -85,10 +85,17 @@ document.addEventListener("DOMContentLoaded", function() {
       let verificationInterval;
       verificationInterval = setInterval(async () => {
         await reload(user);
-        //console.log(`Correo verificado: ${user.emailVerified}`);
         if (user.emailVerified) {
           clearInterval(verificationInterval);
-          window.location.href = "./evaluacionPrevia.html";
+
+          try {
+            // Iniciar sesión con el usuario verificado
+            await signInWithEmailAndPassword(auth, email, password);
+            alert("Sesión iniciada correctamente");
+            window.location.href = "./evaluacionPrevia.html";
+          } catch (error) {
+            alert("Error al iniciar sesión: " + error.message);
+          }
         }
       }, 5000);
 
