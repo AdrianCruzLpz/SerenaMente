@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -46,6 +46,43 @@ document.addEventListener("DOMContentLoaded", function () {
       const errorMessage = error.message;
       console.error("Error al iniciar sesión:", errorCode, errorMessage);
       alert("Ocurrió un error al iniciar sesión: " + errorMessage);
+    }
+  }
+
+  const olvidePassword = document.getElementById("olvide");
+  olvidePassword.addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("restorePass").style.display = "block";
+
+    const resetPasswordInput = document.getElementById("resetPasswordInput");
+    resetPasswordInput.addEventListener("input", function() {
+      console.log("El valor ingresado es:", resetPasswordInput.value);
+    });
+  });
+});
+
+//Funcion para enviar correo de restablecimiento de contraseña
+
+document.addEventListener("DOMContentLoaded", function () {
+  const resetPasswordButton = document.getElementById("resetPasswordButton");
+  resetPasswordButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    resetPassword();
+  });
+
+  async function resetPassword() {
+    try {
+      const resetPasswordInput = document.getElementById("resetPasswordInput");
+      const email = resetPasswordInput ? resetPasswordInput.value : "";
+
+      await sendPasswordResetEmail(auth, email);
+      alert("Correo de restablecimiento de contraseña enviado");
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error("Error al restablecer contraseña:", errorCode, errorMessage);
+      alert("Ocurrió un error al restablecer la contraseña: " + errorMessage);
     }
   }
 });
