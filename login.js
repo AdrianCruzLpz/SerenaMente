@@ -40,7 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const user = userCredential.user;
 
       alert("Inicio de Sesión exitoso");
-      window.location.href = './evaluacionPrevia.html';
+      window.location.href = './perfil.html';
+      //window.location.href = './evaluacionPrevia.html';
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
