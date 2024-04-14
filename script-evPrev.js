@@ -1,13 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-//import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getFirestore, setDoc, doc, collection, writeBatch } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
   authDomain: "prueba2-31849.firebaseapp.com",
@@ -17,9 +11,7 @@ const firebaseConfig = {
   appId: "1:593735540788:web:4fa918ce020f5050c66a61",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-//const database = getDatabase(app);
 const auth = getAuth();
 const db = getFirestore(app);
 
@@ -235,12 +227,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function calcularPuntuacionTotalMINI() {
     const respuestas = {
-      q22: formulario5.q22.value, //1
-      q23: formulario5.q23.value, //2
-      q24: formulario5.q24.value, //3
-      q25: formulario5.q25.value, //4
-      q26: formulario5.q26.value, //5
-      q27: formulario5.q27.value, //6
+      q22: formulario5.q22.value, 
+      q23: formulario5.q23.value, 
+      q24: formulario5.q24.value, 
+      q25: formulario5.q25.value, 
+      q26: formulario5.q26.value, 
+      q27: formulario5.q27.value, 
     };
 
     const siCount = Object.values(respuestas).filter(
@@ -279,14 +271,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function calcularPuntuacionTotalICSP() {
-    // Obtiene el valor seleccionado en la pregunta # del formulario 7
-    const valorPregunta54 = parseInt(formulario7.question54.value); //Componente 1, Pregunta 6 del ICSP
-    const valorPregunta41 = parseInt(formulario7.question41.value); //Componente 2.1, Pregunta 2 del ICSP
-    const valorPregunta44 = parseInt(formulario7.question44.value); //Componente 2.2, Pregunta 5a del ICPS
-    const valorPregunta43 = parseInt(formulario7.question43.value); //Componente 3, Pregunta 4 del ICSP
-    const valorPregunta55 = parseInt(formulario7.question55.value); //Componente 6, Pregunta 7 del ICSP
-    const valorPregunta56 = parseInt(formulario7.question56.value); //Componente 7.1, Pregunta 8 del ICSP
-    const valorPregunta57 = parseInt(formulario7.question57.value); //Componente 7.2, Pregunta 9 del ICSP
+    const valorPregunta54 = parseInt(formulario7.question54.value); 
+    const valorPregunta41 = parseInt(formulario7.question41.value); 
+    const valorPregunta44 = parseInt(formulario7.question44.value); 
+    const valorPregunta43 = parseInt(formulario7.question43.value); 
+    const valorPregunta55 = parseInt(formulario7.question55.value); 
+    const valorPregunta56 = parseInt(formulario7.question56.value); 
+    const valorPregunta57 = parseInt(formulario7.question57.value);
 
     const valoresPreguntasComponente5 = [
       parseInt(formulario7.question45.value),
@@ -298,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function () {
       parseInt(formulario7.question51.value),
       parseInt(formulario7.question52.value),
       parseInt(formulario7.question53.value),
-    ]; //Componente 5, Preguntas 5b a 5j del ICSP
+    ];
 
     let puntuacionPregunta41 = 0;
     let sumaPuntuacionPregunta41Pregunta44 = 0;
@@ -309,7 +300,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let sumaPuntuacionPregunta55Pregunta56 = 0;
     let puntuacionTotalComponente7 = 0;
 
-    //Componente 2: Latencia del sueño
     if (valorPregunta41 <= 15) {
       puntuacionPregunta41 = 0;
     } else if (valorPregunta41 >= 16 && valorPregunta41 <= 30) {
@@ -338,7 +328,6 @@ document.addEventListener("DOMContentLoaded", function () {
       puntuacionTotalComponente2 = 3;
     }
 
-    //Componente 3: Duracion del dormir
     if (valorPregunta43 >= 7) {
       puntuacionTotalComponente3 = 0;
     } else if (valorPregunta43 >= 6) {
@@ -349,7 +338,6 @@ document.addEventListener("DOMContentLoaded", function () {
       puntuacionTotalComponente3 = 3;
     }
 
-    //Componente 4
     const horaAcostarse = document.getElementById("question40").value;
     const horaLevantarse = document.getElementById("question42").value;
     const minutosHoraAcostarse = convertirHoraAMinutos(horaAcostarse);
@@ -357,22 +345,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let diferenciaMinutos = minutosHoraLevantarse - minutosHoraAcostarse;
 
-    // Si la diferencia es negativa, sumar 24 horas en minutos
     if (diferenciaMinutos < 0) {
-      diferenciaMinutos += 24 * 60; // 24 horas en minutos
+      diferenciaMinutos += 24 * 60;
     }
 
-    // Calcular horas y minutos a partir de la diferencia
     let horasDiferencia = Math.floor(diferenciaMinutos / 60);
     let minutosDiferencia = diferenciaMinutos % 60;
-
-    // Calcular tiempo en cama
     let tiempoCama = (horasDiferencia * 60 + minutosDiferencia) / 60;
-
-    //Parte 2
     let eficienciaSueno = (valorPregunta43 / tiempoCama) * 100;
-
-    //Parte 3
     let puntuacionTotalComponente4 = 0;
     if (eficienciaSueno >= 85) {
       puntuacionTotalComponente4 = 0;
@@ -383,8 +363,6 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       puntuacionTotalComponente4 = 3;
     }
-
-    //Componente 5
     valoresPreguntasComponente5.forEach((valoresPreguntasComponente5) => {
       sumaPuntuacionP45aP53 += valoresPreguntasComponente5;
     });
@@ -399,7 +377,6 @@ document.addEventListener("DOMContentLoaded", function () {
       puntuacionTotalComponente5 = 3;
     }
 
-    //Componente 7
     sumaPuntuacionPregunta55Pregunta56 = valorPregunta56 + valorPregunta57;
 
     if (sumaPuntuacionPregunta55Pregunta56 == 0) {
@@ -426,33 +403,14 @@ document.addEventListener("DOMContentLoaded", function () {
       puntuacionTotalComponente5 +
       valorPregunta55 +
       puntuacionTotalComponente7;
-
     return sumaCalificacionGlobal;
   }
 
   function mostrarResultadosBAI(puntuacionTotalBAI) {
     const porcentaje = (puntuacionTotalBAI / 60) * 100;
-
     let mensaje = "";
     let criterio = "";
     let termometroColor = "";
-
-    //Punciaciones según los cuestionarios validados
-    /*if (puntuacionTotalBAI >= 0 && puntuacionTotalBAI <= 20) {
-      mensaje = "Nivel de ansiedad leve.";
-      termometroColor = "verde";
-    } else if (puntuacionTotalBAI <= 34) {
-      mensaje = "Nivel de ansiedad moderado.";
-      termometroColor = "naranja";
-    } else if (puntuacionTotalBAI <= 60) {
-      mensaje = "Nivel de ansiedad severo.";
-      termometroColor = "rojo";
-    } else {
-      mensaje = "ERROR Fuera de rango.";
-      termometroColor = "negro";
-    }*/
-
-    //Punciaciones requeridas en el proyecto
     if (puntuacionTotalBAI >= 0 && puntuacionTotalBAI < 16) {
       mensaje = "Nivel de ansiedad leve.";
       criterio =
@@ -464,15 +422,12 @@ document.addEventListener("DOMContentLoaded", function () {
         "Tus respuestas nos hacen considerar que mejorar tu estado emocional de intranquilidad puede ser un objetivo de trabajo. Puedes beneficiarte de identificar estrategias de manejo de la ansiedad como las que realizarás a lo largo de SerenaMente.";
       termometroColor = "naranja";
     } else if (puntuacionTotalBAI >= 32 && puntuacionTotalBAI <= 60) {
-      /*mensaje = "Nivel de ansiedad severo.";
-      termometroColor = "rojo";*/
       window.location.href = './atencionEspecializada.html';
       return;
     } else {
       mensaje = "ERROR Fuera de rango.";
       termometroColor = "negro";
     }
-
     puntuacionTotalSpan.textContent = puntuacionTotalBAI;
     mensajeResultado.textContent = mensaje;
     mensajeCriterioBAI.textContent = criterio;
@@ -483,30 +438,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function mostrarResultadosBDI(puntuacionTotalBDI) {
     const porcentajeBDI = (puntuacionTotalBDI / 63) * 100;
-
     let mensajeBDI = "";
     let criterioBDI = "";
     let termometroColorBDI = "";
-
-    //Punciaciones según los cuestionarios validados
-    /*if (puntuacionTotalBDI >= 0 && puntuacionTotalBDI <= 13) {
-      mensajeBDI = "Mínima depresión.";
-      termometroColorBDI = "verde";
-    } else if (puntuacionTotalBDI >= 14 && puntuacionTotalBDI <= 19) {
-      mensajeBDI = "Depresión leve.";
-      termometroColorBDI = "amarillo";
-    } else if (puntuacionTotalBDI >= 20 && puntuacionTotalBDI <= 28) {
-      mensajeBDI = "Depresión moderada.";
-      termometroColorBDI = "naranja";
-    } else if (puntuacionTotalBDI >= 29 && puntuacionTotalBDI <= 63) {
-      mensajeBDI = "Depresión grave.";
-      termometroColorBDI = "rojo";
-    } else {
-      mensajeBDI = "ERROR Fuera de rango.";
-      termometroColorBDI = "negro";
-    }*/
-
-    //Punciaciones requeridas en el proyecto
     if (puntuacionTotalBDI >= 0 && puntuacionTotalBDI < 20) {
       mensajeBDI = "Nivel de depresión leve.";
       criterioBDI =
@@ -518,15 +452,12 @@ document.addEventListener("DOMContentLoaded", function () {
         "Tus respuestas nos llevan a pensar que trabajar en la mejora de tu estado emocional podría ser un objetivo valioso. En SerenaMente puedes beneficiarte al identificar estrategias, tal como las que llevarás a cabo a lo largo de los bloques en SerenaMente, y de esta manera, incrementar la plenitud en tu vida.";
       termometroColorBDI = "naranja";
     } else if (puntuacionTotalBDI >= 30 && puntuacionTotalBDI <= 63) {
-      /*mensajeBDI = "Nivel de depresión severa.";
-      termometroColorBDI = "rojo";*/
       window.location.href = './atencionEspecializada.html';
       return;
     } else {
       mensajeBDI = "ERROR Fuera de rango.";
       termometroColorBDI = "negro";
     }
-
     puntuacionTotalSpan2.textContent = puntuacionTotalBDI;
     mensajeResultado2.textContent = mensajeBDI;
     mensajeCriterioBDI.textContent = criterioBDI;
@@ -536,30 +467,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function mostrarResultadosPSS(puntuacionTotalPSS) {
     const porcentajePSS = (puntuacionTotalPSS / 56) * 100;
-
     let mensajePSS = "";
     let criterioPSS = "";
     let termometroColorPSS = "";
 
-    //Punciaciones según los cuestionarios validados
-    /*if (puntuacionTotalPSS >= 0 && puntuacionTotalPSS <= 14) {
-      mensajePSS = "Muy bajo";
-      termometroColorPSS = "verde";
-    } else if (puntuacionTotalPSS <= 28) {
-      mensajePSS = "Bajo";
-      termometroColorPSS = "amarillo";
-    } else if (puntuacionTotalPSS <= 42) {
-      mensajePSS = "Alto";
-      termometroColorPSS = "naranja";
-    } else if (puntuacionTotalPSS <= 56) {
-      mensajePSS = "Muy alto";
-      termometroColorPSS = "rojo";
-    } else {
-      mensajePSS = "ERROR Fuera de rango.";
-      termometroColorPSS = "negro";
-    }*/
-
-    //Punciaciones requeridas en el proyecto
     if (puntuacionTotalPSS >= 0 && puntuacionTotalPSS <= 18) {
       mensajePSS = "Nivel de estrés leve.";
       criterioPSS =
@@ -596,18 +507,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (nivel === "MODERADO") {
       window.location.href = './atencionEspecializada.html';
       return;
-      /*mensajeMINI = "Riesgo suicida moderado.";
-      termometroColorMINI = "naranja";*/
     } else if (nivel === "SEVERO") {
-      /*mensajeMINI = "Riesgo suicida severo.";
-      termometroColorMINI = "rojo";*/
       window.location.href = './atencionEspecializada.html';
       return;
     } else {
       mensajeMINI = "Riesgo suicida ligero.";
       termometroColorMINI = "verde";
     }
-
     puntuacionTotalSpan4.textContent = nivel;
     mensajeResultado4.textContent = mensajeMINI;
     termometroDiv4.style.height = `${porcentajeMINI}%`;
@@ -616,24 +522,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function mostrarResultadosWBI(puntuacionTotalWBI) {
     const porcentajeWBI = (puntuacionTotalWBI / 15) * 100;
-
     let mensajeWBI = "";
     let criterioWBI = "";
     let termometroColorWBI = "";
 
-    //Punciaciones según los cuestionarios validados
-    /*if (puntuacionTotalWBI >= 0 && puntuacionTotalWBI <= 13) {
-      mensajeWBI = "Nivel de bienestar debajo del promedio.";
-      termometroColorWBI = "naranja";
-    } else if (puntuacionTotalWBI <= 15) {
-      mensajeWBI = "Nivel de bienestar arriba del promedio.";
-      termometroColorWBI = "verde";
-    } else {
-      mensajeWBI = "ERROR Fuera de rango.";
-      termometroColorWBI = "negro";
-    }*/
-
-    //Punciaciones requeridas en el proyecto
     if (puntuacionTotalWBI > 13) {
       mensajeWBI = "Nivel de bienestar debajo del promedio.";
       criterioWBI =
@@ -645,7 +537,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "Tu nivel de bienestar está por arriba del promedio, pero aún puedes tomar acciones para aumentarlo. En SerenaMente encontrarás recursos para cuidar de este estado positivo y cómo incrementarlo.";
       termometroColorWBI = "verde";
     }
-
     puntuacionTotalSpan5.textContent = puntuacionTotalWBI;
     mensajeResultado5.textContent = mensajeWBI;
     mensajeCriterioWBI.textContent = criterioWBI;
@@ -655,7 +546,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function mostrarResultadosICSP(puntuacionTotalICSP) {
     const porcentajeICSP = (puntuacionTotalICSP / 21) * 100;
-
     let mensajeICSP = "";
     let criterioICSP = "";
     let termometroColorICSP = "";
@@ -684,25 +574,19 @@ document.addEventListener("DOMContentLoaded", function () {
     termometroDiv6.className = `nivel ${termometroColorICSP}`;
   }
 
-  // Función auxiliar para parsear la hora en un objeto Date
   function convertirHoraAMinutos(hora) {
-    const [hh, mm] = hora.split(":").map(Number); // Divide la hora y los minutos y los convierte en números
-    return hh * 60 + mm; // Retorna los minutos totales
+    const [hh, mm] = hora.split(":").map(Number);
+    return hh * 60 + mm;
   }
-
-  // Función para guardar las puntaciones en Firestore
 
   async function registerData(puntuacionTotalBAI, puntuacionTotalBDI, puntuacionTotalPSS, puntuacionTotalMINI, puntuacionTotalWBI, puntuacionTotalICSP) {
 
-    //primero debe verificar si el usuario está autenticado
     const user = auth.currentUser;
     if (!user) {
       alert("Debes iniciar sesión para registrar tus datos.");
       return;
     }
-
     try {
-      // Guardar los datos del usuario en Firestore
       await setDoc(doc(db, "evaluacionPrevia", user.uid), {
         puntuacionTotalBAI,
         puntuacionTotalBDI,
@@ -711,11 +595,57 @@ document.addEventListener("DOMContentLoaded", function () {
         puntuacionTotalWBI,
         puntuacionTotalICSP,
       });
+      alert("Puntuaciones registradas exitosamente");
 
-      alert("Datos registrados exitosamente");
-    } catch (error) {
-      console.error("Error al registrar datos:", error.code, error.message);
-      alert("Ocurrió un error al registrar los datos: " + error.message);
-    }
+      // Registro de respuestas del BAI
+    await guardarRespuestasCuestionarioBAI(user.uid, "BAI", [
+      {q: "question1", value: formulario2.question1.value},
+      {q: "question2", value: formulario2.question2.value},
+      {q: "question3", value: formulario2.question3.value},
+      {q: "question4", value: formulario2.question4.value},
+      {q: "question5", value: formulario2.question5.value},
+      {q: "question6", value: formulario2.question6.value},
+      {q: "question7", value: formulario2.question7.value},
+      {q: "question8", value: formulario2.question8.value},
+      {q: "question9", value: formulario2.question9.value},
+      {q: "question10", value: formulario2.question10.value},
+      {q: "question11", value: formulario2.question11.value},
+      {q: "question12", value: formulario2.question12.value},
+      {q: "question13", value: formulario2.question13.value},
+      {q: "question14", value: formulario2.question14.value},
+      {q: "question15", value: formulario2.question15.value},
+      {q: "question16", value: formulario2.question16.value},
+      {q: "question17", value: formulario2.question17.value},
+      {q: "question18", value: formulario2.question18.value},
+      {q: "question19", value: formulario2.question19.value},
+      {q: "question20", value: formulario2.question20.value}
+    ]);
+
+    alert("Datos del BAI registrados exitosamente");
+  } catch (error) {
+    console.error("Error al registrar datos:", error.code, error.message);
+    alert("Ocurrió un error al registrar los datos: " + error.message);
   }
+}
+
+async function guardarRespuestasCuestionarioBAI(userId, cuestionario, respuestas) {
+  try {
+    const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
+    const cuestionarioRef = collection(evaluacionPreviaRef, "cuestionarios");
+
+    const batch = writeBatch(db);
+
+    respuestas.forEach((respuesta) => {
+      const preguntaRef = doc(cuestionarioRef, respuesta.q);
+      batch.set(preguntaRef, { valor: respuesta.value });
+    });
+
+    await batch.commit();
+    console.log("Datos del cuestionario BAI registrados exitosamente");
+  } catch (error) {
+    console.error("Error al guardar respuestas del cuestionario BAI:", error.code, error.message);
+    throw error;
+  }
+}
+
 });
