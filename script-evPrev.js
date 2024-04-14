@@ -1,3 +1,28 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+//import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+  authDomain: "prueba2-31849.firebaseapp.com",
+  projectId: "prueba2-31849",
+  storageBucket: "prueba2-31849.appspot.com",
+  messagingSenderId: "593735540788",
+  appId: "1:593735540788:web:4fa918ce020f5050c66a61",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+//const database = getDatabase(app);
+const auth = getAuth();
+const db = getFirestore(app);
+
 document.addEventListener("DOMContentLoaded", function () {
   const formulario1 = document.getElementById("formulario1");
   const formulario2 = document.getElementById("formulario2");
@@ -135,6 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
       mostrarResultadosWBI(puntuacionTotalWBI);
       mostrarResultadosICSP(puntuacionTotalICSP);
       criteriosExclusion();
+      registerData(puntuacionTotalBAI, puntuacionTotalBDI, puntuacionTotalPSS, puntuacionTotalMINI, puntuacionTotalWBI, puntuacionTotalICSP);
     }
   });
 
@@ -662,5 +688,34 @@ document.addEventListener("DOMContentLoaded", function () {
   function convertirHoraAMinutos(hora) {
     const [hh, mm] = hora.split(":").map(Number); // Divide la hora y los minutos y los convierte en números
     return hh * 60 + mm; // Retorna los minutos totales
+  }
+
+  // Función para guardar las puntaciones en Firestore
+
+  async function registerData(puntuacionTotalBAI, puntuacionTotalBDI, puntuacionTotalPSS, puntuacionTotalMINI, puntuacionTotalWBI, puntuacionTotalICSP) {
+
+    //primero debe verificar si el usuario está autenticado
+    const user = auth.currentUser;
+    if (!user) {
+      alert("Debes iniciar sesión para registrar tus datos.");
+      return;
+    }
+
+    try {
+      // Guardar los datos del usuario en Firestore
+      await setDoc(doc(db, "evaluacionPrevia", user.uid), {
+        puntuacionTotalBAI,
+        puntuacionTotalBDI,
+        puntuacionTotalPSS,
+        puntuacionTotalMINI,
+        puntuacionTotalWBI,
+        puntuacionTotalICSP,
+      });
+
+      alert("Datos registrados exitosamente");
+    } catch (error) {
+      console.error("Error al registrar datos:", error.code, error.message);
+      alert("Ocurrió un error al registrar los datos: " + error.message);
+    }
   }
 });
