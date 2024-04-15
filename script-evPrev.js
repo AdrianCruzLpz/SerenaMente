@@ -624,6 +624,20 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       alert("Datos del BDI registrados exitosamente");
 
+      // Registro de respuestas del PSS
+      const respuestasPSS = {};
+      for (let i = 21; i <= 34; i++) {
+        let j = i - 20;
+        respuestasPSS[`Pregunta${j.toString().padStart(2, '0')}`] = parseInt(formulario4[`question${i}`].value);
+      }
+
+      await guardarRespuestasCuestionarioPSS(
+        user.uid,
+        puntuacionTotalPSS,
+        respuestasPSS
+      );
+      alert("Datos del PSS registrados exitosamente");
+
     } catch (error) {
       console.error("Error al registrar datos:", error.code, error.message);
       alert("Ocurrió un error al registrar los datos: " + error.message);
@@ -658,6 +672,22 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     } catch (error) {
       console.error("Error al guardar respuestas del cuestionario BDI:", error.code, error.message);
+      throw error;
+    }
+  }
+
+  async function guardarRespuestasCuestionarioPSS(userId, puntuacionTotalPSS, respuestasPSS) {
+    try {
+      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
+      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const pssRef = doc(cuestionariosRef, "PSS");
+
+      await setDoc(pssRef, {
+        puntuacionTotal: puntuacionTotalPSS,
+        respuestas: respuestasPSS
+      });
+    } catch (error) {
+      console.error("Error al guardar respuestas del cuestionario PSS:", error.code, error.message);
       throw error;
     }
   }
