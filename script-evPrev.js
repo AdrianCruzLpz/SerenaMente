@@ -598,60 +598,36 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Puntuaciones registradas exitosamente");
 
       // Registro de respuestas del BAI
-      const respuestasBAI = {
-      Pregunta1: formulario2.question1.value,
-      Pregunta2: formulario2.question2.value,
-      Pregunta3: formulario2.question3.value,
-      Pregunta4: formulario2.question4.value,
-      Pregunta5: formulario2.question5.value,
-      Pregunta6: formulario2.question6.value,
-      Pregunta7: formulario2.question7.value,
-      Pregunta8: formulario2.question8.value,
-      Pregunta9: formulario2.question9.value,
-      Pregunta10: formulario2.question10.value,
-      Pregunta11: formulario2.question11.value,
-      Pregunta12: formulario2.question12.value,
-      Pregunta13: formulario2.question13.value,
-      Pregunta14: formulario2.question14.value,
-      Pregunta15: formulario2.question15.value,
-      Pregunta16: formulario2.question16.value,
-      Pregunta17: formulario2.question17.value,
-      Pregunta18: formulario2.question18.value,
-      Pregunta19: formulario2.question19.value,
-      Pregunta20: formulario2.question20.value
-    };
+      const respuestasBAI = {};
+      for (let i = 1; i <= 20; i++) {
+        respuestasBAI[`Pregunta${i.toString().padStart(2, '0')}`] = parseInt(formulario2[`question${i}`].value);
+      }
 
-    await guardarRespuestasCuestionarioBAI(
-      user.uid,
-      puntuacionTotalBAI,
-      respuestasBAI
-    );
-
-    alert("Datos del BAI registrados exitosamente");
-  } catch (error) {
-    console.error("Error al registrar datos:", error.code, error.message);
-    alert("Ocurrió un error al registrar los datos: " + error.message);
+      await guardarRespuestasCuestionarioBAI(
+        user.uid,
+        puntuacionTotalBAI,
+        respuestasBAI
+      );
+      alert("Datos del BAI registrados exitosamente");
+    } catch (error) {
+      console.error("Error al registrar datos:", error.code, error.message);
+      alert("Ocurrió un error al registrar los datos: " + error.message);
+    }
   }
-}
 
-async function guardarRespuestasCuestionarioBAI(userId, puntuacionTotalBAI, respuestasBAI) {
-  try {
-    const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
-    const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
-    const baiRef = doc(cuestionariosRef, "BAI");
+  async function guardarRespuestasCuestionarioBAI(userId, puntuacionTotalBAI, respuestasBAI) {
+    try {
+      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
+      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const baiRef = doc(cuestionariosRef, "BAI");
 
-    await setDoc(baiRef, {
-      puntuacionTotal: puntuacionTotalBAI,
-      respuestas: respuestasBAI
-    });
-
-    console.log("Datos del cuestionario BAI registrados exitosamente");
-  } catch (error) {
-    console.error("Error al guardar respuestas del cuestionario BAI:", error.code, error.message);
-    throw error;
+      await setDoc(baiRef, {
+        puntuacionTotal: puntuacionTotalBAI,
+        respuestas: respuestasBAI
+      });
+    } catch (error) {
+      console.error("Error al guardar respuestas del cuestionario BAI:", error.code, error.message);
+      throw error;
+    }
   }
-}
-
 });
-
-//hasta aqui guarda bien solo Pregunta: valor
