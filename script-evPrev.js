@@ -598,28 +598,34 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Puntuaciones registradas exitosamente");
 
       // Registro de respuestas del BAI
-    await guardarRespuestasCuestionarioBAI(user.uid, "BAI", [
-      {q: "question1", value: formulario2.question1.value},
-      {q: "question2", value: formulario2.question2.value},
-      {q: "question3", value: formulario2.question3.value},
-      {q: "question4", value: formulario2.question4.value},
-      {q: "question5", value: formulario2.question5.value},
-      {q: "question6", value: formulario2.question6.value},
-      {q: "question7", value: formulario2.question7.value},
-      {q: "question8", value: formulario2.question8.value},
-      {q: "question9", value: formulario2.question9.value},
-      {q: "question10", value: formulario2.question10.value},
-      {q: "question11", value: formulario2.question11.value},
-      {q: "question12", value: formulario2.question12.value},
-      {q: "question13", value: formulario2.question13.value},
-      {q: "question14", value: formulario2.question14.value},
-      {q: "question15", value: formulario2.question15.value},
-      {q: "question16", value: formulario2.question16.value},
-      {q: "question17", value: formulario2.question17.value},
-      {q: "question18", value: formulario2.question18.value},
-      {q: "question19", value: formulario2.question19.value},
-      {q: "question20", value: formulario2.question20.value}
-    ]);
+      const respuestasBAI = {
+      Pregunta1: formulario2.question1.value,
+      Pregunta2: formulario2.question2.value,
+      Pregunta3: formulario2.question3.value,
+      Pregunta4: formulario2.question4.value,
+      Pregunta5: formulario2.question5.value,
+      Pregunta6: formulario2.question6.value,
+      Pregunta7: formulario2.question7.value,
+      Pregunta8: formulario2.question8.value,
+      Pregunta9: formulario2.question9.value,
+      Pregunta10: formulario2.question10.value,
+      Pregunta11: formulario2.question11.value,
+      Pregunta12: formulario2.question12.value,
+      Pregunta13: formulario2.question13.value,
+      Pregunta14: formulario2.question14.value,
+      Pregunta15: formulario2.question15.value,
+      Pregunta16: formulario2.question16.value,
+      Pregunta17: formulario2.question17.value,
+      Pregunta18: formulario2.question18.value,
+      Pregunta19: formulario2.question19.value,
+      Pregunta20: formulario2.question20.value
+    };
+
+    await guardarRespuestasCuestionarioBAI(
+      user.uid,
+      puntuacionTotalBAI,
+      respuestasBAI
+    );
 
     alert("Datos del BAI registrados exitosamente");
   } catch (error) {
@@ -648,4 +654,4 @@ async function guardarRespuestasCuestionarioBAI(userId, puntuacionTotalBAI, resp
 
 });
 
-//hasta aqui guarda bien solo resolver lo de la puntuacion total
+//hasta aqui guarda bien solo Pregunta: valor
