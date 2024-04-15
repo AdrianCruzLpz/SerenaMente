@@ -638,6 +638,21 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       alert("Datos del PSS registrados exitosamente");
 
+
+      // Registro de respuestas del MINI
+      const respuestasMINI = {};
+      for (let i = 22; i <= 27; i++) {
+        let j = i - 21;
+        respuestasMINI[`Pregunta${j.toString().padStart(2, '0')}`] = formulario5[`q${i}`].value;
+      }
+
+      await guardarRespuestasCuestionarioMINI(
+        user.uid,
+        puntuacionTotalMINI,
+        respuestasMINI
+      );
+      alert("Datos del MINI registrados exitosamente");
+
     } catch (error) {
       console.error("Error al registrar datos:", error.code, error.message);
       alert("Ocurrió un error al registrar los datos: " + error.message);
@@ -688,6 +703,22 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     } catch (error) {
       console.error("Error al guardar respuestas del cuestionario PSS:", error.code, error.message);
+      throw error;
+    }
+  }
+
+  async function guardarRespuestasCuestionarioMINI(userId, puntuacionTotalMINI, respuestasMINI) {
+    try {
+      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
+      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const miniRef = doc(cuestionariosRef, "MINI");
+
+      await setDoc(miniRef, {
+        puntuacionTotal: puntuacionTotalMINI,
+        respuestas: respuestasMINI
+      });
+    } catch (error) {
+      console.error("Error al guardar respuestas del cuestionario MINI:", error.code, error.message);
       throw error;
     }
   }
