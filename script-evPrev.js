@@ -609,6 +609,21 @@ document.addEventListener("DOMContentLoaded", function () {
         respuestasBAI
       );
       alert("Datos del BAI registrados exitosamente");
+
+
+      // Registro de respuestas del BDI
+      const respuestasBDI = {};
+      for (let i = 1; i <= 21; i++) {
+        respuestasBDI[`Pregunta${i.toString().padStart(2, '0')}`] = parseInt(formulario3[`q${i}`].value);
+      }
+
+      await guardarRespuestasCuestionarioBDI(
+        user.uid,
+        puntuacionTotalBDI,
+        respuestasBDI
+      );
+      alert("Datos del BDI registrados exitosamente");
+
     } catch (error) {
       console.error("Error al registrar datos:", error.code, error.message);
       alert("Ocurrió un error al registrar los datos: " + error.message);
@@ -627,6 +642,22 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     } catch (error) {
       console.error("Error al guardar respuestas del cuestionario BAI:", error.code, error.message);
+      throw error;
+    }
+  }
+
+  async function guardarRespuestasCuestionarioBDI(userId, puntuacionTotalBDI, respuestasBDI) {
+    try {
+      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
+      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const bdiRef = doc(cuestionariosRef, "BDI");
+
+      await setDoc(bdiRef, {
+        puntuacionTotal: puntuacionTotalBDI,
+        respuestas: respuestasBDI
+      });
+    } catch (error) {
+      console.error("Error al guardar respuestas del cuestionario BDI:", error.code, error.message);
       throw error;
     }
   }
