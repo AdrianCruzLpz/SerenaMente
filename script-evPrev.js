@@ -628,19 +628,17 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 }
 
-async function guardarRespuestasCuestionarioBAI(userId, cuestionario, respuestas) {
+async function guardarRespuestasCuestionarioBAI(userId, puntuacionTotalBAI, respuestasBAI) {
   try {
     const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
-    const cuestionarioRef = collection(evaluacionPreviaRef, "cuestionarios");
+    const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+    const baiRef = doc(cuestionariosRef, "BAI");
 
-    const batch = writeBatch(db);
-
-    respuestas.forEach((respuesta) => {
-      const preguntaRef = doc(cuestionarioRef, respuesta.q);
-      batch.set(preguntaRef, { valor: respuesta.value });
+    await setDoc(baiRef, {
+      puntuacionTotal: puntuacionTotalBAI,
+      respuestas: respuestasBAI
     });
 
-    await batch.commit();
     console.log("Datos del cuestionario BAI registrados exitosamente");
   } catch (error) {
     console.error("Error al guardar respuestas del cuestionario BAI:", error.code, error.message);
@@ -649,3 +647,5 @@ async function guardarRespuestasCuestionarioBAI(userId, cuestionario, respuestas
 }
 
 });
+
+//hasta aqui guarda bien solo resolver lo de la puntuacion total
