@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exportar a CSV</title>
+</head>
+<body>
+<button id="exportBtn">Exportar a CSV</button>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-auth.js";
+import { getFirestore, collection, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
+
+// Inicializa Firebase con la configuración de tu proyecto
+const firebaseConfig = {
+  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+  authDomain: "prueba2-31849.firebaseapp.com",
+  projectId: "prueba2-31849",
+  storageBucket: "prueba2-31849.appspot.com",
+  messagingSenderId: "593735540788",
+  appId: "1:593735540788:web:4fa918ce020f5050c66a61",
+};
+const app = initializeApp(firebaseConfig);
+
+// Obtén la referencia a la autenticación y la base de datos de Firestore
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Función para exportar los datos a CSV
+async function exportToCSV() {
+  try {
+    // Verificar si hay un usuario autenticado
+    const user = auth.currentUser;
+    if (!user) {
+      throw new Error("No hay usuario autenticado. Inicia sesión para exportar datos.");
+    }
+
+    const userId = user.uid; // Obtener el ID del usuario actual
+    const userDoc = await getDoc(doc(db, "evaluacionPrevia", userId));
+    const userData = userDoc.data();
+    
+    // Verificar si hay datos
+    if (!userData) {
+      throw new Error("No se encontraron datos para exportar.");
+    }
+    
+    // Crear contenido CSV
+    let csvContent = "data:text/csv;charset=utf-8,";
+    Object.entries(userData).forEach(([key, value]) => {
+      csvContent += `${key},${value}\n`;
+    });
+
+    // Crear archivo CSV y descargarlo
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "data.csv");
+    document.body.appendChild(link);
+    link.click();
+  } catch (error) {
+    console.error("Error al exportar datos a CSV:", error);
+    alert(error.message);
+  }
+}
+
+// Asocia la función de exportación al botón
+document.getElementById("exportBtn").addEventListener("click", exportToCSV);
+
+</script>
+</body>
+</html>
+<!-- Fin del archivo intento2.html -->
