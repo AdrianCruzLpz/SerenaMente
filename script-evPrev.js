@@ -597,6 +597,27 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       alert("Puntuaciones registradas exitosamente");
 
+
+      // Guardar respuestas del cuestionario sociodemográfico
+      const respuestasSociodemografico = {
+        sexo: formulario1.querySelector('input[name="sexo"]:checked').value,
+        edad: parseInt(formulario1.edad.value),
+        estadoCivil: formulario1.estado_civil.value,
+        nivelEstudios: formulario1.nivel_estudios.value,
+        ocupacion: formulario1.ocupacion.value,
+        lugarResidencia: formulario1.residencia.value,
+        tratamiento: formulario1.querySelector('input[name="tratamiento"]:checked').value,
+        medicamento: formulario1.querySelector('input[name="medicamento"]:checked').value,
+        medicamentoCual: formulario1.medicamento_cual.value,
+      };
+
+      await guardarRespuestasCuestionarioSociodemografico(
+        user.uid,
+        respuestasSociodemografico
+      );
+      alert("Datos del cuestionario sociodemográfico registrados exitosamente");
+
+
       // Registro de respuestas del BAI
       const respuestasBAI = {};
       for (let i = 1; i <= 20; i++) {
@@ -672,6 +693,19 @@ document.addEventListener("DOMContentLoaded", function () {
     } catch (error) {
       console.error("Error al registrar datos:", error.code, error.message);
       alert("Ocurrió un error al registrar los datos: " + error.message);
+    }
+  }
+
+  async function guardarRespuestasCuestionarioSociodemografico(userId, respuestasSociodemografico) {
+    try {
+      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
+      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const sociodemograficoRef = doc(cuestionariosRef, "Sociodemografico");
+  
+      await setDoc(sociodemograficoRef, respuestasSociodemografico);
+    } catch (error) {
+      console.error("Error al guardar respuestas del cuestionario sociodemográfico:", error.code, error.message);
+      throw error;
     }
   }
 
