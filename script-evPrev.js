@@ -690,6 +690,37 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Datos del WBI registrados exitosamente");
 
 
+      // Guardar respuestas del Índice de Calidad de Sueño de Pittsburgh (revisar si dejar float o int en la 4)
+      const respuestasICSP = {
+        "Pregunta01": formatHora(formulario7.question40.value),
+        "Pregunta02": parseInt(formulario7.question41.value),
+        "Pregunta03": formatHora(formulario7.question42.value),
+        "Pregunta04": parseFloat(formulario7.question43.value),
+        "Pregunta05a": parseInt(formulario7.question44.value),
+        "Pregunta05b": parseInt(formulario7.question45.value),
+        "Pregunta05c": parseInt(formulario7.question46.value),
+        "Pregunta05d": parseInt(formulario7.question47.value),
+        "Pregunta05e": parseInt(formulario7.question48.value),
+        "Pregunta05f": parseInt(formulario7.question49.value),
+        "Pregunta05g": parseInt(formulario7.question50.value),
+        "Pregunta05h": parseInt(formulario7.question51.value),
+        "Pregunta05i": parseInt(formulario7.question52.value),
+        "Pregunta05j": {
+          razon: formulario7.razones.value,
+          puntuacion: parseInt(formulario7.question53.value)
+        },
+        "Pregunta06": parseInt(formulario7.question54.value),
+        "Pregunta07": parseInt(formulario7.question55.value),
+        "Pregunta08": parseInt(formulario7.question56.value),
+        "Pregunta09": parseInt(formulario7.question57.value),
+      };
+
+      await guardarRespuestasCuestionarioICSP(
+        user.uid,
+        respuestasICSP
+      );
+      alert("Datos del Índice de Calidad de Sueño de Pittsburgh registrados exitosamente");
+
     } catch (error) {
       console.error("Error al registrar datos:", error.code, error.message);
       alert("Ocurrió un error al registrar los datos: " + error.message);
@@ -788,4 +819,26 @@ document.addEventListener("DOMContentLoaded", function () {
       throw error;
     }
   }
+
+  async function guardarRespuestasCuestionarioICSP(userId, respuestasICSP) {
+    try {
+      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
+      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const icspRef = doc(cuestionariosRef, "ICSP");
+  
+      await setDoc(icspRef, respuestasICSP);
+    } catch (error) {
+      console.error("Error al guardar respuestas del cuestionario ICSP:", error.code, error.message);
+      throw error;
+    }
+  }
+  
+  function formatHora(horaString) {
+    const [horas, minutos] = horaString.split(':');
+    const fecha = new Date();
+    fecha.setHours(parseInt(horas), parseInt(minutos), 0, 0);
+    return fecha.toLocaleTimeString('es-ES', { hour12: false });
+  }
 });
+
+//guarda bien solo el valor de la pregunta que tiene un text
