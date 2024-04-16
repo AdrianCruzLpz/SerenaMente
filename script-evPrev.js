@@ -653,6 +653,22 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       alert("Datos del MINI registrados exitosamente");
 
+
+      // Registro de respuestas del WBI
+      const respuestasWBI = {};
+      for (let i = 35; i <= 39; i++) {
+        let j = i - 34;
+        respuestasWBI[`Pregunta${j.toString().padStart(2, '0')}`] = parseInt(formulario6[`question${i}`].value);
+      }
+
+      await guardarRespuestasCuestionarioWBI(
+        user.uid,
+        puntuacionTotalWBI,
+        respuestasWBI
+      );
+      alert("Datos del WBI registrados exitosamente");
+
+
     } catch (error) {
       console.error("Error al registrar datos:", error.code, error.message);
       alert("Ocurrió un error al registrar los datos: " + error.message);
@@ -719,6 +735,22 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     } catch (error) {
       console.error("Error al guardar respuestas del cuestionario MINI:", error.code, error.message);
+      throw error;
+    }
+  }
+
+  async function guardarRespuestasCuestionarioWBI(userId, puntuacionTotalWBI, respuestasWBI) {
+    try {
+      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
+      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const wbiRef = doc(cuestionariosRef, "WBI");
+
+      await setDoc(wbiRef, {
+        puntuacionTotal: puntuacionTotalWBI,
+        respuestas: respuestasWBI
+      });
+    } catch (error) {
+      console.error("Error al guardar respuestas del cuestionario WBI:", error.code, error.message);
       throw error;
     }
   }
