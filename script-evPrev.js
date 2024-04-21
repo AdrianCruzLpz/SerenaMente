@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("form6").style.display = "block";
   });
 
-  enviar.addEventListener("click", function (event) {
+  enviar.addEventListener("click", async function (event) {
     event.preventDefault();
     if (validarFormulario(formulario7)) {
       const puntuacionTotalBAI = calcularPuntuacionTotalBAI();
@@ -153,6 +153,11 @@ document.addEventListener("DOMContentLoaded", function () {
       mostrarResultadosICSP(puntuacionTotalICSP);
       criteriosExclusion();
       registerData(puntuacionTotalBAI, puntuacionTotalBDI, puntuacionTotalPSS, puntuacionTotalMINI, puntuacionTotalWBI, puntuacionTotalICSP);
+
+      // Actualizar el campo "evaluacionPrevia" a true en la colección "evaluacionRealizada"
+      await setDoc(doc(db, "evaluacionRealizada", auth.currentUser.uid), {
+        evaluacionPreviaRealizada: true,
+      }, { merge: true });
     }
   });
 
@@ -587,7 +592,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     try {
-      await setDoc(doc(db, "evaluacionPrevia", user.uid), {
+      await setDoc(doc(db, "resultadosEvaluacionPrevia", user.uid), {
         puntuacionTotalBAI,
         puntuacionTotalBDI,
         puntuacionTotalPSS,
@@ -715,8 +720,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function guardarRespuestasCuestionarioSociodemografico(userId, respuestasSociodemografico) {
     try {
-      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
-      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const resultadosEvaluacionPreviaRef = doc(db, "resultadosEvaluacionPrevia", userId);
+      const cuestionariosRef = collection(resultadosEvaluacionPreviaRef, "cuestionarios");
       const sociodemograficoRef = doc(cuestionariosRef, "Sociodemografico");
   
       await setDoc(sociodemograficoRef, respuestasSociodemografico);
@@ -728,8 +733,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function guardarRespuestasCuestionarioBAI(userId, puntuacionTotalBAI, respuestasBAI) {
     try {
-      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
-      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const resultadosEvaluacionPreviaRef = doc(db, "resultadosEvaluacionPrevia", userId);
+      const cuestionariosRef = collection(resultadosEvaluacionPreviaRef, "cuestionarios");
       const baiRef = doc(cuestionariosRef, "BAI");
 
       await setDoc(baiRef, {
@@ -744,8 +749,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function guardarRespuestasCuestionarioBDI(userId, puntuacionTotalBDI, respuestasBDI) {
     try {
-      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
-      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const resultadosEvaluacionPreviaRef = doc(db, "resultadosEvaluacionPrevia", userId);
+      const cuestionariosRef = collection(resultadosEvaluacionPreviaRef, "cuestionarios");
       const bdiRef = doc(cuestionariosRef, "BDI");
 
       await setDoc(bdiRef, {
@@ -760,8 +765,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function guardarRespuestasCuestionarioPSS(userId, puntuacionTotalPSS, respuestasPSS) {
     try {
-      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
-      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const resultadosEvaluacionPreviaRef = doc(db, "resultadosEvaluacionPrevia", userId);
+      const cuestionariosRef = collection(resultadosEvaluacionPreviaRef, "cuestionarios");
       const pssRef = doc(cuestionariosRef, "PSS");
 
       await setDoc(pssRef, {
@@ -776,8 +781,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function guardarRespuestasCuestionarioMINI(userId, puntuacionTotalMINI, respuestasMINI) {
     try {
-      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
-      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const resultadosEvaluacionPreviaRef = doc(db, "resultadosEvaluacionPrevia", userId);
+      const cuestionariosRef = collection(resultadosEvaluacionPreviaRef, "cuestionarios");
       const miniRef = doc(cuestionariosRef, "MINI");
 
       await setDoc(miniRef, {
@@ -792,8 +797,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function guardarRespuestasCuestionarioWBI(userId, puntuacionTotalWBI, respuestasWBI) {
     try {
-      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
-      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const resultadosEvaluacionPreviaRef = doc(db, "resultadosEvaluacionPrevia", userId);
+      const cuestionariosRef = collection(resultadosEvaluacionPreviaRef, "cuestionarios");
       const wbiRef = doc(cuestionariosRef, "WBI");
 
       await setDoc(wbiRef, {
@@ -808,8 +813,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function guardarRespuestasCuestionarioICSP(userId, respuestasICSP) {
     try {
-      const evaluacionPreviaRef = doc(db, "evaluacionPrevia", userId);
-      const cuestionariosRef = collection(evaluacionPreviaRef, "cuestionarios");
+      const resultadosEvaluacionPreviaRef = doc(db, "resultadosEvaluacionPrevia", userId);
+      const cuestionariosRef = collection(resultadosEvaluacionPreviaRef, "cuestionarios");
       const icspRef = doc(cuestionariosRef, "ICSP");
   
       await setDoc(icspRef, respuestasICSP);

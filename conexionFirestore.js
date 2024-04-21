@@ -111,6 +111,11 @@ document.addEventListener("DOMContentLoaded", function() {
         email,
       });
 
+      // Crear documento en la colección "evaluacionRealizada" con "evaluacionPrevia" en false
+      await setDoc(doc(db, "evaluacionRealizada", user.uid), {
+        evaluacionPreviaRealizada: false,
+      });
+
       //alert("Usuario registrado exitosamente");
     } catch (error) {
       console.error("Error al registrar usuario:", error.code, error.message);
