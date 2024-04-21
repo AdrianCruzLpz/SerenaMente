@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-import { getFirestore, setDoc, doc, collection, writeBatch } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import { getFirestore, setDoc, doc, collection } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
@@ -595,8 +595,6 @@ document.addEventListener("DOMContentLoaded", function () {
         puntuacionTotalWBI,
         puntuacionTotalICSP,
       });
-      alert("Puntuaciones registradas exitosamente");
-
 
       // Guardar respuestas del cuestionario sociodemográfico
       const respuestasSociodemografico = {
@@ -615,8 +613,6 @@ document.addEventListener("DOMContentLoaded", function () {
         user.uid,
         respuestasSociodemografico
       );
-      alert("Datos del cuestionario sociodemográfico registrados exitosamente");
-
 
       // Registro de respuestas del BAI
       const respuestasBAI = {};
@@ -629,8 +625,6 @@ document.addEventListener("DOMContentLoaded", function () {
         puntuacionTotalBAI,
         respuestasBAI
       );
-      alert("Datos del BAI registrados exitosamente");
-
 
       // Registro de respuestas del BDI
       const respuestasBDI = {};
@@ -643,7 +637,6 @@ document.addEventListener("DOMContentLoaded", function () {
         puntuacionTotalBDI,
         respuestasBDI
       );
-      alert("Datos del BDI registrados exitosamente");
 
       // Registro de respuestas del PSS
       const respuestasPSS = {};
@@ -657,8 +650,6 @@ document.addEventListener("DOMContentLoaded", function () {
         puntuacionTotalPSS,
         respuestasPSS
       );
-      alert("Datos del PSS registrados exitosamente");
-
 
       // Registro de respuestas del MINI
       const respuestasMINI = {};
@@ -672,8 +663,6 @@ document.addEventListener("DOMContentLoaded", function () {
         puntuacionTotalMINI,
         respuestasMINI
       );
-      alert("Datos del MINI registrados exitosamente");
-
 
       // Registro de respuestas del WBI
       const respuestasWBI = {};
@@ -687,8 +676,6 @@ document.addEventListener("DOMContentLoaded", function () {
         puntuacionTotalWBI,
         respuestasWBI
       );
-      alert("Datos del WBI registrados exitosamente");
-
 
       // Guardar respuestas del Índice de Calidad de Sueño de Pittsburgh (revisar si dejar float o int en la 4)
       const respuestasICSP = {
@@ -719,7 +706,6 @@ document.addEventListener("DOMContentLoaded", function () {
         user.uid,
         respuestasICSP
       );
-      alert("Datos del Índice de Calidad de Sueño de Pittsburgh registrados exitosamente");
 
     } catch (error) {
       console.error("Error al registrar datos:", error.code, error.message);
@@ -840,5 +826,3 @@ document.addEventListener("DOMContentLoaded", function () {
     return fecha.toLocaleTimeString('es-ES', { hour12: false });
   }
 });
-
-//guarda bien solo el valor de la pregunta que tiene un text

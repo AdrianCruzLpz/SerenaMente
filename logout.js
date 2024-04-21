@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const currentUser = await auth.currentUser;
       if (currentUser) {
-        alert("Usuario activo: " + currentUser.email);
+        //alert("Usuario activo: " + currentUser.email);
         logoutUser();
       } else {
         alert("No hay una sesión activa");

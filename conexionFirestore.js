@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
         email,
       });
 
-      alert("Usuario registrado exitosamente");
+      //alert("Usuario registrado exitosamente");
     } catch (error) {
       console.error("Error al registrar usuario:", error.code, error.message);
       alert("Ocurrió un error al registrar el usuario: " + error.message);
