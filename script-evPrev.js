@@ -3,13 +3,13 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-aut
 import { getFirestore, setDoc, doc, collection } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA0kLe5l_gNuBwhkOOvBr8RO150dHCU31k",
-  authDomain: "serena-mente.firebaseapp.com",
-  projectId: "serena-mente",
-  storageBucket: "serena-mente.appspot.com",
-  messagingSenderId: "183868385167",
-  appId: "1:183868385167:web:442b02f182fc8a28260dfa",
-  measurementId: "G-LVWYEJBRHE"
+  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+  authDomain: "prueba2-31849.firebaseapp.com",
+  databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
+  projectId: "prueba2-31849",
+  storageBucket: "prueba2-31849.appspot.com",
+  messagingSenderId: "593735540788",
+  appId: "1:593735540788:web:4fa918ce020f5050c66a61"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -137,13 +137,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   enviar.addEventListener("click", async function (event) {
     event.preventDefault();
+    const puntuacionTotalBAI = calcularPuntuacionTotalBAI();
+    const puntuacionTotalBDI = calcularPuntuacionTotalBDI();
+    const puntuacionTotalPSS = calcularPuntuacionTotalPSS();
+    const puntuacionTotalMINI = calcularPuntuacionTotalMINI();
+    const puntuacionTotalWBI = calcularPuntuacionTotalWBI();
+    const puntuacionTotalICSP = calcularPuntuacionTotalICSP();
+  
+    // Guardar los datos en Firestore
+    await registerData(puntuacionTotalBAI, puntuacionTotalBDI, puntuacionTotalPSS, puntuacionTotalMINI, puntuacionTotalWBI, puntuacionTotalICSP);
+  
+    // Actualizar el campo "evaluacionPrevia" a true en la colección "evaluacionRealizada"
+    await setDoc(doc(db, "evaluacionRealizada", auth.currentUser.uid), {
+      evaluacionPreviaRealizada: true,
+    }, { merge: true });
+  
+    // Si el formulario está validado, mostrar los resultados
     if (validarFormulario(formulario7)) {
-      const puntuacionTotalBAI = calcularPuntuacionTotalBAI();
-      const puntuacionTotalBDI = calcularPuntuacionTotalBDI();
-      const puntuacionTotalPSS = calcularPuntuacionTotalPSS();
-      const puntuacionTotalMINI = calcularPuntuacionTotalMINI();
-      const puntuacionTotalWBI = calcularPuntuacionTotalWBI();
-      const puntuacionTotalICSP = calcularPuntuacionTotalICSP();
       document.getElementById("form7").style.display = "none";
       document.getElementById("resultados").style.display = "block";
       mostrarResultadosBAI(puntuacionTotalBAI);
@@ -153,14 +163,8 @@ document.addEventListener("DOMContentLoaded", function () {
       mostrarResultadosWBI(puntuacionTotalWBI);
       mostrarResultadosICSP(puntuacionTotalICSP);
       criteriosExclusion();
-      registerData(puntuacionTotalBAI, puntuacionTotalBDI, puntuacionTotalPSS, puntuacionTotalMINI, puntuacionTotalWBI, puntuacionTotalICSP);
-
-      // Actualizar el campo "evaluacionPrevia" a true en la colección "evaluacionRealizada"
-      await setDoc(doc(db, "evaluacionRealizada", auth.currentUser.uid), {
-        evaluacionPreviaRealizada: true,
-      }, { merge: true });
     }
-  });
+  });  
 
   function validarFormulario(formulario) {
     const inputs = formulario.querySelectorAll("input");
