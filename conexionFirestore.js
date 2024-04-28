@@ -1,31 +1,22 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-//import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, reload, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA0kLe5l_gNuBwhkOOvBr8RO150dHCU31k",
-  authDomain: "serena-mente.firebaseapp.com",
-  projectId: "serena-mente",
-  storageBucket: "serena-mente.appspot.com",
-  messagingSenderId: "183868385167",
-  appId: "1:183868385167:web:442b02f182fc8a28260dfa",
-  measurementId: "G-LVWYEJBRHE"
+  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+  authDomain: "prueba2-31849.firebaseapp.com",
+  databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
+  projectId: "prueba2-31849",
+  storageBucket: "prueba2-31849.appspot.com",
+  messagingSenderId: "593735540788",
+  appId: "1:593735540788:web:4fa918ce020f5050c66a61"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-//const database = getDatabase(app);
 const auth = getAuth();
 const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", function() {
-  // Seleccionar los elementos del formulario
   const nameInput = document.getElementById("name");
   const lastnameInput = document.getElementById("lastname");
   const ageInput = document.getElementById("edad");
@@ -38,25 +29,21 @@ document.addEventListener("DOMContentLoaded", function() {
   const confirmPasswordInput = document.getElementById("confirPass");
   const signUpButton = document.getElementById("signUp");
 
-  // Agregar evento de clic al botón de registro
   signUpButton.addEventListener("click", (e) => {
     e.preventDefault();
     registerUser();
   });
 
-  // Función para registrar al usuario
   async function registerUser() {
     try {
       const name = nameInput ? nameInput.value : "";
       const lastname = lastnameInput ? lastnameInput.value : "";
       const age = ageInput ? parseInt(ageInput.value) : 0;
 
-      // Obtener los valores de los campos select
       const civilStatus = civilStatusInput ? civilStatusInput.value : "";
       const occupation = occupationInput ? occupationInput.value : "";
       const educationLevel = educationLevelInput ? educationLevelInput.value : "";
 
-      // Obtener el valor del campo de género
       let gender = "";
       genderInputs.forEach((input) => {
         if (input.checked) {
@@ -68,21 +55,17 @@ document.addEventListener("DOMContentLoaded", function() {
       const password = passwordInput ? passwordInput.value : "";
       const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : "";
 
-      // Validar que las contraseñas coincidan
       if (password !== confirmPassword) {
         alert("Las contraseñas no coinciden");
         return;
       }
 
-      // Crear el usuario en Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Enviar email de verificación
       await sendEmailVerification(user);
       alert("Se ha enviado un correo de verificación a tu cuenta de email.");
 
-      // Ejecutar la función de verificación cada 5 segundos
       let verificationInterval;
       verificationInterval = setInterval(async () => {
         await reload(user);
@@ -90,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function() {
           clearInterval(verificationInterval);
 
           try {
-            // Iniciar sesión con el usuario verificado
             await signInWithEmailAndPassword(auth, email, password);
             alert("Sesión iniciada correctamente");
             window.location.href = "./evaluacionPrevia.html";
@@ -100,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }, 5000);
 
-      // Guardar los datos del usuario en Firestore
       await setDoc(doc(db, "users", user.uid), {
         name,
         lastname,
@@ -112,12 +93,10 @@ document.addEventListener("DOMContentLoaded", function() {
         email,
       });
 
-      // Crear documento en la colección "evaluacionRealizada" con "evaluacionPrevia" en false
       await setDoc(doc(db, "evaluacionRealizada", user.uid), {
         evaluacionPreviaRealizada: false,
       });
 
-      //alert("Usuario registrado exitosamente");
     } catch (error) {
       console.error("Error al registrar usuario:", error.code, error.message);
       alert("Ocurrió un error al registrar el usuario: " + error.message);

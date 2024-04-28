@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Información de Usuarios</title>
+  <style>
+    .campo {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    .valor {
+      font-weight: normal;
+    }
+    .user-separator {
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Información de Usuarios</h1>
+
+  <h2>Usuario Autenticado</h2>
+  <div id="userInfo"></div>
+
+  <h2>Todos los Usuarios</h2>
+  <div id="allUsersInfo"></div>
+
+  <h2>Usuarios que han realizado la evaluación previa</h2>
+  <div id="evaluacionPreviaInfo"></div>
+
+  <h2>Puntuaciones de las evaluaciones previas</h2>
+  <div id="puntuacionesEvaluacionPrevia"></div>
+
+  <button id="exportCSVButton">Exportar como CSV</button>
+
+  <!-- Incluye los SDK de Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+
+    // Configura Firebase con tus credenciales
+    const firebaseConfig = {
+      apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+      authDomain: "prueba2-31849.firebaseapp.com",
+      projectId: "prueba2-31849",
+      storageBucket: "prueba2-31849.appspot.com",
+      messagingSenderId: "593735540788",
+      appId: "1:593735540788:web:4fa918ce020f5050c66a61"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Función para obtener el usuario autenticado y todos los usuarios
+    async function obtenerUsuariosInfo() {
+      onAuthStateChanged(auth, async (user) => {
+        const userInfoElement = document.getElementById('userInfo');
+        const allUsersInfoElement = document.getElementById('allUsersInfo');
+        const evaluacionPreviaInfoElement = document.getElementById('evaluacionPreviaInfo');
+        const puntuacionesEvaluacionPreviaElement = document.getElementById('puntuacionesEvaluacionPrevia'); // Nuevo elemento añadido
+        userInfoElement.innerHTML = "";
+        allUsersInfoElement.innerHTML = ""; // Limpiar el contenido previo
+        evaluacionPreviaInfoElement.innerHTML = ""; // Limpiar el contenido previo
+        puntuacionesEvaluacionPreviaElement.innerHTML = ""; // Limpiar el contenido previo
+
+        if (user) {
+          // Obtener los datos del usuario autenticado
+          const userId = user.uid;
+          const userDocRef = doc(db, 'users', userId);
+          const userDoc = await getDoc(userDocRef);
+
+          if (userDoc.exists) {
+            const userData = userDoc.data();
+            // Mostrar los datos del usuario autenticado
+            userInfoElement.appendChild(createParagraph(`<span class="campo">ID del usuario:</span> <span class="valor">${userId}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Nombre:</span> <span class="valor">${userData.name}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Apellidos:</span> <span class="valor">${userData.lastname}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Correo:</span> <span class="valor">${userData.email}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Edad:</span> <span class="valor">${userData.age}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Estado civil:</span> <span class="valor">${userData.civilStatus}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Género:</span> <span class="valor">${userData.gender}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Ocupación:</span> <span class="valor">${userData.occupation}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Nivel de estudios:</span> <span class="valor">${userData.educationLevel}</span>`));
+            userInfoElement.appendChild(document.createElement('hr'));
+          } else {
+            userInfoElement.appendChild(createParagraph("El documento del usuario autenticado no existe"));
+          }
+        } else {
+          userInfoElement.appendChild(createParagraph("No hay usuario autenticado"));
+        }
+
+        // Mostrar los datos de todos los usuarios
+        const usersCollectionRef = collection(db, 'users');
+        const usersSnapshot = await getDocs(usersCollectionRef);
+        for (const doc of usersSnapshot.docs) {
+          const userData = doc.data();
+          const userId = doc.id;
+          
+          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">ID del usuario:</span> <span class="valor">${userId}</span>`));
+          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Nombre:</span> <span class="valor">${userData.name}</span>`));
+          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Apellidos:</span> <span class="valor">${userData.lastname}</span>`));
+          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Correo:</span> <span class="valor">${userData.email}</span>`));
+          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Edad:</span> <span class="valor">${userData.age}</span>`));
+          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Estado civil:</span> <span class="valor">${userData.civilStatus}</span>`));
+          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Género:</span> <span class="valor">${userData.gender}</span>`));
+          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Ocupación:</span> <span class="valor">${userData.occupation}</span>`));
+          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Nivel de estudios:</span> <span class="valor">${userData.educationLevel}</span>`));
+          allUsersInfoElement.appendChild(document.createElement('hr'));
+        }
+
+        // Mostrar la lista de usuarios que han realizado la evaluación previa
+        const evaluacionRealizadaCollectionRef = collection(db, 'evaluacionRealizada');
+        const evaluacionRealizadaSnapshot = await getDocs(evaluacionRealizadaCollectionRef);
+        evaluacionPreviaInfoElement.appendChild(document.createElement('br'));
+        for (const doc of evaluacionRealizadaSnapshot.docs) {
+          const userId = doc.id;
+          const evaluacionRealizadaData = doc.data();
+          const evaluacionPreviaRealizada = evaluacionRealizadaData.evaluacionPreviaRealizada ? "Realizada" : "No realizada";
+          evaluacionPreviaInfoElement.appendChild(createParagraph(`<span class="campo">ID del usuario:</span> <span class="valor">${userId}</span> - <span class="campo">Evaluación Previa:</span> <span class="valor">${evaluacionPreviaRealizada}</span>`));
+        }
+
+
+        // Mostrar la lista de usuarios que han realizado la evaluación previa
+        const evaluacionPreviaCollectionRef = collection(db, 'resultadosEvaluacionPrevia');
+        const evaluacionPreviaSnapshot = await getDocs(evaluacionPreviaCollectionRef);
+        puntuacionesEvaluacionPreviaElement.appendChild(document.createElement('br'));
+        for (const doc of evaluacionPreviaSnapshot.docs) {
+          const userId = doc.id;
+          const evaluacionPreviaData = doc.data();
+          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">ID del usuario:</span> <span class="valor">${userId}</span>`));
+          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total BAI:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalBAI}</span>`));
+          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total BDI:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalBDI}</span>`));
+          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total PSS:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalPSS}</span>`));
+          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total MINI:</span>`));
+          // Cambio para mostrar la puntuación total MINI como lista
+          let puntuacionMINIList = document.createElement('ul');
+          puntuacionMINIList.innerHTML = `
+            <li><span class="valor">${evaluacionPreviaData.puntuacionTotalMINI.count}</span></li>
+            <li><span class="valor">${evaluacionPreviaData.puntuacionTotalMINI.nivel}</span></li>
+          `;
+          puntuacionesEvaluacionPreviaElement.appendChild(puntuacionMINIList);
+          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total WBI:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalWBI}</span>`));
+          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total ICSP:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalICSP}</span>`));
+          puntuacionesEvaluacionPreviaElement.appendChild(document.createElement('hr'));
+
+          // Mostrar datos de los cuestionarios
+          const cuestionariosRef = collection(doc.ref, 'cuestionarios');
+          const cuestionariosSnapshot = await getDocs(cuestionariosRef);
+          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Cuestionarios:</span>`));
+          let cuestionariosList = document.createElement('ul');
+
+          console.log("Datos de cuestionarios obtenidos de Firestore:");
+
+          // Función para completar con ceros a la izquierda
+          const completarConCeros = (numero, longitud) => {
+            return String(numero).padStart(longitud, '0');
+          };
+
+          // Iterar sobre los documentos dentro del QuerySnapshot
+          cuestionariosSnapshot.docs.forEach((cuestionarioDoc) => {
+            const cuestionarioData = cuestionarioDoc.data();
+            console.log(cuestionarioData); // Mostrar los datos de cada documento en la consola
+            let cuestionarioItem = document.createElement('li');
+            let cuestionarioItemContent = `<span class="campo">${cuestionarioDoc.id}:</span>`;
+
+            // Extraer las claves del objeto cuestionarioData y ordenarlas alfabéticamente
+            const clavesOrdenadas = Object.keys(cuestionarioData)
+              .sort((a, b) => a.localeCompare(b, 'es', {numeric: true}))
+              .map((clave) => completarConCeros(clave, 2));
+
+            // Iterar sobre las claves ordenadas del objeto cuestionarioData
+            clavesOrdenadas.forEach((key) => {
+              const value = cuestionarioData[key];
+              // Verificar si el valor es un objeto
+              if (typeof value === 'object' && value !== null) {
+                // Si el valor es un objeto, convertirlo a una cadena legible
+                let objectString = '';
+                for (const [subKey, subValue] of Object.entries(value)) {
+                  objectString += `<div>${subKey}: ${subValue}</div>`;
+                }
+                cuestionarioItemContent += `<div><span class="campo">${key}:</span> ${objectString}</div>`;
+              } else {
+                // Si no es un objeto, simplemente mostrar el valor
+                cuestionarioItemContent += `<div><span class="campo">${key}:</span> <span class="valor">${value}</span></div>`;
+              }
+            });
+
+            cuestionarioItem.innerHTML = cuestionarioItemContent;
+            cuestionariosList.appendChild(cuestionarioItem);
+          });
+
+          puntuacionesEvaluacionPreviaElement.appendChild(cuestionariosList);
+          puntuacionesEvaluacionPreviaElement.appendChild(document.createElement('hr'));
+
+        }
+      });
+    }
+
+    // Función para crear un elemento <p> con el contenido HTML especificado
+    function createParagraph(html) {
+      const p = document.createElement('p');
+      p.innerHTML = html;
+      return p;
+    }
+
+    // Ejecutar la función al cargar la página
+    document.addEventListener('DOMContentLoaded', obtenerUsuariosInfo);
+  </script>
+  <script type="module">
+    // Función para exportar los datos como CSV en formato de tabla
+    // Función para exportar los datos como CSV en formato de tabla
+function exportCSV() {
+    // Recolectar los datos que deseas exportar
+    const userData = [];
+    const allUsersData = [];
+    const evaluacionPreviaData = [];
+    const puntuacionesEvaluacionPreviaData = [];
+
+    // Obtener datos del usuario autenticado
+    const userInfo = document.getElementById('userInfo').querySelectorAll('p');
+    const userInfoCSV = Array.from(userInfo).map(element => {
+        const [campo, valor] = element.innerText.split(':');
+        return [campo.trim(), valor.trim()];
+    });
+    userData.push(...userInfoCSV);
+
+    // Obtener datos de todos los usuarios
+    const allUsersInfo = document.getElementById('allUsersInfo').querySelectorAll('p');
+    const allUsersInfoCSV = Array.from(allUsersInfo).map(element => {
+        const [campo, valor] = element.innerText.split(':');
+        return [campo.trim(), valor.trim()];
+    });
+    allUsersData.push(...allUsersInfoCSV);
+
+    // Obtener datos de evaluación previa
+    const evaluacionPreviaInfo = document.getElementById('evaluacionPreviaInfo').querySelectorAll('p');
+    const evaluacionPreviaInfoCSV = Array.from(evaluacionPreviaInfo).map(element => {
+        const [campo, valor] = element.innerText.split(':');
+        return [campo.trim(), valor.trim()];
+    });
+    evaluacionPreviaData.push(...evaluacionPreviaInfoCSV);
+
+    // Obtener datos de puntuaciones de evaluación previa
+    const puntuacionesEvaluacionPreviaInfo = document.getElementById('puntuacionesEvaluacionPrevia').querySelectorAll('p');
+    const puntuacionesEvaluacionPreviaInfoCSV = Array.from(puntuacionesEvaluacionPreviaInfo).map(element => {
+        const [campo, valor] = element.innerText.split(':');
+        return [campo.trim(), valor.trim()];
+    });
+    puntuacionesEvaluacionPreviaData.push(...puntuacionesEvaluacionPreviaInfoCSV);
+
+    // Concatenar todos los datos
+    const csvContent = [
+        ...userData.map(entry => entry.join(',')),
+        ...allUsersData.map(entry => entry.join(',')),
+        ...evaluacionPreviaData.map(entry => entry.join(',')),
+        ...puntuacionesEvaluacionPreviaData.map(entry => entry.join(','))
+    ].join('\n');
+
+    // Crear un Blob con los datos CSV y la codificación UTF-8
+    const csvBlob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csvContent], { type: 'text/csv;charset=utf-8;' });
+
+    // Crear un objeto URL para el Blob y descargarlo
+    const csvUrl = URL.createObjectURL(csvBlob);
+    const downloadLink = document.createElement('a');
+    downloadLink.href = csvUrl;
+    downloadLink.setAttribute('download', 'datos.csv');
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
+
+
+    // Asignar la función exportCSV al botón exportCSVButton
+    document.getElementById('exportCSVButton').addEventListener('click', exportCSV);
+  </script>
+</body>
+</html>
+
+<!--AQUI MUESTRA PUNTUACIONES Y RESPUESTAS DE LA EVPREV  ORDENA BIEN EL ICSP exporta-->
