@@ -3,13 +3,13 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-aut
 import { getFirestore, setDoc, doc, collection } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA0kLe5l_gNuBwhkOOvBr8RO150dHCU31k",
-  authDomain: "serena-mente.firebaseapp.com",
-  projectId: "serena-mente",
-  storageBucket: "serena-mente.appspot.com",
-  messagingSenderId: "183868385167",
-  appId: "1:183868385167:web:442b02f182fc8a28260dfa",
-  measurementId: "G-LVWYEJBRHE"
+  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+  authDomain: "prueba2-31849.firebaseapp.com",
+  databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
+  projectId: "prueba2-31849",
+  storageBucket: "prueba2-31849.appspot.com",
+  messagingSenderId: "593735540788",
+  appId: "1:593735540788:web:4fa918ce020f5050c66a61"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -742,10 +742,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const cuestionariosRef = collection(resultadosEvaluacionPreviaRef, "cuestionarios");
       const baiRef = doc(cuestionariosRef, "BAI");
 
-      await setDoc(baiRef, {
+      // Combinar la puntuación total y las respuestas en un solo objeto
+      const data = {
         puntuacionTotal: puntuacionTotalBAI,
-        respuestas: respuestasBAI
-      });
+        ...respuestasBAI
+      };
+
+      await setDoc(baiRef, data);
     } catch (error) {
       console.error("Error al guardar respuestas del cuestionario BAI:", error.code, error.message);
       throw error;
@@ -758,10 +761,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const cuestionariosRef = collection(resultadosEvaluacionPreviaRef, "cuestionarios");
       const bdiRef = doc(cuestionariosRef, "BDI");
 
-      await setDoc(bdiRef, {
+      // Combinar la puntuación total y las respuestas en un solo objeto
+      const data = {
         puntuacionTotal: puntuacionTotalBDI,
-        respuestas: respuestasBDI
-      });
+        ...respuestasBDI
+      };
+
+      await setDoc(bdiRef, data);
     } catch (error) {
       console.error("Error al guardar respuestas del cuestionario BDI:", error.code, error.message);
       throw error;
@@ -774,10 +780,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const cuestionariosRef = collection(resultadosEvaluacionPreviaRef, "cuestionarios");
       const pssRef = doc(cuestionariosRef, "PSS");
 
-      await setDoc(pssRef, {
+      // Crear un objeto que combine la puntuación total y las respuestas del cuestionario
+      const data = {
         puntuacionTotal: puntuacionTotalPSS,
-        respuestas: respuestasPSS
-      });
+        ...respuestasPSS  // Esto expandirá las respuestas del cuestionario como campos individuales
+      };
+
+      await setDoc(pssRef, data);
     } catch (error) {
       console.error("Error al guardar respuestas del cuestionario PSS:", error.code, error.message);
       throw error;
@@ -790,10 +799,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const cuestionariosRef = collection(resultadosEvaluacionPreviaRef, "cuestionarios");
       const miniRef = doc(cuestionariosRef, "MINI");
 
-      await setDoc(miniRef, {
+      // Combinar la puntuación total y las respuestas en un solo objeto
+      const data = {
         puntuacionTotal: puntuacionTotalMINI,
-        respuestas: respuestasMINI
-      });
+        ...respuestasMINI
+      };
+
+      await setDoc(miniRef, data);
     } catch (error) {
       console.error("Error al guardar respuestas del cuestionario MINI:", error.code, error.message);
       throw error;
@@ -806,10 +818,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const cuestionariosRef = collection(resultadosEvaluacionPreviaRef, "cuestionarios");
       const wbiRef = doc(cuestionariosRef, "WBI");
 
-      await setDoc(wbiRef, {
+      // Combinar la puntuación total y las respuestas en un solo objeto
+      const data = {
         puntuacionTotal: puntuacionTotalWBI,
-        respuestas: respuestasWBI
-      });
+        ...respuestasWBI
+      };
+
+      await setDoc(wbiRef, data);
     } catch (error) {
       console.error("Error al guardar respuestas del cuestionario WBI:", error.code, error.message);
       throw error;
@@ -836,3 +851,5 @@ document.addEventListener("DOMContentLoaded", function () {
     return fecha.toLocaleTimeString('es-ES', { hour12: false });
   }
 });
+
+/*CAMBIAR FORMA*/
