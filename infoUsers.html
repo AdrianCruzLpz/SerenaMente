@@ -26,7 +26,6 @@
     <div class="tabla">
       <div id="allUsersInfo"></div>
     </div>
-    <!--<h2 class="titulos">Total de usuarios registrados</h2>-->
     <div id="totalUsuariosRegistrados"></div>
     <h2 class="titulos">Usuarios que han realizado la evaluación previa</h2>
     <div id="evaluacionPreviaInfo"></div>
@@ -44,41 +43,37 @@
 
   <button id="exportCSVButton">Exportar como CSV</button>
 
-  <!-- Incluye los SDK de Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
     import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
-    // Configura Firebase con tus credenciales
     const firebaseConfig = {
-  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
-  authDomain: "prueba2-31849.firebaseapp.com",
-  databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
-  projectId: "prueba2-31849",
-  storageBucket: "prueba2-31849.appspot.com",
-  messagingSenderId: "593735540788",
-  appId: "1:593735540788:web:4fa918ce020f5050c66a61"
-};
+      apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+      authDomain: "prueba2-31849.firebaseapp.com",
+      databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
+      projectId: "prueba2-31849",
+      storageBucket: "prueba2-31849.appspot.com",
+      messagingSenderId: "593735540788",
+      appId: "1:593735540788:web:4fa918ce020f5050c66a61"
+    };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Función para obtener el usuario autenticado y todos los usuarios
     async function obtenerUsuariosInfo() {
       onAuthStateChanged(auth, async (user) => {
         const userInfoElement = document.getElementById('userInfo');
         const allUsersInfoElement = document.getElementById('allUsersInfo');
         const evaluacionPreviaInfoElement = document.getElementById('evaluacionPreviaInfo');
-        const puntuacionesEvaluacionPreviaElement = document.getElementById('puntuacionesEvaluacionPrevia'); // Nuevo elemento añadido
+        const puntuacionesEvaluacionPreviaElement = document.getElementById('puntuacionesEvaluacionPrevia');
         userInfoElement.innerHTML = "";
-        allUsersInfoElement.innerHTML = ""; // Limpiar el contenido previo
-        evaluacionPreviaInfoElement.innerHTML = ""; // Limpiar el contenido previo
-        puntuacionesEvaluacionPreviaElement.innerHTML = ""; // Limpiar el contenido previo
+        allUsersInfoElement.innerHTML = "";
+        evaluacionPreviaInfoElement.innerHTML = "";
+        puntuacionesEvaluacionPreviaElement.innerHTML = "";
 
         if (user) {
-          // Obtener los datos del usuario autenticado
           const userId = user.uid;
           const userDocRef = doc(db, 'users', userId);
           const userDoc = await getDoc(userDocRef);
@@ -88,18 +83,13 @@
 
             const userInfoDiv = document.createElement('div');
             userInfoDiv.classList.add('usuario-info');
-            userInfoDiv.classList.add('usuario-autenticado'); // Añadir una clase específica para el usuario autenticado
+            userInfoDiv.classList.add('usuario-autenticado');
 
             const fields = [
               { label: 'ID del usuario', value: userId },
               { label: 'Nombre', value: userData.nombre },
               { label: 'Apellidos', value: userData.apellido },
               { label: 'Correo electrónico', value: userData.email },
-              /*{ label: 'Edad', value: userData.age },
-              { label: 'Estado civil', value: userData.civilStatus },
-              { label: 'Género', value: userData.gender },
-              { label: 'Ocupación', value: userData.occupation },
-              { label: 'Nivel de estudios', value: userData.educationLevel }*/
             ];
 
             fields.forEach(field => {
@@ -124,44 +114,11 @@
           userInfoElement.appendChild(createParagraph("No hay usuario autenticado"));
         }
 
-        /*Otra forma
-        if (user) {
-          // Obtener los datos del usuario autenticado
-          const userId = user.uid;
-          const userDocRef = doc(db, 'users', userId);
-          const userDoc = await getDoc(userDocRef);
-
-          if (userDoc.exists) {
-            const userData = userDoc.data();
-            // Mostrar los datos del usuario autenticado
-            userInfoElement.appendChild(createParagraph(`<span class="campo">ID del usuario:</span> <span class="valor">${userId}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Nombre:</span> <span class="valor">${userData.name}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Apellidos:</span> <span class="valor">${userData.lastname}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Correo electrónico:</span> <span class="valor">${userData.email}</span>`));
-            /*userInfoElement.appendChild(createParagraph(`<span class="campo">Edad:</span> <span class="valor">${userData.age}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Estado civil:</span> <span class="valor">${userData.civilStatus}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Género:</span> <span class="valor">${userData.gender}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Ocupación:</span> <span class="valor">${userData.occupation}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Nivel de estudios:</span> <span class="valor">${userData.educationLevel}</span>`));*/
-        //userInfoElement.appendChild(document.createElement('hr'));
-        /*} else {
-          userInfoElement.appendChild(createParagraph("El documento del usuario autenticado no existe"));
-        }
-      } else {
-        userInfoElement.appendChild(createParagraph("No hay usuario autenticado"));
-      }*/
-
-        // Obtener el número total de usuarios registrados
         const usersCollectionRef = collection(db, 'users');
         const usersSnapshot = await getDocs(usersCollectionRef);
         const totalUsuariosRegistrados = usersSnapshot.size;
-
-        // Mostrar el número total de usuarios registrados
         const totalUsuariosRegistradosElement = document.getElementById('totalUsuariosRegistrados');
-        // Mostrar el número total de usuarios registrados con el color especificado
-        // Mostrar el número total de usuarios registrados con el color y tamaño de fuente especificados
         totalUsuariosRegistradosElement.innerHTML = `<strong style="color: #2DAAA7; font-size: 18px;">Total de registrados: </strong>${totalUsuariosRegistrados}`;
-        // Insertar un hr después del total de usuarios registrados
         totalUsuariosRegistradosElement.insertAdjacentHTML('afterend', '<hr>');
 
         for (const doc of usersSnapshot.docs) {
@@ -176,7 +133,7 @@
             { label: 'Nombre', value: userData.nombre },
             { label: 'Apellidos', value: userData.apellido },
             { label: 'Correo electrónico', value: userData.email },
-            { label: 'Número Telefónico', value: userData.numeroTelfonico},
+            { label: 'Número Telefónico', value: userData.numeroTelefonico },
             { label: 'Edad', value: userData.edad },
             { label: 'Estado civil', value: userData.estadoCivil },
             { label: 'Género', value: userData.genero },
@@ -201,19 +158,55 @@
           allUsersInfoElement.appendChild(hrElement);
         }
 
-        // Mostrar la lista de usuarios que han realizado la evaluación previa
         const evaluacionRealizadaCollectionRef = collection(db, 'evaluacionRealizada');
         const evaluacionRealizadaSnapshot = await getDocs(evaluacionRealizadaCollectionRef);
+
         evaluacionPreviaInfoElement.appendChild(document.createElement('br'));
+        let totalRealizada = 0;
+        let totalNoRealizada = 0;
         for (const doc of evaluacionRealizadaSnapshot.docs) {
           const userId = doc.id;
           const evaluacionRealizadaData = doc.data();
           const evaluacionPreviaRealizada = evaluacionRealizadaData.evaluacionPreviaRealizada ? "Realizada" : "No realizada";
-          evaluacionPreviaInfoElement.appendChild(createParagraph(`<span class="campo">ID del usuario:</span> <span class="valor">${userId}</span> - <span class="campo">Evaluación Previa:</span> <span class="valor">${evaluacionPreviaRealizada}</span>`));
+
+          const evaluacionPreviaRowDiv = document.createElement('div');
+          evaluacionPreviaRowDiv.classList.add('usuario-row');
+
+          const idUsuarioDiv = document.createElement('div');
+          idUsuarioDiv.classList.add('campo');
+          idUsuarioDiv.textContent = 'ID del usuario:';
+          evaluacionPreviaRowDiv.appendChild(idUsuarioDiv);
+
+          const valorIdUsuarioDiv = document.createElement('div');
+          valorIdUsuarioDiv.classList.add('valor');
+          valorIdUsuarioDiv.textContent = userId;
+          evaluacionPreviaRowDiv.appendChild(valorIdUsuarioDiv);
+
+          const evaluacionPreviaDiv = document.createElement('div');
+          evaluacionPreviaDiv.classList.add('campo');
+          evaluacionPreviaDiv.textContent = 'Evaluación Previa:';
+          evaluacionPreviaRowDiv.appendChild(evaluacionPreviaDiv);
+
+          const valorEvaluacionPreviaDiv = document.createElement('div');
+          valorEvaluacionPreviaDiv.classList.add('valor');
+          valorEvaluacionPreviaDiv.textContent = evaluacionPreviaRealizada;
+          evaluacionPreviaRowDiv.appendChild(valorEvaluacionPreviaDiv);
+
+          evaluacionPreviaInfoElement.appendChild(evaluacionPreviaRowDiv);
+
+          // Incrementar el contador según si la evaluación previa está realizada o no
+          if (evaluacionPreviaRealizada === "Realizada") {
+            totalRealizada++;
+          } else {
+            totalNoRealizada++;
+          }
         }
 
+        // Mostrar el total de usuarios que han realizado y no han realizado la evaluación previa
+        evaluacionPreviaInfoElement.insertAdjacentHTML('beforeend', `<hr class="usuario-separator"><strong style="color: #2DAAA7; font-size: 16px;">Total Realizadas: </strong>${totalRealizada}`);
+        evaluacionPreviaInfoElement.insertAdjacentHTML('beforeend', `<hr class="usuario-separator"><strong style="color: #2DAAA7; font-size: 16px;">Total No Realizadas: </strong>${totalNoRealizada}`);
+        evaluacionPreviaInfoElement.insertAdjacentHTML('beforeend', '<hr>');
 
-        // Mostrar la lista de usuarios que han realizado la evaluación previa
         const evaluacionPreviaCollectionRef = collection(db, 'resultadosEvaluacionPrevia');
         const evaluacionPreviaSnapshot = await getDocs(evaluacionPreviaCollectionRef);
         puntuacionesEvaluacionPreviaElement.appendChild(document.createElement('br'));
@@ -225,7 +218,6 @@
           puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total BDI:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalBDI}</span>`));
           puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total PSS:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalPSS}</span>`));
           puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total MINI:</span>`));
-          // Cambio para mostrar la puntuación total MINI como lista
           let puntuacionMINIList = document.createElement('ul');
           puntuacionMINIList.innerHTML = `
             <li><span class="valor">${evaluacionPreviaData.puntuacionTotalMINI.count}</span></li>
@@ -236,44 +228,34 @@
           puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total ICSP:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalICSP}</span>`));
           puntuacionesEvaluacionPreviaElement.appendChild(document.createElement('hr'));
 
-          // Mostrar datos de los cuestionarios
           const cuestionariosRef = collection(doc.ref, 'cuestionarios');
           const cuestionariosSnapshot = await getDocs(cuestionariosRef);
           puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Cuestionarios:</span>`));
           let cuestionariosList = document.createElement('ul');
 
-          console.log("Datos de cuestionarios obtenidos de Firestore:");
-
-          // Función para completar con ceros a la izquierda
           const completarConCeros = (numero, longitud) => {
             return String(numero).padStart(longitud, '0');
           };
 
-          // Iterar sobre los documentos dentro del QuerySnapshot
           cuestionariosSnapshot.docs.forEach((cuestionarioDoc) => {
             const cuestionarioData = cuestionarioDoc.data();
-            console.log(cuestionarioData); // Mostrar los datos de cada documento en la consola
+            console.log(cuestionarioData);
             let cuestionarioItem = document.createElement('li');
             let cuestionarioItemContent = `<span class="campo">${cuestionarioDoc.id}:</span>`;
 
-            // Extraer las claves del objeto cuestionarioData y ordenarlas alfabéticamente
             const clavesOrdenadas = Object.keys(cuestionarioData)
               .sort((a, b) => a.localeCompare(b, 'es', { numeric: true }))
               .map((clave) => completarConCeros(clave, 2));
 
-            // Iterar sobre las claves ordenadas del objeto cuestionarioData
             clavesOrdenadas.forEach((key) => {
               const value = cuestionarioData[key];
-              // Verificar si el valor es un objeto
               if (typeof value === 'object' && value !== null) {
-                // Si el valor es un objeto, convertirlo a una cadena legible
                 let objectString = '';
                 for (const [subKey, subValue] of Object.entries(value)) {
                   objectString += `<div>${subKey}: ${subValue}</div>`;
                 }
                 cuestionarioItemContent += `<div><span class="campo">${key}:</span> ${objectString}</div>`;
               } else {
-                // Si no es un objeto, simplemente mostrar el valor
                 cuestionarioItemContent += `<div><span class="campo">${key}:</span> <span class="valor">${value}</span></div>`;
               }
             });
@@ -296,75 +278,7 @@
       return p;
     }
 
-    // Ejecutar la función al cargar la página
     document.addEventListener('DOMContentLoaded', obtenerUsuariosInfo);
-  </script>
-  <script type="module">
-    // Función para exportar los datos como CSV en formato de tabla
-    // Función para exportar los datos como CSV en formato de tabla
-    function exportCSV() {
-      // Recolectar los datos que deseas exportar
-      const userData = [];
-      const allUsersData = [];
-      const evaluacionPreviaData = [];
-      const puntuacionesEvaluacionPreviaData = [];
-
-      // Obtener datos del usuario autenticado
-      const userInfo = document.getElementById('userInfo').querySelectorAll('p');
-      const userInfoCSV = Array.from(userInfo).map(element => {
-        const [campo, valor] = element.innerText.split(':');
-        return [campo.trim(), valor.trim()];
-      });
-      userData.push(...userInfoCSV);
-
-      // Obtener datos de todos los usuarios
-      const allUsersInfo = document.getElementById('allUsersInfo').querySelectorAll('p');
-      const allUsersInfoCSV = Array.from(allUsersInfo).map(element => {
-        const [campo, valor] = element.innerText.split(':');
-        return [campo.trim(), valor.trim()];
-      });
-      allUsersData.push(...allUsersInfoCSV);
-
-      // Obtener datos de evaluación previa
-      const evaluacionPreviaInfo = document.getElementById('evaluacionPreviaInfo').querySelectorAll('p');
-      const evaluacionPreviaInfoCSV = Array.from(evaluacionPreviaInfo).map(element => {
-        const [campo, valor] = element.innerText.split(':');
-        return [campo.trim(), valor.trim()];
-      });
-      evaluacionPreviaData.push(...evaluacionPreviaInfoCSV);
-
-      // Obtener datos de puntuaciones de evaluación previa
-      const puntuacionesEvaluacionPreviaInfo = document.getElementById('puntuacionesEvaluacionPrevia').querySelectorAll('p');
-      const puntuacionesEvaluacionPreviaInfoCSV = Array.from(puntuacionesEvaluacionPreviaInfo).map(element => {
-        const [campo, valor] = element.innerText.split(':');
-        return [campo.trim(), valor.trim()];
-      });
-      puntuacionesEvaluacionPreviaData.push(...puntuacionesEvaluacionPreviaInfoCSV);
-
-      // Concatenar todos los datos
-      const csvContent = [
-        ...userData.map(entry => entry.join(',')),
-        ...allUsersData.map(entry => entry.join(',')),
-        ...evaluacionPreviaData.map(entry => entry.join(',')),
-        ...puntuacionesEvaluacionPreviaData.map(entry => entry.join(','))
-      ].join('\n');
-
-      // Crear un Blob con los datos CSV y la codificación UTF-8
-      const csvBlob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csvContent], { type: 'text/csv;charset=utf-8;' });
-
-      // Crear un objeto URL para el Blob y descargarlo
-      const csvUrl = URL.createObjectURL(csvBlob);
-      const downloadLink = document.createElement('a');
-      downloadLink.href = csvUrl;
-      downloadLink.setAttribute('download', 'datos.csv');
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-    }
-
-
-    // Asignar la función exportCSV al botón exportCSVButton
-    document.getElementById('exportCSVButton').addEventListener('click', exportCSV);
   </script>
 </body>
 

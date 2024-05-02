@@ -41,7 +41,7 @@ figure {
     align-items: center;
 }
 
-.infoPaginaTitulo h1{
+.infoPaginaTitulo h1 {
     font-weight: bold;
     font-size: 28px;
     color: #FFF;
@@ -64,6 +64,7 @@ figure {
 .campo {
     font-weight: bold;
     margin-right: 24px;
+    padding-left: 24px;
 }
 
 .valor {
@@ -73,10 +74,10 @@ figure {
 
 /* INICIO ESTILOS DE 'USUARIOS AUTENTICADO' */
 .usuario-autenticado .usuario-row .campo {
-    width: 76%; 
-    text-align: right; 
+    width: 76%;
+    text-align: right;
     font-weight: bold;
-    margin-right: 8px; 
+    margin-right: 8px;
 }
 
 .usuario-autenticado .usuario-row .valor {
@@ -84,6 +85,7 @@ figure {
     text-align: justify;
     margin-left: 8px;
 }
+
 /* FIN ESTILOS DE 'USUARIOS AUTENTICADO' */
 
 
@@ -96,8 +98,10 @@ figure {
 
 .usuario-row .campo {
     font-weight: bold;
-    width: 150px; /* Establecer un ancho fijo para el campo */
-    margin-right: 8px; /* Ajustar el margen derecho */
+    width: 150px;
+    /* Establecer un ancho fijo para el campo */
+    margin-right: 24px;
+    /* Ajustar el margen derecho */
 }
 
 .usuario-row .valor {
@@ -110,15 +114,36 @@ figure {
     border-top: 1px solid #ccc;
     margin: 16px 0;
 }
+
 /* FIN ESTILOS DE 'USUARIOS REGISTRADOS' */
 
-.titulos #totalUsuariosRegistrados {
+/* INICIO ESTILOS DE 'EVALUACION PREVIA' */
+#evaluacionPreviaInfo .usuario-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+#evaluacionPreviaInfo .usuario-row .campo {
+    font-weight: bold;
+    width: 150px;
+    margin-right: 4px;
+    padding-left: 24px;
+}
+
+#evaluacionPreviaInfo .usuario-row .valor {
+    flex: 1;
+    text-align: left;
+    padding-left: 4px;
+    max-width: 25%;
+
+}
+/* FIN ESTILOS DE 'EVALUACION PREVIA' */
+
+.titulos #totalUsuariosEvaluacionPrevia {
     float: right;
     margin-left: 10px;
   }
-
-
-
 @media screen and (min-width: 320px) and (max-width: 900px) {
 
     .rectanguloInicio {

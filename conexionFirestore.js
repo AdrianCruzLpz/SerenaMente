@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const estadoCivil = civilStatusInput ? civilStatusInput.value : "";
       const ocupacion = occupationInput ? occupationInput.value : "";
       const nivelEstudios = educationLevelInput ? educationLevelInput.value : "";
-      const numeroTelfonico = phoneInput ? phoneInput.value : "";
+      const numeroTelefonico = phoneInput ? phoneInput.value : "";
 
       let genero = "";
       genderInputs.forEach((input) => {
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
         genero,
         ocupacion,
         nivelEstudios,
-        numeroTelfonico,
+        numeroTelefonico,
         email,
       });
 

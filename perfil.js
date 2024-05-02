@@ -39,7 +39,7 @@ function obtenerUsuarioAutenticado() {
               userInfoElement.appendChild(createParagraph(`<span class="campo">Nombre:</span> <span class="valor">${userData.nombre}</span>`));
               userInfoElement.appendChild(createParagraph(`<span class="campo">Apellido:</span> <span class="valor">${userData.apellido}</span>`));
               userInfoElement.appendChild(createParagraph(`<span class="campo">Correo Electrónico:</span> <span class="valor">${userData.email}</span>`));
-              userInfoElement.appendChild(createParagraph(`<span class="campo">Número Telefónico:</span> <span class="valor">${userData.numeroTelfonico}</span>`));
+              userInfoElement.appendChild(createParagraph(`<span class="campo">Número Telefónico:</span> <span class="valor">${userData.numeroTelefonico}</span>`));
               userInfoElement.appendChild(createParagraph(`<span class="campo">Edad:</span> <span class="valor">${userData.edad}</span>`));
               userInfoElement.appendChild(createParagraph(`<span class="campo">Estado civil:</span> <span class="valor">${userData.estadoCivil}</span>`));
               userInfoElement.appendChild(createParagraph(`<span class="campo">Género:</span> <span class="valor">${userData.genero}</span>`));
