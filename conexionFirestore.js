@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const genderInputs = document.querySelectorAll('input[name="sexo"]');
   const occupationInput = document.querySelector('select[name="ocupacion"]');
   const educationLevelInput = document.querySelector('select[name="nivel_estudios"]');
+  const phoneInput = document.getElementById("phone");
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("pass");
   const confirmPasswordInput = document.getElementById("confirPass");
@@ -36,18 +37,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
   async function registerUser() {
     try {
-      const name = nameInput ? nameInput.value : "";
-      const lastname = lastnameInput ? lastnameInput.value : "";
-      const age = ageInput ? parseInt(ageInput.value) : 0;
+      const nombre = nameInput ? nameInput.value : "";
+      const apellido = lastnameInput ? lastnameInput.value : "";
+      const edad = ageInput ? parseInt(ageInput.value) : 0;
 
-      const civilStatus = civilStatusInput ? civilStatusInput.value : "";
-      const occupation = occupationInput ? occupationInput.value : "";
-      const educationLevel = educationLevelInput ? educationLevelInput.value : "";
+      const estadoCivil = civilStatusInput ? civilStatusInput.value : "";
+      const ocupacion = occupationInput ? occupationInput.value : "";
+      const nivelEstudios = educationLevelInput ? educationLevelInput.value : "";
+      const numeroTelfonico = phoneInput ? phoneInput.value : "";
 
-      let gender = "";
+      let genero = "";
       genderInputs.forEach((input) => {
         if (input.checked) {
-          gender = input.value;
+          genero = input.value;
         }
       });
       
@@ -83,13 +85,14 @@ document.addEventListener("DOMContentLoaded", function() {
       }, 5000);
 
       await setDoc(doc(db, "users", user.uid), {
-        name,
-        lastname,
-        age,
-        civilStatus,
-        gender,
-        occupation,
-        educationLevel,
+        nombre,
+        apellido,
+        edad,
+        estadoCivil,
+        genero,
+        ocupacion,
+        nivelEstudios,
+        numeroTelfonico,
         email,
       });
 

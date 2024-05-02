@@ -36,14 +36,15 @@ function obtenerUsuarioAutenticado() {
             if (doc.exists) {
               const userData = doc.data();
               userInfoElement.appendChild(createParagraph(`<span class="campo">ID del usuario: <span class="valor">${userId}</span>`));
-              userInfoElement.appendChild(createParagraph(`<span class="campo">Nombre:</span> <span class="valor">${userData.name}</span>`));
-              userInfoElement.appendChild(createParagraph(`<span class="campo">Apellido:</span> <span class="valor">${userData.lastname}</span>`));
-              userInfoElement.appendChild(createParagraph(`<span class="campo">Correo:</span> <span class="valor">${userData.email}</span>`));
-              userInfoElement.appendChild(createParagraph(`<span class="campo">Edad:</span> <span class="valor">${userData.age}</span>`));
-              userInfoElement.appendChild(createParagraph(`<span class="campo">Estado civil:</span> <span class="valor">${userData.civilStatus}</span>`));
-              userInfoElement.appendChild(createParagraph(`<span class="campo">Género:</span> <span class="valor">${userData.gender}</span>`));
-              userInfoElement.appendChild(createParagraph(`<span class="campo">Ocupación:</span> <span class="valor">${userData.occupation}</span>`));
-              userInfoElement.appendChild(createParagraph(`<span class="campo">Nivel de estudios:</span> <span class="valor">${userData.educationLevel}</span>`));
+              userInfoElement.appendChild(createParagraph(`<span class="campo">Nombre:</span> <span class="valor">${userData.nombre}</span>`));
+              userInfoElement.appendChild(createParagraph(`<span class="campo">Apellido:</span> <span class="valor">${userData.apellido}</span>`));
+              userInfoElement.appendChild(createParagraph(`<span class="campo">Correo Electrónico:</span> <span class="valor">${userData.email}</span>`));
+              userInfoElement.appendChild(createParagraph(`<span class="campo">Número Telefónico:</span> <span class="valor">${userData.numeroTelfonico}</span>`));
+              userInfoElement.appendChild(createParagraph(`<span class="campo">Edad:</span> <span class="valor">${userData.edad}</span>`));
+              userInfoElement.appendChild(createParagraph(`<span class="campo">Estado civil:</span> <span class="valor">${userData.estadoCivil}</span>`));
+              userInfoElement.appendChild(createParagraph(`<span class="campo">Género:</span> <span class="valor">${userData.genero}</span>`));
+              userInfoElement.appendChild(createParagraph(`<span class="campo">Ocupación:</span> <span class="valor">${userData.ocupacion}</span>`));
+              userInfoElement.appendChild(createParagraph(`<span class="campo">Nivel de estudios:</span> <span class="valor">${userData.nivelEstudios}</span>`));
             } else {
               userInfoElement.appendChild(createParagraph("El documento no existe"));
             }

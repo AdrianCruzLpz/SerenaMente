@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Información de Usuarios</title>
-  <style>
-    .campo {
-      font-weight: bold;
-      margin-right: 5px;
-    }
-    .valor {
-      font-weight: normal;
-    }
-    .user-separator {
-      border-bottom: 1px solid #ccc;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-    }
-  </style>
+  <link rel="stylesheet" href="./css/style-infoUsers.css">
 </head>
+
 <body>
-  <h1>Información de Usuarios</h1>
 
-  <h2>Usuario Autenticado</h2>
-  <div id="userInfo"></div>
+  <div class="rectanguloInicio">
+    <h1>Información de Usuarios</h1>
+  </div>
 
-  <h2>Todos los Usuarios</h2>
-  <div id="allUsersInfo"></div>
+  <h2 class="titulos contenedorUserAuthen">Usuario Autenticado</h2>
+  <div id="userInfo" class="usuario-autenticado"></div>
 
-  <h2>Usuarios que han realizado la evaluación previa</h2>
-  <div id="evaluacionPreviaInfo"></div>
 
-  <h2>Puntuaciones de las evaluaciones previas</h2>
-  <div id="puntuacionesEvaluacionPrevia"></div>
+  <div class="infoPagina">
+    <div class="infoPaginaTitulo">
+      <h1>Página Web</h1>
+    </div>
+    <h2 class="titulos">Usuarios registrados</h2>
+    <div class="tabla">
+      <div id="allUsersInfo"></div>
+    </div>
+    <!--<h2 class="titulos">Total de usuarios registrados</h2>-->
+    <div id="totalUsuariosRegistrados"></div>
+    <h2 class="titulos">Usuarios que han realizado la evaluación previa</h2>
+    <div id="evaluacionPreviaInfo"></div>
+
+    <h2 class="titulos">Puntuaciones de las evaluaciones previas</h2>
+    <div id="puntuacionesEvaluacionPrevia"></div>
+
+  </div>
+
+  <div class="infoAplicacion">
+    <div class="infoPaginaTitulo">
+      <h1>Aplicación Móvil</h1>
+    </div>
+  </div>
 
   <button id="exportCSVButton">Exportar como CSV</button>
 
@@ -44,13 +52,14 @@
 
     // Configura Firebase con tus credenciales
     const firebaseConfig = {
-      apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
-      authDomain: "prueba2-31849.firebaseapp.com",
-      projectId: "prueba2-31849",
-      storageBucket: "prueba2-31849.appspot.com",
-      messagingSenderId: "593735540788",
-      appId: "1:593735540788:web:4fa918ce020f5050c66a61"
-    };
+  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+  authDomain: "prueba2-31849.firebaseapp.com",
+  databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
+  projectId: "prueba2-31849",
+  storageBucket: "prueba2-31849.appspot.com",
+  messagingSenderId: "593735540788",
+  appId: "1:593735540788:web:4fa918ce020f5050c66a61"
+};
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
@@ -76,17 +85,38 @@
 
           if (userDoc.exists) {
             const userData = userDoc.data();
-            // Mostrar los datos del usuario autenticado
-            userInfoElement.appendChild(createParagraph(`<span class="campo">ID del usuario:</span> <span class="valor">${userId}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Nombre:</span> <span class="valor">${userData.name}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Apellidos:</span> <span class="valor">${userData.lastname}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Correo:</span> <span class="valor">${userData.email}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Edad:</span> <span class="valor">${userData.age}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Estado civil:</span> <span class="valor">${userData.civilStatus}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Género:</span> <span class="valor">${userData.gender}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Ocupación:</span> <span class="valor">${userData.occupation}</span>`));
-            userInfoElement.appendChild(createParagraph(`<span class="campo">Nivel de estudios:</span> <span class="valor">${userData.educationLevel}</span>`));
-            userInfoElement.appendChild(document.createElement('hr'));
+
+            const userInfoDiv = document.createElement('div');
+            userInfoDiv.classList.add('usuario-info');
+            userInfoDiv.classList.add('usuario-autenticado'); // Añadir una clase específica para el usuario autenticado
+
+            const fields = [
+              { label: 'ID del usuario', value: userId },
+              { label: 'Nombre', value: userData.nombre },
+              { label: 'Apellidos', value: userData.apellido },
+              { label: 'Correo electrónico', value: userData.email },
+              /*{ label: 'Edad', value: userData.age },
+              { label: 'Estado civil', value: userData.civilStatus },
+              { label: 'Género', value: userData.gender },
+              { label: 'Ocupación', value: userData.occupation },
+              { label: 'Nivel de estudios', value: userData.educationLevel }*/
+            ];
+
+            fields.forEach(field => {
+              const rowDiv = document.createElement('div');
+              rowDiv.classList.add('usuario-row');
+              rowDiv.innerHTML = `
+                <div class="campo">${field.label}:</div>
+                <div class="valor">${field.value}</div>
+            `;
+              userInfoDiv.appendChild(rowDiv);
+            });
+
+            userInfoElement.appendChild(userInfoDiv);
+
+            const hrElement = document.createElement('hr');
+            hrElement.classList.add('usuario-separator');
+            userInfoElement.appendChild(hrElement);
           } else {
             userInfoElement.appendChild(createParagraph("El documento del usuario autenticado no existe"));
           }
@@ -94,23 +124,81 @@
           userInfoElement.appendChild(createParagraph("No hay usuario autenticado"));
         }
 
-        // Mostrar los datos de todos los usuarios
+        /*Otra forma
+        if (user) {
+          // Obtener los datos del usuario autenticado
+          const userId = user.uid;
+          const userDocRef = doc(db, 'users', userId);
+          const userDoc = await getDoc(userDocRef);
+
+          if (userDoc.exists) {
+            const userData = userDoc.data();
+            // Mostrar los datos del usuario autenticado
+            userInfoElement.appendChild(createParagraph(`<span class="campo">ID del usuario:</span> <span class="valor">${userId}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Nombre:</span> <span class="valor">${userData.name}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Apellidos:</span> <span class="valor">${userData.lastname}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Correo electrónico:</span> <span class="valor">${userData.email}</span>`));
+            /*userInfoElement.appendChild(createParagraph(`<span class="campo">Edad:</span> <span class="valor">${userData.age}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Estado civil:</span> <span class="valor">${userData.civilStatus}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Género:</span> <span class="valor">${userData.gender}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Ocupación:</span> <span class="valor">${userData.occupation}</span>`));
+            userInfoElement.appendChild(createParagraph(`<span class="campo">Nivel de estudios:</span> <span class="valor">${userData.educationLevel}</span>`));*/
+        //userInfoElement.appendChild(document.createElement('hr'));
+        /*} else {
+          userInfoElement.appendChild(createParagraph("El documento del usuario autenticado no existe"));
+        }
+      } else {
+        userInfoElement.appendChild(createParagraph("No hay usuario autenticado"));
+      }*/
+
+        // Obtener el número total de usuarios registrados
         const usersCollectionRef = collection(db, 'users');
         const usersSnapshot = await getDocs(usersCollectionRef);
+        const totalUsuariosRegistrados = usersSnapshot.size;
+
+        // Mostrar el número total de usuarios registrados
+        const totalUsuariosRegistradosElement = document.getElementById('totalUsuariosRegistrados');
+        // Mostrar el número total de usuarios registrados con el color especificado
+        // Mostrar el número total de usuarios registrados con el color y tamaño de fuente especificados
+        totalUsuariosRegistradosElement.innerHTML = `<strong style="color: #2DAAA7; font-size: 18px;">Total de registrados: </strong>${totalUsuariosRegistrados}`;
+        // Insertar un hr después del total de usuarios registrados
+        totalUsuariosRegistradosElement.insertAdjacentHTML('afterend', '<hr>');
+
         for (const doc of usersSnapshot.docs) {
           const userData = doc.data();
           const userId = doc.id;
-          
-          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">ID del usuario:</span> <span class="valor">${userId}</span>`));
-          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Nombre:</span> <span class="valor">${userData.name}</span>`));
-          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Apellidos:</span> <span class="valor">${userData.lastname}</span>`));
-          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Correo:</span> <span class="valor">${userData.email}</span>`));
-          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Edad:</span> <span class="valor">${userData.age}</span>`));
-          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Estado civil:</span> <span class="valor">${userData.civilStatus}</span>`));
-          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Género:</span> <span class="valor">${userData.gender}</span>`));
-          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Ocupación:</span> <span class="valor">${userData.occupation}</span>`));
-          allUsersInfoElement.appendChild(createParagraph(`<span class="campo">Nivel de estudios:</span> <span class="valor">${userData.educationLevel}</span>`));
-          allUsersInfoElement.appendChild(document.createElement('hr'));
+
+          const userDiv = document.createElement('div');
+          userDiv.classList.add('usuario-info');
+
+          const fields = [
+            { label: 'ID del usuario', value: userId },
+            { label: 'Nombre', value: userData.nombre },
+            { label: 'Apellidos', value: userData.apellido },
+            { label: 'Correo electrónico', value: userData.email },
+            { label: 'Número Telefónico', value: userData.numeroTelfonico},
+            { label: 'Edad', value: userData.edad },
+            { label: 'Estado civil', value: userData.estadoCivil },
+            { label: 'Género', value: userData.genero },
+            { label: 'Ocupación', value: userData.ocupacion },
+            { label: 'Nivel de estudios', value: userData.nivelEstudios }
+          ];
+
+          fields.forEach(field => {
+            const rowDiv = document.createElement('div');
+            rowDiv.classList.add('usuario-row');
+            rowDiv.innerHTML = `
+            <div class="campo">${field.label}:</div>
+            <div class="valor">${field.value}</div>
+        `;
+            userDiv.appendChild(rowDiv);
+          });
+
+          allUsersInfoElement.appendChild(userDiv);
+
+          const hrElement = document.createElement('hr');
+          hrElement.classList.add('usuario-separator');
+          allUsersInfoElement.appendChild(hrElement);
         }
 
         // Mostrar la lista de usuarios que han realizado la evaluación previa
@@ -170,7 +258,7 @@
 
             // Extraer las claves del objeto cuestionarioData y ordenarlas alfabéticamente
             const clavesOrdenadas = Object.keys(cuestionarioData)
-              .sort((a, b) => a.localeCompare(b, 'es', {numeric: true}))
+              .sort((a, b) => a.localeCompare(b, 'es', { numeric: true }))
               .map((clave) => completarConCeros(clave, 2));
 
             // Iterar sobre las claves ordenadas del objeto cuestionarioData
@@ -214,71 +302,72 @@
   <script type="module">
     // Función para exportar los datos como CSV en formato de tabla
     // Función para exportar los datos como CSV en formato de tabla
-function exportCSV() {
-    // Recolectar los datos que deseas exportar
-    const userData = [];
-    const allUsersData = [];
-    const evaluacionPreviaData = [];
-    const puntuacionesEvaluacionPreviaData = [];
+    function exportCSV() {
+      // Recolectar los datos que deseas exportar
+      const userData = [];
+      const allUsersData = [];
+      const evaluacionPreviaData = [];
+      const puntuacionesEvaluacionPreviaData = [];
 
-    // Obtener datos del usuario autenticado
-    const userInfo = document.getElementById('userInfo').querySelectorAll('p');
-    const userInfoCSV = Array.from(userInfo).map(element => {
+      // Obtener datos del usuario autenticado
+      const userInfo = document.getElementById('userInfo').querySelectorAll('p');
+      const userInfoCSV = Array.from(userInfo).map(element => {
         const [campo, valor] = element.innerText.split(':');
         return [campo.trim(), valor.trim()];
-    });
-    userData.push(...userInfoCSV);
+      });
+      userData.push(...userInfoCSV);
 
-    // Obtener datos de todos los usuarios
-    const allUsersInfo = document.getElementById('allUsersInfo').querySelectorAll('p');
-    const allUsersInfoCSV = Array.from(allUsersInfo).map(element => {
+      // Obtener datos de todos los usuarios
+      const allUsersInfo = document.getElementById('allUsersInfo').querySelectorAll('p');
+      const allUsersInfoCSV = Array.from(allUsersInfo).map(element => {
         const [campo, valor] = element.innerText.split(':');
         return [campo.trim(), valor.trim()];
-    });
-    allUsersData.push(...allUsersInfoCSV);
+      });
+      allUsersData.push(...allUsersInfoCSV);
 
-    // Obtener datos de evaluación previa
-    const evaluacionPreviaInfo = document.getElementById('evaluacionPreviaInfo').querySelectorAll('p');
-    const evaluacionPreviaInfoCSV = Array.from(evaluacionPreviaInfo).map(element => {
+      // Obtener datos de evaluación previa
+      const evaluacionPreviaInfo = document.getElementById('evaluacionPreviaInfo').querySelectorAll('p');
+      const evaluacionPreviaInfoCSV = Array.from(evaluacionPreviaInfo).map(element => {
         const [campo, valor] = element.innerText.split(':');
         return [campo.trim(), valor.trim()];
-    });
-    evaluacionPreviaData.push(...evaluacionPreviaInfoCSV);
+      });
+      evaluacionPreviaData.push(...evaluacionPreviaInfoCSV);
 
-    // Obtener datos de puntuaciones de evaluación previa
-    const puntuacionesEvaluacionPreviaInfo = document.getElementById('puntuacionesEvaluacionPrevia').querySelectorAll('p');
-    const puntuacionesEvaluacionPreviaInfoCSV = Array.from(puntuacionesEvaluacionPreviaInfo).map(element => {
+      // Obtener datos de puntuaciones de evaluación previa
+      const puntuacionesEvaluacionPreviaInfo = document.getElementById('puntuacionesEvaluacionPrevia').querySelectorAll('p');
+      const puntuacionesEvaluacionPreviaInfoCSV = Array.from(puntuacionesEvaluacionPreviaInfo).map(element => {
         const [campo, valor] = element.innerText.split(':');
         return [campo.trim(), valor.trim()];
-    });
-    puntuacionesEvaluacionPreviaData.push(...puntuacionesEvaluacionPreviaInfoCSV);
+      });
+      puntuacionesEvaluacionPreviaData.push(...puntuacionesEvaluacionPreviaInfoCSV);
 
-    // Concatenar todos los datos
-    const csvContent = [
+      // Concatenar todos los datos
+      const csvContent = [
         ...userData.map(entry => entry.join(',')),
         ...allUsersData.map(entry => entry.join(',')),
         ...evaluacionPreviaData.map(entry => entry.join(',')),
         ...puntuacionesEvaluacionPreviaData.map(entry => entry.join(','))
-    ].join('\n');
+      ].join('\n');
 
-    // Crear un Blob con los datos CSV y la codificación UTF-8
-    const csvBlob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csvContent], { type: 'text/csv;charset=utf-8;' });
+      // Crear un Blob con los datos CSV y la codificación UTF-8
+      const csvBlob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csvContent], { type: 'text/csv;charset=utf-8;' });
 
-    // Crear un objeto URL para el Blob y descargarlo
-    const csvUrl = URL.createObjectURL(csvBlob);
-    const downloadLink = document.createElement('a');
-    downloadLink.href = csvUrl;
-    downloadLink.setAttribute('download', 'datos.csv');
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-}
+      // Crear un objeto URL para el Blob y descargarlo
+      const csvUrl = URL.createObjectURL(csvBlob);
+      const downloadLink = document.createElement('a');
+      downloadLink.href = csvUrl;
+      downloadLink.setAttribute('download', 'datos.csv');
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
 
 
     // Asignar la función exportCSV al botón exportCSVButton
     document.getElementById('exportCSVButton').addEventListener('click', exportCSV);
   </script>
 </body>
+
 </html>
 
 <!--AQUI MUESTRA PUNTUACIONES Y RESPUESTAS DE LA EVPREV  ORDENA BIEN EL ICSP exporta-->
