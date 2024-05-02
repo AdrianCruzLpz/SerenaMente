@@ -129,7 +129,7 @@ select:focus {
     background-color: #0056B3;
 }
 
-p {
+p, .recomendacion {
     width: calc(85% - 5px);
     text-align: justify;
     margin: 0 auto 32px;
@@ -259,4 +259,22 @@ p {
 #termometroMINI .nivel.negro,
 #termometroWBI .nivel.negro {
     background-color: black;
+}
+
+h3 {
+    text-align: center;
+    font-size: 22px;
+}
+
+.logoPlayStore, .qrApp {
+    text-align: center;
+}
+
+.logoPlayStore img {
+    height: 48px;
+}
+
+
+.qrApp img {
+    height: 195px;
 }
