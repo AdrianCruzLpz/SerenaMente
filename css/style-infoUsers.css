@@ -8,6 +8,7 @@ figure {
     font-family: "Montserrat";
 }
 
+/*INICIO Rectangulo que dice 'Información de Usuarios'*/
 .rectanguloInicio {
     background-color: #2DAAA4;
     border-radius: 8px;
@@ -28,6 +29,10 @@ figure {
     text-align: center;
 }
 
+/*FIN Rectangulo que dice 'Información de Usuarios'*/
+
+
+/*INICIO Rectangulo que dice 'Página Web'*/
 .infoPaginaTitulo {
     background-color: #FFC55C;
     border-radius: 8px;
@@ -48,19 +53,43 @@ figure {
     text-align: center;
 }
 
+/*FIN Rectangulo que dice 'Página Web'*/
+
+/*TITULOS USUARIO AUTENTICADOS, REGISTRADOS, REALIZADO EV PREV, PUNTUACIONES*/
 .titulos {
     color: #2DAAA4;
 }
 
+/*INICIO Rectangulo GRIS 'REALIZADO EV PREV Y PUNTUACIONES'*/
+.rectanguloTitulos {
+    background-color: #CCC;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rectanguloTitulos h2 {
+    font-weight: bold;
+    font-size: 28px;
+    color: #363636;
+    text-align: center;
+}
+
+/*FIN Rectangulo GRIS 'REALIZADO EV PREV Y PUNTUACIONES'*/
+
+/*Datos del usuario autenticado*/
 .contenedorUserAuthen,
 #userInfo {
     text-align: right;
+
 }
 
-/*.infoPagina {
-
-}*/
-
+/*CAMPOS DE FIRESTORE*/
 .campo {
     font-weight: bold;
     margin-right: 24px;
@@ -99,9 +128,7 @@ figure {
 .usuario-row .campo {
     font-weight: bold;
     width: 150px;
-    /* Establecer un ancho fijo para el campo */
     margin-right: 24px;
-    /* Ajustar el margen derecho */
 }
 
 .usuario-row .valor {
@@ -116,6 +143,36 @@ figure {
 }
 
 /* FIN ESTILOS DE 'USUARIOS REGISTRADOS' */
+
+
+/*INICIO ESTILOS RESULTADOS Y RESPUESTAS*/
+
+/*Titulo de cada cuestionario*/
+.cuestionarioItem {
+    color: #2DAAA4;
+}
+
+.campoResultados {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.campoResultadosCampo {
+    font-weight: bold;
+    width: 150px;
+    margin: 0 24px;
+    color: #000;
+}
+
+.campoResultadosValor {
+    flex: 1;
+    font-weight: normal;
+    color: #000;
+}
+
+/*FIN ESTILOS RESULTADOS Y RESPUESTAS*/
+
 
 /* INICIO ESTILOS DE 'EVALUACION PREVIA' */
 #evaluacionPreviaInfo .usuario-row {
@@ -136,14 +193,64 @@ figure {
     text-align: left;
     padding-left: 4px;
     max-width: 25%;
-
 }
+
 /* FIN ESTILOS DE 'EVALUACION PREVIA' */
 
-.titulos #totalUsuariosEvaluacionPrevia {
-    float: right;
-    margin-left: 10px;
-  }
+.cuestionarios-container {
+    display: flex;
+
+    flex-wrap: wrap;
+}
+
+.cuestionarioItem {
+    width: calc(30%);
+    /* Ancho del 33.33% del contenedor menos el espacio entre ellos */
+    margin-right: 20px;
+    /* Espacio entre los cuestionarios */
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Para asegurar que el último cuestionario de cada fila no tenga margen derecho */
+.cuestionarioItem:nth-child(3n),
+.cuestionarioItem:last-child {
+    margin-right: 0;
+}
+
+/* Estilos específicos para las puntuaciones y respuestas de la evaluación previa */
+.usuario-evaluacion-previa .usuario-row .campo {
+    /* Estilos para los campos */
+    font-weight: bold;
+    width: 196px;
+    margin-bottom: 8px;
+}
+
+.usuario-evaluacion-previa .usuario-row .valor {
+    /* Estilos para los valores */
+    color: #000;
+}
+
+
+.palabraCuestionarios{
+    color: #2DAAA4;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+/*"Contenedor" de cada cuestionario*/
+.cuestionarioItem {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+p{
+    margin-bottom: 8px;
+}
+
 @media screen and (min-width: 320px) and (max-width: 900px) {
 
     .rectanguloInicio {

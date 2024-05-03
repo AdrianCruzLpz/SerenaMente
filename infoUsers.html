@@ -27,11 +27,18 @@
       <div id="allUsersInfo"></div>
     </div>
     <div id="totalUsuariosRegistrados"></div>
-    <h2 class="titulos">Usuarios que han realizado la evaluación previa</h2>
+
+    <div class="rectanguloTitulos">
+      <h2 class="titulos">Usuarios que han realizado la evaluación previa</h2>
+    </div>
     <div id="evaluacionPreviaInfo"></div>
 
-    <h2 class="titulos">Puntuaciones de las evaluaciones previas</h2>
-    <div id="puntuacionesEvaluacionPrevia"></div>
+    <div class="rectanguloTitulos">
+      <h2 class="titulos">Puntuaciones y respuestas de las evaluaciones previas</h2>
+    </div>
+    <div class="cuestionarios"></div>
+    <div id="puntuacionesEvaluacionPrevia" class="usuarios-evaluacion-previa"></div>
+
 
   </div>
 
@@ -213,35 +220,68 @@
         for (const doc of evaluacionPreviaSnapshot.docs) {
           const userId = doc.id;
           const evaluacionPreviaData = doc.data();
-          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">ID del usuario:</span> <span class="valor">${userId}</span>`));
-          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total BAI:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalBAI}</span>`));
-          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total BDI:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalBDI}</span>`));
-          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total PSS:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalPSS}</span>`));
-          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total MINI:</span>`));
-          let puntuacionMINIList = document.createElement('ul');
-          puntuacionMINIList.innerHTML = `
-            <li><span class="valor">${evaluacionPreviaData.puntuacionTotalMINI.count}</span></li>
-            <li><span class="valor">${evaluacionPreviaData.puntuacionTotalMINI.nivel}</span></li>
-          `;
-          puntuacionesEvaluacionPreviaElement.appendChild(puntuacionMINIList);
-          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total WBI:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalWBI}</span>`));
-          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Puntuación Total ICSP:</span> <span class="valor">${evaluacionPreviaData.puntuacionTotalICSP}</span>`));
-          puntuacionesEvaluacionPreviaElement.appendChild(document.createElement('hr'));
+
+          const userDiv = document.createElement('div');
+          userDiv.classList.add('usuario-info', 'usuario-evaluacion-previa');
+
+          const fields = [
+            { label: 'ID del usuario', value: userId },
+            { label: 'Puntuación Total BAI', value: evaluacionPreviaData.puntuacionTotalBAI },
+            { label: 'Puntuación Total BDI', value: evaluacionPreviaData.puntuacionTotalBDI },
+            { label: 'Puntuación Total PSS', value: evaluacionPreviaData.puntuacionTotalPSS },
+            { label: 'Puntuación Total MINI', value: `${evaluacionPreviaData.puntuacionTotalMINI.count} - ${evaluacionPreviaData.puntuacionTotalMINI.nivel}` },
+            { label: 'Puntuación Total WBI', value: evaluacionPreviaData.puntuacionTotalWBI },
+            { label: 'Puntuación Total ICSP', value: evaluacionPreviaData.puntuacionTotalICSP }
+          ];
+
+          fields.forEach(field => {
+            const rowDiv = document.createElement('div');
+            rowDiv.classList.add('usuario-row');
+            rowDiv.innerHTML = `
+              <div class="campo">${field.label}:</div>
+              <div class="valor">${field.value}</div>
+            `;
+            userDiv.appendChild(rowDiv);
+          });
+
+          puntuacionesEvaluacionPreviaElement.appendChild(userDiv);
+
+          const hrElement = document.createElement('hr');
+          hrElement.classList.add('usuario-separator');
+          puntuacionesEvaluacionPreviaElement.appendChild(hrElement);
+
 
           const cuestionariosRef = collection(doc.ref, 'cuestionarios');
           const cuestionariosSnapshot = await getDocs(cuestionariosRef);
-          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo">Cuestionarios:</span>`));
+          puntuacionesEvaluacionPreviaElement.appendChild(createParagraph(`<span class="campo palabraCuestionarios">Respuestas de cada cuestionario</span>`));
           let cuestionariosList = document.createElement('ul');
 
           const completarConCeros = (numero, longitud) => {
             return String(numero).padStart(longitud, '0');
           };
 
+          // Después de imprimir "Cuestionarios:"
+          puntuacionesEvaluacionPreviaElement.appendChild(document.createElement('br'));
+          // Crear un div para contener todos los cuestionarios
+          const cuestionariosContainer = document.createElement('div');
+          cuestionariosContainer.classList.add('cuestionarios-container');
+          puntuacionesEvaluacionPreviaElement.appendChild(cuestionariosContainer);
+
           cuestionariosSnapshot.docs.forEach((cuestionarioDoc) => {
             const cuestionarioData = cuestionarioDoc.data();
-            console.log(cuestionarioData);
-            let cuestionarioItem = document.createElement('li');
-            let cuestionarioItemContent = `<span class="campo">${cuestionarioDoc.id}:</span>`;
+            const cuestionarioNombre = cuestionarioDoc.id;
+
+            let cuestionarioWrapper = document.createElement('div');
+            cuestionarioWrapper.classList.add('campo');
+            cuestionarioWrapper.classList.add('cuestionarioItem');
+
+            // Crear un título para cada cuestionario
+            let cuestionarioTitle = document.createElement('h3');
+            cuestionarioTitle.classList.add('campo');
+            cuestionarioTitle.textContent = cuestionarioNombre;
+
+            let cuestionarioContent = document.createElement('div');
+            cuestionarioContent.classList.add('contenidoCuestionario');
 
             const clavesOrdenadas = Object.keys(cuestionarioData)
               .sort((a, b) => a.localeCompare(b, 'es', { numeric: true }))
@@ -249,20 +289,44 @@
 
             clavesOrdenadas.forEach((key) => {
               const value = cuestionarioData[key];
+              let item = document.createElement('div');
+              item.classList.add('campoResultados');
+
+              let label = document.createElement('span');
+              label.classList.add('campoResultadosCampo');
+              label.textContent = key + ":";
+
+              let valor = document.createElement('span');
+              valor.classList.add('campoResultadosValor');
+
+              if (key.startsWith('Puntuación')) {
+                valor.classList.add('contenidoCuestionario');
+                
+              }
+
               if (typeof value === 'object' && value !== null) {
                 let objectString = '';
                 for (const [subKey, subValue] of Object.entries(value)) {
-                  objectString += `<div>${subKey}: ${subValue}</div>`;
+                  objectString += `${subKey}: ${subValue}, `;
                 }
-                cuestionarioItemContent += `<div><span class="campo">${key}:</span> ${objectString}</div>`;
+                valor.textContent = objectString.slice(0, -2);
               } else {
-                cuestionarioItemContent += `<div><span class="campo">${key}:</span> <span class="valor">${value}</span></div>`;
+                valor.textContent = value;
               }
+
+              item.appendChild(label);
+              item.appendChild(valor);
+              cuestionarioContent.appendChild(item);
+
+
             });
 
-            cuestionarioItem.innerHTML = cuestionarioItemContent;
-            cuestionariosList.appendChild(cuestionarioItem);
+            cuestionarioWrapper.appendChild(cuestionarioTitle);
+            cuestionarioWrapper.appendChild(cuestionarioContent);
+            // Agregar el cuestionario al contenedor de cuestionarios
+            cuestionariosContainer.appendChild(cuestionarioWrapper);
           });
+
 
           puntuacionesEvaluacionPreviaElement.appendChild(cuestionariosList);
           puntuacionesEvaluacionPreviaElement.appendChild(document.createElement('hr'));
