@@ -46,6 +46,10 @@
     <div class="infoPaginaTitulo">
       <h1>Aplicación Móvil</h1>
     </div>
+    <h2 class="titulos">Usuarios registrados</h2>
+    
+    <div id="allUsersInfoAplicacion"></div> <!-- Nuevo div para mostrar los usuarios -->
+    <div id="totalUsuariosRegistradosAplicacion"></div>
   </div>
 
   <button id="exportCSVButton">Exportar como CSV</button>
@@ -56,13 +60,13 @@
     import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
     const firebaseConfig = {
-      apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
-      authDomain: "prueba2-31849.firebaseapp.com",
-      databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
-      projectId: "prueba2-31849",
-      storageBucket: "prueba2-31849.appspot.com",
-      messagingSenderId: "593735540788",
-      appId: "1:593735540788:web:4fa918ce020f5050c66a61"
+      apiKey: "AIzaSyA0kLe5l_gNuBwhkOOvBr8RO150dHCU31k",
+      authDomain: "serena-mente.firebaseapp.com",
+      projectId: "serena-mente",
+      storageBucket: "serena-mente.appspot.com",
+      messagingSenderId: "183868385167",
+      appId: "1:183868385167:web:442b02f182fc8a28260dfa",
+      measurementId: "G-LVWYEJBRHE"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -301,7 +305,7 @@
 
               if (key.startsWith('Puntuación')) {
                 valor.classList.add('contenidoCuestionario');
-                
+
               }
 
               if (typeof value === 'object' && value !== null) {
@@ -325,12 +329,60 @@
             cuestionarioWrapper.appendChild(cuestionarioContent);
             // Agregar el cuestionario al contenedor de cuestionarios
             cuestionariosContainer.appendChild(cuestionarioWrapper);
+
           });
 
 
           puntuacionesEvaluacionPreviaElement.appendChild(cuestionariosList);
           puntuacionesEvaluacionPreviaElement.appendChild(document.createElement('hr'));
 
+          /*const hrElement = document.createElement('hr');
+          hrElement.classList.add('usuario-separator');*/
+        }
+
+
+        const allUsersInfoAplicacionElement = document.getElementById('allUsersInfoAplicacion');
+        allUsersInfoAplicacionElement.innerHTML = ""; // Limpiar el contenido previo
+
+        const usersCollectionRefApp = collection(db, 'usuarios');
+        const usersSnapshotApp = await getDocs(usersCollectionRefApp);
+        const totalUsuariosRegistradosAplicacion = usersSnapshotApp.size;
+        const totalUsuariosRegistradosAplicacionElement = document.getElementById('totalUsuariosRegistradosAplicacion');
+        totalUsuariosRegistradosAplicacionElement.innerHTML = `<strong style="color: #2DAAA7; font-size: 18px;">Total de registrados: </strong>${totalUsuariosRegistradosAplicacion}`;
+        totalUsuariosRegistradosAplicacionElement.insertAdjacentHTML('afterend', '<hr>');
+
+        for (const doc of usersSnapshotApp.docs) {
+          const userData = doc.data();
+          const userId = doc.id;
+
+          const userDiv = document.createElement('div');
+          userDiv.classList.add('usuario-info');
+
+          const fields = [
+            { label: 'ID del usuario', value: userId },
+            { label: 'Nombre', value: userData.nombre },
+            { label: 'Apellidos', value: userData.apellido },
+            { label: 'Correo electrónico', value: userData.email },
+            { label: 'Número Telefónico', value: userData.number },
+            { label: 'Edad', value: userData.edad },
+            { label: 'Estado civil', value: userData.estadoCivil },
+            { label: 'Género', value: userData.genero },
+            { label: 'Ocupación', value: userData.ocupacion },
+            { label: 'Nivel de estudios', value: userData.educacion }
+          ];
+
+          fields.forEach(field => {
+            const rowDiv = document.createElement('div');
+            rowDiv.classList.add('usuario-row');
+            rowDiv.innerHTML = `
+          <div class="campo">${field.label}:</div>
+          <div class="valor">${field.value}</div>
+        `;
+            userDiv.appendChild(rowDiv);
+          });
+
+          allUsersInfoAplicacionElement.appendChild(userDiv);
+          allUsersInfoAplicacionElement.appendChild(document.createElement('hr'));
         }
       });
     }
