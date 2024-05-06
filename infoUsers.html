@@ -409,6 +409,10 @@
       const exportAppUsersEvPrevButton = document.getElementById('exportCSVButton'); // Cambiar el ID aquí
       exportAppUsersEvPrevButton.addEventListener('click', exportAppUsersEvPrevCSV);
 
+      // Función para exportar las puntuaciones y respuestas de la evaluación previa como CSV
+      const exportEvaluacionPreviaButton = document.getElementById('exportCSVButton');
+      exportEvaluacionPreviaButton.addEventListener('click', exportEvaluacionPreviaCSV);
+
       function exportWebUsersCSV() {
         const webUsersContainer = document.getElementById('allUsersInfo');
         const csvContent = generateCSV(webUsersContainer);
@@ -425,6 +429,12 @@
         const appUsersContainer = document.getElementById('evaluacionPreviaInfo');
         const csvContent = generateCSVWithEvalInfo(appUsersContainer);
         downloadCSV(csvContent, 'UsuariosEvaluacionPrevia.csv');
+      }
+
+      function exportEvaluacionPreviaCSV() {
+        const evaluacionPreviaContainer = document.getElementById('puntuacionesEvaluacionPrevia');
+        const csvContent = generateEvaluacionPreviaCSV(evaluacionPreviaContainer);
+        downloadCSV(csvContent, 'EvaluacionPrevia.csv');
       }
 
       function generateCSVWithEvalInfo(container) {
@@ -466,6 +476,55 @@
 
         return csvContent;
       }
+
+      function generateEvaluacionPreviaCSV(container) {
+        const usuariosEvaluacionPrevia = container.querySelectorAll('.usuario-evaluacion-previa');
+        let csvContent = 'data:text/csv;charset=utf-8,\uFEFF'; // Incluir BOM para asegurar la codificación UTF-8
+
+        // Obtener los nombres de los campos del primer usuario
+        const firstUserFields = usuariosEvaluacionPrevia[0].querySelectorAll('.campo');
+        const fieldNames = Array.from(firstUserFields).map(field => field.textContent.trim());
+        const fieldRowCSV = fieldNames.map(field => `"${field.replace(/"/g, '""')}"`).join(',');
+
+        csvContent += fieldRowCSV + '\r\n'; // Agregar la fila con los nombres de los campos
+
+        // Agregar las filas con las puntuaciones y respuestas de cada usuario
+        usuariosEvaluacionPrevia.forEach(usuario => {
+          const fields = usuario.querySelectorAll('.valor');
+          const rowData = Array.from(fields).map(field => field.textContent.trim());
+          const rowCSV = rowData.map(field => `"${field.replace(/"/g, '""')}"`).join(','); // Agregar comillas y escapar comillas dobles
+          csvContent += rowCSV + '\r\n';
+        });
+
+        return csvContent;
+      }//ESTE GUARDA PUNTUACIONES
+
+      /*function generateEvaluacionPreviaCSV(container) {
+        const usuariosEvaluacionPrevia = container.querySelectorAll('.usuario-evaluacion-previa');
+        let csvContent = 'data:text/csv;charset=utf-8,\uFEFF'; // Incluir BOM para asegurar la codificación UTF-8
+
+        // Agregar las filas con las puntuaciones y respuestas de cada usuario
+        usuariosEvaluacionPrevia.forEach(usuario => {
+          const userId = usuario.querySelector('.campo').nextElementSibling.textContent.trim();
+          csvContent += `"ID del usuario","${userId.replace(/"/g, '""')}"\r\n`;
+
+          const cuestionarios = usuario.parentNode.querySelectorAll('.cuestionarioItem');
+          cuestionarios.forEach(cuestionario => {
+            const cuestionarioNombre = cuestionario.querySelector('h3').textContent;
+            csvContent += `\r\n"${cuestionarioNombre}"\r\n`;
+
+            const respuestas = cuestionario.querySelectorAll('.campoResultados');
+            respuestas.forEach(respuesta => {
+              const campo = respuesta.querySelector('.campoResultadosCampo').textContent.trim();
+              const valor = respuesta.querySelector('.campoResultadosValor').textContent.trim();
+              csvContent += `"${campo.replace(/"/g, '""')}","${valor.replace(/"/g, '""')}"\r\n`;
+            });
+          });
+          csvContent += '\r\n'; // Línea en blanco para separar usuarios
+        });
+
+        return csvContent;
+      }//este es el chido resolver que pone 4 veces*/
 
       function downloadCSV(csvContent, filename) {
         const encodedUri = encodeURI(csvContent);
