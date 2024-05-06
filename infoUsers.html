@@ -47,7 +47,7 @@
       <h1>Aplicación Móvil</h1>
     </div>
     <h2 class="titulos">Usuarios registrados</h2>
-    
+
     <div id="allUsersInfoAplicacion"></div> <!-- Nuevo div para mostrar los usuarios -->
     <div id="totalUsuariosRegistradosAplicacion"></div>
   </div>
@@ -395,9 +395,91 @@
     }
 
     document.addEventListener('DOMContentLoaded', obtenerUsuariosInfo);
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // Botón para exportar usuarios de la página web como CSV
+      const exportWebUsersButton = document.getElementById('exportCSVButton'); // Cambiar el ID aquí
+      exportWebUsersButton.addEventListener('click', exportWebUsersCSV);
+
+      // Botón para exportar usuarios de la aplicación móvil como CSV
+      const exportAppUsersButton = document.getElementById('exportCSVButton'); // Cambiar el ID aquí
+      exportAppUsersButton.addEventListener('click', exportAppUsersCSV);
+
+      // Botón para exportar usuarios que han realizado la evpre como CSV
+      const exportAppUsersEvPrevButton = document.getElementById('exportCSVButton'); // Cambiar el ID aquí
+      exportAppUsersEvPrevButton.addEventListener('click', exportAppUsersEvPrevCSV);
+
+      function exportWebUsersCSV() {
+        const webUsersContainer = document.getElementById('allUsersInfo');
+        const csvContent = generateCSV(webUsersContainer);
+        downloadCSV(csvContent, 'UsuariosPagina.csv');
+      }
+
+      function exportAppUsersCSV() {
+        const appUsersContainer = document.getElementById('allUsersInfoAplicacion');
+        const csvContent = generateCSV(appUsersContainer);
+        downloadCSV(csvContent, 'UsuariosAplicacion.csv');
+      }
+
+      function exportAppUsersEvPrevCSV() {
+        const appUsersContainer = document.getElementById('evaluacionPreviaInfo');
+        const csvContent = generateCSVWithEvalInfo(appUsersContainer);
+        downloadCSV(csvContent, 'UsuariosEvaluacionPrevia.csv');
+      }
+
+      function generateCSVWithEvalInfo(container) {
+        const rows = container.querySelectorAll('.usuario-row');
+        let csvContent = 'data:text/csv;charset=utf-8,\uFEFF'; // Incluir BOM para asegurar la codificación UTF-8
+
+        // Agregar encabezados adicionales para ID de usuario y si la evaluación previa está realizada
+        csvContent += '"ID del usuario","Evaluación Previa Realizada"\r\n';
+
+        // Agregar los datos de cada usuario y si la evaluación previa está realizada o no
+        rows.forEach(row => {
+          const idUsuario = row.querySelector('.valor').textContent.trim();
+          const evaluacionPrevia = row.querySelector('.valor:last-of-type').textContent.trim();
+          const rowData = `"${idUsuario.replace(/"/g, '""')}","${evaluacionPrevia.replace(/"/g, '""')}"`;
+          csvContent += rowData + '\r\n';
+        });
+
+        return csvContent;
+      }
+
+      function generateCSV(container) {
+        const rows = container.querySelectorAll('.usuario-info');
+        let csvContent = 'data:text/csv;charset=utf-8,\uFEFF'; // Incluir BOM para asegurar la codificación UTF-8
+
+        // Obtener los nombres de los campos del primer usuario
+        const firstUserFields = rows[0].querySelectorAll('.campo');
+        const fieldNames = Array.from(firstUserFields).map(field => field.textContent.trim());
+        const fieldRowCSV = fieldNames.map(field => `"${field.replace(/"/g, '""')}"`).join(',');
+
+        csvContent += fieldRowCSV + '\r\n'; // Agregar la fila con los nombres de los campos
+
+        // Agregar las filas con los valores de cada usuario
+        rows.forEach(row => {
+          const fields = row.querySelectorAll('.valor');
+          const rowData = Array.from(fields).map(field => field.textContent.trim());
+          const rowCSV = rowData.map(field => `"${field.replace(/"/g, '""')}"`).join(','); // Agregar comillas y escapar comillas dobles
+          csvContent += rowCSV + '\r\n';
+        });
+
+        return csvContent;
+      }
+
+      function downloadCSV(csvContent, filename) {
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+      }
+    });
+
   </script>
 </body>
 
 </html>
 
-<!--AQUI MUESTRA PUNTUACIONES Y RESPUESTAS DE LA EVPREV  ORDENA BIEN EL ICSP exporta-->
+<!--AQUI MUESTRA PUNTUACIONES Y RESPUESTAS DE LA EVPREV  ORDENA BIEN EL ICSP exporta resultados eva bien ya exporta los datos campo y valor además de los que ha realizado la ev prev-->
