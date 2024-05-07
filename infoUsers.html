@@ -410,7 +410,7 @@
             { label: 'Puntuación Total BAI', value: evaluacionPreviaData.puntuacionTotalBAI },
             { label: 'Puntuación Total BDI', value: evaluacionPreviaData.puntuacionTotalBDI },
             { label: 'Puntuación Total PSS', value: evaluacionPreviaData.puntuacionTotalPSS },
-            { label: 'Puntuación Total MINI', value: `${evaluacionPreviaData.puntuacionTotalMINI.count} - ${evaluacionPreviaData.puntuacionTotalMINI.nivel}` },
+            { label: 'Puntuación Total MINI', value: evaluacionPreviaData.puntuacionTotalMINI},
             { label: 'Puntuación Total WBI', value: evaluacionPreviaData.puntuacionTotalWBI },
             { label: 'Puntuación Total ICSP', value: evaluacionPreviaData.puntuacionTotalICSP }
           ];
@@ -434,7 +434,7 @@
 
           const cuestionariosRef = collection(doc.ref, 'preguntas');
           const cuestionariosSnapshot = await getDocs(cuestionariosRef);
-          puntuacionesEvaluacionPreviaAplicacionElement.appendChild(createParagraph(`<span class="campo palabraCuestionarios">Respuestas de cada cuestionario</span>`));
+          puntuacionesEvaluacionPreviaAplicacionElement.appendChild(createParagraph(`<span class="campo palabraCuestionariosAplicacion">Respuestas de cada cuestionario</span>`));
           let cuestionariosList = document.createElement('ul');
 
           const completarConCeros = (numero, longitud) => {
@@ -454,7 +454,7 @@
 
             let cuestionarioWrapper = document.createElement('div');
             cuestionarioWrapper.classList.add('campo');
-            cuestionarioWrapper.classList.add('cuestionarioItem');
+            cuestionarioWrapper.classList.add('cuestionarioItemApp');
 
             // Crear un título para cada cuestionario
             let cuestionarioTitle = document.createElement('h3');
@@ -471,14 +471,14 @@
             clavesOrdenadas.forEach((key) => {
               const value = cuestionarioData[key];
               let item = document.createElement('div');
-              item.classList.add('campoResultados');
+              item.classList.add('campoResultadosAplicacion');
 
               let label = document.createElement('span');
-              label.classList.add('campoResultadosCampo');
+              label.classList.add('campoResultadosAplicacionCampo');
               label.textContent = key + ":";
 
               let valor = document.createElement('span');
-              valor.classList.add('campoResultadosValor');
+              valor.classList.add('campoResultadosAplicacionValor');
 
               if (key.startsWith('Puntuación')) {
                 valor.classList.add('contenidoCuestionario');
@@ -640,7 +640,7 @@
           const userId = usuario.querySelector('.campo').nextElementSibling.textContent.trim();
           csvContent += `"ID del usuario","${userId.replace(/"/g, '""')}"\r\n`;
 
-          const cuestionarios = usuario.parentNode.querySelectorAll('.cuestionarioItem');
+          const cuestionarios = usuario.parentNode.querySelectorAll('.cuestionarioItemApp');
           cuestionarios.forEach(cuestionario => {
             const cuestionarioNombre = cuestionario.querySelector('h3').textContent;
             csvContent += `\r\n"${cuestionarioNombre}"\r\n`;

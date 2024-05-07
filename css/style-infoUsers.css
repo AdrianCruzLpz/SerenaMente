@@ -94,6 +94,7 @@ figure {
     font-weight: bold;
     margin-right: 24px;
     padding-left: 24px;
+    /*background-color: goldenrod;*/
 }
 
 .valor {
@@ -197,6 +198,7 @@ figure {
 
 /* FIN ESTILOS DE 'EVALUACION PREVIA' */
 
+/*INICIO ESTILOS RESPUESTAS DE LA PAGINA*/
 .cuestionarios-container {
     display: flex;
 
@@ -232,7 +234,6 @@ figure {
     color: #000;
 }
 
-
 .palabraCuestionarios{
     color: #2DAAA4;
     font-size: 20px;
@@ -246,6 +247,85 @@ figure {
     padding: 10px;
     border-radius: 5px;
 }
+
+/*FIN ESTILOS RESPUESTAS DE LA PAGINA*/
+
+
+
+
+/*ESTILOS RESPUESTAS APLICACION*/
+.cuestionarios-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cuestionarioItemApp {
+    width: calc(20%);
+    margin-right: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px; /* Ajusta este valor según sea necesario */
+    /*background-color: green;*/
+}
+
+/* Para asegurar que el último cuestionario de cada fila no tenga margen derecho */
+.cuestionarioItemApp:nth-child(4n),
+.cuestionarioItemApp:last-child {
+    margin-right: 0;
+}
+
+.campoAplicacion {
+    font-weight: bold;
+    /*margin-right: 8px;*/
+    margin: 0;
+    padding-left: 8px;
+    font-size: 16px;
+    max-width: 50%;
+}
+
+.valor {
+    font-weight: normal;
+    /*background-color: yellow;*/
+}
+
+/* Estilos específicos para las puntuaciones y respuestas de la evaluación previa */
+.usuario-evaluacion-previa .usuario-row  {
+    /* Estilos para los campos */
+    font-weight: bold;
+    width: 196px;
+    margin-bottom: 8px;
+    background-color: rebeccapurple;
+}
+
+.usuario-evaluacion-previa-aplicacion .usuario-row-aplicacion .valor {
+    /* Estilos para los valores */
+    color: #000;
+    background-color: red;
+}
+
+.palabraCuestionariosAplicacion{
+    color: #2DAAA4;
+    font-size: 20px;
+    margin-bottom: 0;
+    background-color: yellow;
+}
+
+/*"Contenedor" de cada cuestionario*/
+.cuestionarioItem {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+/*fin*/
+
 
 p{
     margin-bottom: 8px;
