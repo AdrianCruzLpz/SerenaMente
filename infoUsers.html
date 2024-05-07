@@ -50,6 +50,12 @@
 
     <div id="allUsersInfoAplicacion"></div> <!-- Nuevo div para mostrar los usuarios -->
     <div id="totalUsuariosRegistradosAplicacion"></div>
+
+    <div class="rectanguloTitulos">
+      <h2 class="titulos">Puntuaciones y respuestas de las evaluaciones previas en la aplicación</h2>
+    </div>
+    <div class="cuestionarios"></div>
+    <div id="puntuacionesEvaluacionPreviaAplicacion" class="usuarios-evaluacion-previa"></div>
   </div>
 
   <button id="exportCSVButton">Exportar como CSV</button>
@@ -383,6 +389,132 @@
 
           allUsersInfoAplicacionElement.appendChild(userDiv);
           allUsersInfoAplicacionElement.appendChild(document.createElement('hr'));
+        }
+
+        /*Respuestas de la aplicacion*/
+        const evaluacionPreviaAppCollectionRef = collection(db, 'pre');
+        const evaluacionPreviaAppSnapshot = await getDocs(evaluacionPreviaAppCollectionRef);
+        // Seleccionar el elemento donde se mostrará la información de la evaluación previa en la aplicación
+        const puntuacionesEvaluacionPreviaAplicacionElement = document.getElementById('puntuacionesEvaluacionPreviaAplicacion');
+        puntuacionesEvaluacionPreviaAplicacionElement.innerHTML = ""; // Limpiar el contenido previo
+        puntuacionesEvaluacionPreviaAplicacionElement.appendChild(document.createElement('br'));
+        for (const doc of evaluacionPreviaAppSnapshot.docs) {
+          const userId = doc.id;
+          const evaluacionPreviaData = doc.data();
+
+          const userDiv = document.createElement('div');
+          userDiv.classList.add('usuario-info', 'usuario-evaluacion-previa');
+
+          const fields = [
+            { label: 'ID del usuario', value: userId },
+            { label: 'Puntuación Total BAI', value: evaluacionPreviaData.puntuacionTotalBAI },
+            { label: 'Puntuación Total BDI', value: evaluacionPreviaData.puntuacionTotalBDI },
+            { label: 'Puntuación Total PSS', value: evaluacionPreviaData.puntuacionTotalPSS },
+            { label: 'Puntuación Total MINI', value: `${evaluacionPreviaData.puntuacionTotalMINI.count} - ${evaluacionPreviaData.puntuacionTotalMINI.nivel}` },
+            { label: 'Puntuación Total WBI', value: evaluacionPreviaData.puntuacionTotalWBI },
+            { label: 'Puntuación Total ICSP', value: evaluacionPreviaData.puntuacionTotalICSP }
+          ];
+
+          fields.forEach(field => {
+            const rowDiv = document.createElement('div');
+            rowDiv.classList.add('usuario-row');
+            rowDiv.innerHTML = `
+              <div class="campo">${field.label}:</div>
+              <div class="valor">${field.value}</div>
+            `;
+            userDiv.appendChild(rowDiv);
+          });
+
+          puntuacionesEvaluacionPreviaAplicacionElement.appendChild(userDiv);
+
+          const hrElement = document.createElement('hr');
+          hrElement.classList.add('usuario-separator');
+          puntuacionesEvaluacionPreviaAplicacionElement.appendChild(hrElement);
+
+
+          const cuestionariosRef = collection(doc.ref, 'preguntas');
+          const cuestionariosSnapshot = await getDocs(cuestionariosRef);
+          puntuacionesEvaluacionPreviaAplicacionElement.appendChild(createParagraph(`<span class="campo palabraCuestionarios">Respuestas de cada cuestionario</span>`));
+          let cuestionariosList = document.createElement('ul');
+
+          const completarConCeros = (numero, longitud) => {
+            return String(numero).padStart(longitud, '0');
+          };
+
+          // Después de imprimir "Cuestionarios:"
+          puntuacionesEvaluacionPreviaAplicacionElement.appendChild(document.createElement('br'));
+          // Crear un div para contener todos los cuestionarios
+          const cuestionariosContainer = document.createElement('div');
+          cuestionariosContainer.classList.add('cuestionarios-container');
+          puntuacionesEvaluacionPreviaAplicacionElement.appendChild(cuestionariosContainer);
+
+          cuestionariosSnapshot.docs.forEach((cuestionarioDoc) => {
+            const cuestionarioData = cuestionarioDoc.data();
+            const cuestionarioNombre = cuestionarioDoc.id;
+
+            let cuestionarioWrapper = document.createElement('div');
+            cuestionarioWrapper.classList.add('campo');
+            cuestionarioWrapper.classList.add('cuestionarioItem');
+
+            // Crear un título para cada cuestionario
+            let cuestionarioTitle = document.createElement('h3');
+            cuestionarioTitle.classList.add('campo');
+            cuestionarioTitle.textContent = cuestionarioNombre;
+
+            let cuestionarioContent = document.createElement('div');
+            cuestionarioContent.classList.add('contenidoCuestionario');
+
+            const clavesOrdenadas = Object.keys(cuestionarioData)
+              .sort((a, b) => a.localeCompare(b, 'es', { numeric: true }))
+              .map((clave) => completarConCeros(clave, 2));
+
+            clavesOrdenadas.forEach((key) => {
+              const value = cuestionarioData[key];
+              let item = document.createElement('div');
+              item.classList.add('campoResultados');
+
+              let label = document.createElement('span');
+              label.classList.add('campoResultadosCampo');
+              label.textContent = key + ":";
+
+              let valor = document.createElement('span');
+              valor.classList.add('campoResultadosValor');
+
+              if (key.startsWith('Puntuación')) {
+                valor.classList.add('contenidoCuestionario');
+
+              }
+
+              if (typeof value === 'object' && value !== null) {
+                let objectString = '';
+                for (const [subKey, subValue] of Object.entries(value)) {
+                  objectString += `${subKey}: ${subValue}, `;
+                }
+                valor.textContent = objectString.slice(0, -2);
+              } else {
+                valor.textContent = value;
+              }
+
+              item.appendChild(label);
+              item.appendChild(valor);
+              cuestionarioContent.appendChild(item);
+
+
+            });
+
+            cuestionarioWrapper.appendChild(cuestionarioTitle);
+            cuestionarioWrapper.appendChild(cuestionarioContent);
+            // Agregar el cuestionario al contenedor de cuestionarios
+            cuestionariosContainer.appendChild(cuestionarioWrapper);
+
+          });
+
+
+          puntuacionesEvaluacionPreviaAplicacionElement.appendChild(cuestionariosList);
+          puntuacionesEvaluacionPreviaAplicacionElement.appendChild(document.createElement('hr'));
+
+          /*const hrElement = document.createElement('hr');
+          hrElement.classList.add('usuario-separator');*/
         }
       });
     }
