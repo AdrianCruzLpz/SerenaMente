@@ -207,9 +207,7 @@ figure {
 
 .cuestionarioItem {
     width: calc(30%);
-    /* Ancho del 33.33% del contenedor menos el espacio entre ellos */
     margin-right: 20px;
-    /* Espacio entre los cuestionarios */
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -251,41 +249,69 @@ figure {
 /*FIN ESTILOS RESPUESTAS DE LA PAGINA*/
 
 
-
+/*----------------------------------------------------------------------------------------------------*/
 
 /*ESTILOS RESPUESTAS APLICACION*/
-.cuestionarios-container {
+.cuestionariosContainerAplicacion {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    /*background-color: red;*/
 }
 
-.cuestionarioItemApp {
+.cuestionarioItemAplicacion {
     width: calc(20%);
-    margin-right: 16px;
-    margin-bottom: 16px;
+    margin: 0 16px 16px 0;
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 10px; /* Ajusta este valor según sea necesario */
+    justify-content: center; /*Quitar si no gusta como esta centrado horizontalmente*/
     /*background-color: green;*/
 }
 
 /* Para asegurar que el último cuestionario de cada fila no tenga margen derecho */
-.cuestionarioItemApp:nth-child(4n),
-.cuestionarioItemApp:last-child {
+.cuestionarioItemAplicacion:nth-child(4n),
+.cuestionarioItemAplicacion:last-child {
     margin-right: 0;
+    /*background-color: tomato*/
 }
+
 
 .campoAplicacion {
     font-weight: bold;
-    /*margin-right: 8px;*/
     margin: 0;
-    padding-left: 8px;
+    /*padding-left: 8px;*/
+    padding-bottom: 8px;
     font-size: 16px;
-    max-width: 50%;
+    max-width: 70%;
+    /*background-color: rebeccapurple;*/
+    overflow: hidden; /* Evita que el texto se desborde */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    color: #2DAAA4;
+}/**/
+
+
+.campoResultadosAplicacion {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    /*background-color: yellow;*/
+}
+
+.campoResultadosAplicacionCampo {
+    font-weight: bold;
+    width: 120px;
+    margin: 0 4px;
+    color: #000;
+    /*background-color: pink;*/
+}
+
+.campoResultadosAplicacionValor {
+    flex: 1;
+    font-weight: normal;
+    color: #000;
+    /*background-color: orange;*/
+    text-align: justify;
 }
 
 .valor {
@@ -299,33 +325,35 @@ figure {
     font-weight: bold;
     width: 196px;
     margin-bottom: 8px;
-    background-color: rebeccapurple;
+    /*background-color: red;*/
 }
 
 .usuario-evaluacion-previa-aplicacion .usuario-row-aplicacion .valor {
     /* Estilos para los valores */
     color: #000;
-    background-color: red;
 }
 
 .palabraCuestionariosAplicacion{
     color: #2DAAA4;
-    font-size: 20px;
+    font-size: 16px;
     margin-bottom: 0;
     background-color: yellow;
 }
 
 /*"Contenedor" de cada cuestionario*/
-.cuestionarioItem {
+.cuestionarioItemAplicacion {
     border: 1px solid #ccc;
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;
+    /*/text-align: justify;*/
 }
 
 
 /*fin*/
 
+
+/*----------------------------------------------------------------------------------------------------*/
 
 p{
     margin-bottom: 8px;

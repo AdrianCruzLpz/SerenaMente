@@ -434,7 +434,7 @@
 
           const cuestionariosRef = collection(doc.ref, 'preguntas');
           const cuestionariosSnapshot = await getDocs(cuestionariosRef);
-          puntuacionesEvaluacionPreviaAplicacionElement.appendChild(createParagraph(`<span class="campo palabraCuestionariosAplicacion">Respuestas de cada cuestionario</span>`));
+          puntuacionesEvaluacionPreviaAplicacionElement.appendChild(createParagraph(`<span class="campo palabraCuestionarios">Respuestas de cada cuestionario</span>`)); //palabraCuestionariosAplicacion
           let cuestionariosList = document.createElement('ul');
 
           const completarConCeros = (numero, longitud) => {
@@ -445,7 +445,7 @@
           puntuacionesEvaluacionPreviaAplicacionElement.appendChild(document.createElement('br'));
           // Crear un div para contener todos los cuestionarios
           const cuestionariosContainer = document.createElement('div');
-          cuestionariosContainer.classList.add('cuestionarios-container');
+          cuestionariosContainer.classList.add('cuestionariosContainerAplicacion'); //cuestionarios-container
           puntuacionesEvaluacionPreviaAplicacionElement.appendChild(cuestionariosContainer);
 
           cuestionariosSnapshot.docs.forEach((cuestionarioDoc) => {
@@ -454,11 +454,11 @@
 
             let cuestionarioWrapper = document.createElement('div');
             cuestionarioWrapper.classList.add('campo');
-            cuestionarioWrapper.classList.add('cuestionarioItemApp');
+            cuestionarioWrapper.classList.add('cuestionarioItemAplicacion'); //cuestionarioItemApp
 
             // Crear un título para cada cuestionario
             let cuestionarioTitle = document.createElement('h3');
-            cuestionarioTitle.classList.add('campo');
+            cuestionarioTitle.classList.add('campoAplicacion');
             cuestionarioTitle.textContent = cuestionarioNombre;
 
             let cuestionarioContent = document.createElement('div');
@@ -471,14 +471,14 @@
             clavesOrdenadas.forEach((key) => {
               const value = cuestionarioData[key];
               let item = document.createElement('div');
-              item.classList.add('campoResultadosAplicacion');
+              item.classList.add('campoResultadosAplicacion'); //campoResultadosAplicacion
 
               let label = document.createElement('span');
-              label.classList.add('campoResultadosAplicacionCampo');
+              label.classList.add('campoResultadosAplicacionCampo'); //campoResultadosAplicacionCampo
               label.textContent = key + ":";
 
               let valor = document.createElement('span');
-              valor.classList.add('campoResultadosAplicacionValor');
+              valor.classList.add('campoResultadosAplicacionValor'); //campoResultadosAplicacionValor
 
               if (key.startsWith('Puntuación')) {
                 valor.classList.add('contenidoCuestionario');
@@ -640,7 +640,7 @@
           const userId = usuario.querySelector('.campo').nextElementSibling.textContent.trim();
           csvContent += `"ID del usuario","${userId.replace(/"/g, '""')}"\r\n`;
 
-          const cuestionarios = usuario.parentNode.querySelectorAll('.cuestionarioItemApp');
+          const cuestionarios = usuario.parentNode.querySelectorAll('.cuestionarioItemAplicacion'); //cuestionarioItemApp
           cuestionarios.forEach(cuestionario => {
             const cuestionarioNombre = cuestionario.querySelector('h3').textContent;
             csvContent += `\r\n"${cuestionarioNombre}"\r\n`;
@@ -648,7 +648,7 @@
             const respuestas = cuestionario.querySelectorAll('.campoResultados');
             respuestas.forEach(respuesta => {
               const campo = respuesta.querySelector('.campoResultadosCampo').textContent.trim();
-              const valor = respuesta.querySelector('.campoResultadosValor').textContent.trim();
+              const valor = respuesta.querySelector('.campoResultadosAplicacionValor').textContent.trim();
               csvContent += `"${campo.replace(/"/g, '""')}","${valor.replace(/"/g, '""')}"\r\n`;
             });
           });
