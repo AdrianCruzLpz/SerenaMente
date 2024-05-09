@@ -66,13 +66,13 @@
     import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
     const firebaseConfig = {
-      apiKey: "AIzaSyA0kLe5l_gNuBwhkOOvBr8RO150dHCU31k",
-      authDomain: "serena-mente.firebaseapp.com",
-      projectId: "serena-mente",
-      storageBucket: "serena-mente.appspot.com",
-      messagingSenderId: "183868385167",
-      appId: "1:183868385167:web:442b02f182fc8a28260dfa",
-      measurementId: "G-LVWYEJBRHE"
+      apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+      authDomain: "prueba2-31849.firebaseapp.com",
+      databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
+      projectId: "prueba2-31849",
+      storageBucket: "prueba2-31849.appspot.com",
+      messagingSenderId: "593735540788",
+      appId: "1:593735540788:web:4fa918ce020f5050c66a61"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -410,7 +410,7 @@
             { label: 'Puntuación Total BAI', value: evaluacionPreviaData.puntuacionTotalBAI },
             { label: 'Puntuación Total BDI', value: evaluacionPreviaData.puntuacionTotalBDI },
             { label: 'Puntuación Total PSS', value: evaluacionPreviaData.puntuacionTotalPSS },
-            { label: 'Puntuación Total MINI', value: evaluacionPreviaData.puntuacionTotalMINI},
+            { label: 'Puntuación Total MINI', value: evaluacionPreviaData.puntuacionTotalMINI },
             { label: 'Puntuación Total WBI', value: evaluacionPreviaData.puntuacionTotalWBI },
             { label: 'Puntuación Total ICSP', value: evaluacionPreviaData.puntuacionTotalICSP }
           ];
@@ -441,85 +441,103 @@
             return String(numero).padStart(longitud, '0');
           };
 
-          // Después de imprimir "Cuestionarios:"
           puntuacionesEvaluacionPreviaAplicacionElement.appendChild(document.createElement('br'));
-          // Crear un div para contener todos los cuestionarios
           const cuestionariosContainer = document.createElement('div');
-          cuestionariosContainer.classList.add('cuestionariosContainerAplicacion'); //cuestionarios-container
+          cuestionariosContainer.classList.add('cuestionariosContainerAplicacion');
           puntuacionesEvaluacionPreviaAplicacionElement.appendChild(cuestionariosContainer);
 
-          cuestionariosSnapshot.docs.forEach((cuestionarioDoc) => {
-            const cuestionarioData = cuestionarioDoc.data();
-            const cuestionarioNombre = cuestionarioDoc.id;
 
-            let cuestionarioWrapper = document.createElement('div');
-            cuestionarioWrapper.classList.add('campo');
-            cuestionarioWrapper.classList.add('cuestionarioItemAplicacion'); //cuestionarioItemApp
+          fetch('./preguntas.json')
+            .then(response => response.json())
+            .then(preguntasJSON => {
+              console.log("Preguntas JSON: ", preguntasJSON);
+              const preguntas = JSON.parse(JSON.stringify(preguntasJSON));
 
-            // Crear un título para cada cuestionario
-            let cuestionarioTitle = document.createElement('h3');
-            cuestionarioTitle.classList.add('campoAplicacion');
-            cuestionarioTitle.textContent = cuestionarioNombre;
+              cuestionariosSnapshot.docs.forEach((cuestionarioDoc) => {
+                const cuestionarioData = cuestionarioDoc.data();
+                const cuestionarioNombre = cuestionarioDoc.id;
+                console.log("Cuestionario: ", cuestionarioNombre);
 
-            let cuestionarioContent = document.createElement('div');
-            cuestionarioContent.classList.add('contenidoCuestionario');
+                let cuestionarioWrapper = document.createElement('div');
+                cuestionarioWrapper.classList.add('campo');
+                cuestionarioWrapper.classList.add('cuestionarioItemAplicacion');
 
-            const clavesOrdenadas = Object.keys(cuestionarioData)
-              .sort((a, b) => a.localeCompare(b, 'es', { numeric: true }))
-              .map((clave) => completarConCeros(clave, 2));
+                let cuestionarioTitle = document.createElement('h3');
+                cuestionarioTitle.classList.add('campoAplicacion');
 
-            clavesOrdenadas.forEach((key) => {
-              const value = cuestionarioData[key];
-              let item = document.createElement('div');
-              item.classList.add('campoResultadosAplicacion'); //campoResultadosAplicacion
+                let cuestionarioContent = document.createElement('div');
+                cuestionarioContent.classList.add('contenidoCuestionario');
 
-              let label = document.createElement('span');
-              label.classList.add('campoResultadosAplicacionCampo'); //campoResultadosAplicacionCampo
-              label.textContent = key + ":";
+                const clavesOrdenadas = Object.keys(cuestionarioData)
+                  .sort((a, b) => a.localeCompare(b, 'es', { numeric: true }))
+                  .map((clave) => completarConCeros(clave, 2));
 
-              let valor = document.createElement('span');
-              valor.classList.add('campoResultadosAplicacionValor'); //campoResultadosAplicacionValor
+                clavesOrdenadas.forEach((key) => {
+                  const value = cuestionarioData[key];
+                  let item = document.createElement('div');
+                  item.classList.add('campoResultadosAplicacion');
 
-              if (key.startsWith('Puntuación')) {
-                valor.classList.add('contenidoCuestionario');
+                  let label = document.createElement('span');
+                  label.classList.add('campoResultadosAplicacionCampo');
+                  label.textContent = key + ":";
 
-              }
+                  let valor = document.createElement('span');
+                  valor.classList.add('campoResultadosAplicacionValor');
 
-              if (typeof value === 'object' && value !== null) {
-                let objectString = '';
-                for (const [subKey, subValue] of Object.entries(value)) {
-                  objectString += `${subKey}: ${subValue}, `;
-                }
-                valor.textContent = objectString.slice(0, -2);
-              } else {
-                valor.textContent = value;
-              }
+                  if (key === 'Pregunta') {
+                    console.log("Valor de Pregunta:", value);
+                    valor.textContent = value;
 
-              item.appendChild(label);
-              item.appendChild(valor);
-              cuestionarioContent.appendChild(item);
+                    const cuestionarioEncontrado = Object.entries(preguntas).find(([cuestionario, preguntas]) =>
+                      preguntas.includes(value)
+                    );
 
+                    if (cuestionarioEncontrado) {
+                      const [cuestionarioNombre, preguntasArray] = cuestionarioEncontrado;
+                      const preguntaIndex = preguntasArray.findIndex(pregunta => pregunta === value);
+                      console.log(`La pregunta "${value}" pertenece al cuestionario "${cuestionarioNombre}" y es la pregunta número ${preguntaIndex + 1}`);
 
+                      cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${preguntaIndex + 1}`;
+                    } else {
+                      console.log(`La pregunta "${value}" no se encuentra en el objeto preguntas`);
+                    }
+                  } else {
+                    if (key.startsWith('Puntuación')) {
+                      valor.classList.add('contenidoCuestionario');
+                    }
+
+                    if (typeof value === 'object' && value !== null) {
+                      let objectString = '';
+                      for (const [subKey, subValue] of Object.entries(value)) {
+                        objectString += `${subKey}: ${subValue}, `;
+                      }
+                      valor.textContent = objectString.slice(0, -2);
+                    } else {
+                      valor.textContent = value;
+                    }
+                  }
+
+                  item.appendChild(label);
+                  item.appendChild(valor);
+                  cuestionarioContent.appendChild(item);
+                });
+
+                cuestionarioWrapper.appendChild(cuestionarioTitle);
+                cuestionarioWrapper.appendChild(cuestionarioContent);
+                cuestionariosContainer.appendChild(cuestionarioWrapper);
+
+              });
+
+            })
+            .catch(error => {
+              console.error('Error al cargar el archivo preguntas.json:', error);
             });
-
-            cuestionarioWrapper.appendChild(cuestionarioTitle);
-            cuestionarioWrapper.appendChild(cuestionarioContent);
-            // Agregar el cuestionario al contenedor de cuestionarios
-            cuestionariosContainer.appendChild(cuestionarioWrapper);
-
-          });
-
-
           puntuacionesEvaluacionPreviaAplicacionElement.appendChild(cuestionariosList);
           puntuacionesEvaluacionPreviaAplicacionElement.appendChild(document.createElement('hr'));
-
-          /*const hrElement = document.createElement('hr');
-          hrElement.classList.add('usuario-separator');*/
         }
       });
     }
 
-    // Función para crear un elemento <p> con el contenido HTML especificado
     function createParagraph(html) {
       const p = document.createElement('p');
       p.innerHTML = html;
@@ -530,15 +548,15 @@
 
     document.addEventListener('DOMContentLoaded', function () {
       // Botón para exportar usuarios de la página web como CSV
-      const exportWebUsersButton = document.getElementById('exportCSVButton'); // Cambiar el ID aquí
+      const exportWebUsersButton = document.getElementById('exportCSVButton');
       exportWebUsersButton.addEventListener('click', exportWebUsersCSV);
 
       // Botón para exportar usuarios de la aplicación móvil como CSV
-      const exportAppUsersButton = document.getElementById('exportCSVButton'); // Cambiar el ID aquí
+      const exportAppUsersButton = document.getElementById('exportCSVButton'); 
       exportAppUsersButton.addEventListener('click', exportAppUsersCSV);
 
       // Botón para exportar usuarios que han realizado la evpre como CSV
-      const exportAppUsersEvPrevButton = document.getElementById('exportCSVButton'); // Cambiar el ID aquí
+      const exportAppUsersEvPrevButton = document.getElementById('exportCSVButton');
       exportAppUsersEvPrevButton.addEventListener('click', exportAppUsersEvPrevCSV);
 
       // Función para exportar las puntuaciones y respuestas de la evaluación previa como CSV
@@ -574,7 +592,7 @@
         let csvContent = 'data:text/csv;charset=utf-8,\uFEFF'; // Incluir BOM para asegurar la codificación UTF-8
 
         // Agregar encabezados adicionales para ID de usuario y si la evaluación previa está realizada
-        csvContent += '"ID del usuario","Evaluación Previa Realizada"\r\n';
+        csvContent += '"ID del usuario","Evaluación Previa Realizada - No Realizada"\r\n';
 
         // Agregar los datos de cada usuario y si la evaluación previa está realizada o no
         rows.forEach(row => {
@@ -596,7 +614,7 @@
         const fieldNames = Array.from(firstUserFields).map(field => field.textContent.trim());
         const fieldRowCSV = fieldNames.map(field => `"${field.replace(/"/g, '""')}"`).join(',');
 
-        csvContent += fieldRowCSV + '\r\n'; // Agregar la fila con los nombres de los campos
+        csvContent += fieldRowCSV + '\r\n';
 
         // Agregar las filas con los valores de cada usuario
         rows.forEach(row => {
@@ -656,7 +674,7 @@
         });
 
         return csvContent;
-      }//este es el chido resolver que pone 4 veces*/
+      }
 
       function downloadCSV(csvContent, filename) {
         const encodedUri = encodeURI(csvContent);
@@ -667,10 +685,6 @@
         link.click();
       }
     });
-
   </script>
 </body>
-
 </html>
-
-<!--AQUI MUESTRA PUNTUACIONES Y RESPUESTAS DE LA EVPREV  ORDENA BIEN EL ICSP exporta resultados eva bien ya exporta los datos campo y valor además de los que ha realizado la ev prev-->
