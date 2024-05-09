@@ -394,15 +394,14 @@ async function obtenerUsuariosInfo() {
       allUsersInfoAplicacionElement.appendChild(document.createElement("hr"));
     }
 
-    /*Respuestas de la aplicacion*/
     const evaluacionPreviaAppCollectionRef = collection(db, "pre");
     const evaluacionPreviaAppSnapshot = await getDocs(
       evaluacionPreviaAppCollectionRef
     );
-    // Seleccionar el elemento donde se mostrará la información de la evaluación previa en la aplicación
+
     const puntuacionesEvaluacionPreviaAplicacionElement =
       document.getElementById("puntuacionesEvaluacionPreviaAplicacion");
-    puntuacionesEvaluacionPreviaAplicacionElement.innerHTML = ""; // Limpiar el contenido previo
+    puntuacionesEvaluacionPreviaAplicacionElement.innerHTML = "";
     puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
       document.createElement("br")
     );
@@ -463,7 +462,7 @@ async function obtenerUsuariosInfo() {
         createParagraph(
           `<span class="campo palabraCuestionarios">Respuestas de cada cuestionario</span>`
         )
-      ); //palabraCuestionariosAplicacion
+      );
       let cuestionariosList = document.createElement("ul");
 
       const completarConCeros = (numero, longitud) => {
@@ -479,7 +478,7 @@ async function obtenerUsuariosInfo() {
         cuestionariosContainer
       );
 
-      fetch("./preguntas.json")
+      fetch("./../preguntas.json")
         .then((response) => response.json())
         .then((preguntasJSON) => {
           console.log("Preguntas JSON: ", preguntasJSON);
