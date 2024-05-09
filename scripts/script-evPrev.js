@@ -189,15 +189,21 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
-  function criteriosExclusion(){
+  function criteriosExclusion() {
     const pregunta7SocioDemo = formulario1.tratamiento.value;
     const pregunta9BDI = formulario3.q9.value;
-
+  
     if(pregunta7SocioDemo === 'SI' || pregunta9BDI === '2' || pregunta9BDI === '3'){
-      window.location.href = './atencionEspecializada.html';
+      setDoc(doc(db, "rechazado", auth.currentUser.uid), {
+        criterioExclusionCumplido: true,
+      }).then(() => {
+        window.location.href = './atencionEspecializada.html';
+      }).catch(error => {
+        console.error("Error al agregar usuario a la colección 'rechazado':", error);
+      });
     }
   }
-
+    
   function calcularPuntuacionTotalBAI() {
     let puntuacionTotalBAI = 0;
     const formularios = [formulario2];
