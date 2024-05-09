@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
     if(pregunta7SocioDemo === 'SI' || pregunta9BDI === '2' || pregunta9BDI === '3'){
       setDoc(doc(db, "rechazado", auth.currentUser.uid), {
-        criterioExclusionCumplido: true,
+        rechazado: true,
       }).then(() => {
         window.location.href = './atencionEspecializada.html';
       }).catch(error => {
