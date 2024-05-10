@@ -104,7 +104,7 @@
     "Sociodemografico": [
         "Sexo",
         "Edad",
-        "Estado civil",
+        "Estado civil:",
         "¿Cuál es su nivel de estudios?",
         "Ocupación:",
         "Lugar de residencia",

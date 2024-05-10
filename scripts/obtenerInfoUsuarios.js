@@ -12,13 +12,13 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
-  authDomain: "prueba2-31849.firebaseapp.com",
-  databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
-  projectId: "prueba2-31849",
-  storageBucket: "prueba2-31849.appspot.com",
-  messagingSenderId: "593735540788",
-  appId: "1:593735540788:web:4fa918ce020f5050c66a61",
+  apiKey: "AIzaSyA0kLe5l_gNuBwhkOOvBr8RO150dHCU31k",
+  authDomain: "serena-mente.firebaseapp.com",
+  projectId: "serena-mente",
+  storageBucket: "serena-mente.appspot.com",
+  messagingSenderId: "183868385167",
+  appId: "1:183868385167:web:442b02f182fc8a28260dfa",
+  measurementId: "G-LVWYEJBRHE"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -503,46 +503,58 @@ async function obtenerUsuariosInfo() {
               .sort((a, b) => a.localeCompare(b, "es", { numeric: true }))
               .map((clave) => completarConCeros(clave, 2));
 
-            clavesOrdenadas.forEach((key) => {
-              const value = cuestionarioData[key];
-              let item = document.createElement("div");
-              item.classList.add("campoResultadosAplicacion");
-
-              let label = document.createElement("span");
-              label.classList.add("campoResultadosAplicacionCampo");
-              label.textContent = key + ":";
-
-              let valor = document.createElement("span");
-              valor.classList.add("campoResultadosAplicacionValor");
-
-              if (key === "Pregunta") {
-                console.log("Valor de Pregunta:", value);
-                valor.textContent = value;
-
-                const cuestionarioEncontrado = Object.entries(preguntas).find(
-                  ([cuestionario, preguntas]) => preguntas.includes(value)
-                );
-
-                if (cuestionarioEncontrado) {
-                  const [cuestionarioNombre, preguntasArray] =
-                    cuestionarioEncontrado;
-                  const preguntaIndex = preguntasArray.findIndex(
-                    (pregunta) => pregunta === value
+              clavesOrdenadas.forEach((key) => {
+                const value = cuestionarioData[key];
+                let item = document.createElement("div");
+                item.classList.add("campoResultadosAplicacion");
+              
+                let label = document.createElement("span");
+                label.classList.add("campoResultadosAplicacionCampo");
+                label.textContent = key + ":";
+              
+                let valor = document.createElement("span");
+                valor.classList.add("campoResultadosAplicacionValor");
+              
+                if (key === "Pregunta") {
+                  console.log("Valor de Pregunta:", value);
+                  valor.textContent = value;
+              
+                  const cuestionarioEncontrado = Object.entries(preguntas).find(
+                    ([cuestionario, preguntas]) => preguntas.includes(value)
                   );
-                  console.log(
-                    `La pregunta "${value}" pertenece al cuestionario "${cuestionarioNombre}" y es la pregunta número ${
-                      preguntaIndex + 1
-                    }`
-                  );
-
-                  cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${
-                    preguntaIndex + 1
-                  }`;
-                } else {
-                  console.log(
-                    `La pregunta "${value}" no se encuentra en el objeto preguntas`
-                  );
-                }
+              
+                  if (cuestionarioEncontrado) {
+                    const [cuestionarioNombre, preguntasArray] = cuestionarioEncontrado;
+                    const preguntaIndex = preguntasArray.findIndex(
+                      (pregunta) => pregunta === value
+                    );
+                    console.log(
+                      `La pregunta "${value}" pertenece al cuestionario "${cuestionarioNombre}" y es la pregunta número ${
+                        preguntaIndex + 1
+                      }`
+                    );
+              
+                    if (cuestionarioNombre === "ICSP") {
+                      if (preguntaIndex >= 0 && preguntaIndex < 4) {
+                        // Índices 0-3: Pregunta 1-4
+                        cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${preguntaIndex + 1}`;
+                      } else if (preguntaIndex >= 4 && preguntaIndex < 14) {
+                        // Índices 4-13: Pregunta 5a-Pregunta 5j
+                        cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta 5${String.fromCharCode(97 + (preguntaIndex - 4))}`;
+                      } else if (preguntaIndex >= 14 && preguntaIndex < 18) {
+                        // Índices 14-17: Pregunta 6-Pregunta 9
+                        cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${preguntaIndex - 8}`;
+                      }
+                    } else {
+                      // Si no es ICSP, simplemente incrementa el índice para mostrar el número de pregunta
+                      cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${preguntaIndex + 1}`;
+                    }                    
+                  } else {
+                    console.log(
+                      `La pregunta "${value}" no se encuentra en el objeto preguntas`
+                    );
+                  }
+                
               } else {
                 if (key.startsWith("Puntuación")) {
                   valor.classList.add("contenidoCuestionario");
@@ -762,3 +774,4 @@ document.addEventListener("DOMContentLoaded", function () {
     link.click();
   }
 });
+//1-5j bien, pero no sigue 6
