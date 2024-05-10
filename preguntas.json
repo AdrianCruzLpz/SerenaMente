@@ -25,8 +25,8 @@
     "BDI": [
         "Tristeza",
         "Pesimismo",
-        "Fracasos del pasado",
-        "Pérdida del placer",
+        "Fracasos del pasado ",
+        "Pérdida del placer ",
         "Sentimientos de culpa",
         "Sentimientos de castigo",
         "Desagrado con uno mismo",
@@ -74,8 +74,8 @@
 
     "WBI": [
         "¿Me he sentido alegre y de buen ánimo?",
-        "¿Me he sentido tranquilo(a) y relajado(a)?",
-        "¿Me he sentido activo(a) y con energía",
+        "¿Me he sentido tranquilo(a) y relajado(a)? ",
+        "¿Me he sentido activo(a) y con energía?",
         "¿Me he levantado sintiéndome bien y descansado(a)?",
         "¿Mi vida diaria ha tenido cosas interesantes para mí?"
     ],
@@ -83,21 +83,32 @@
     "ICSP": [
         "Durante el último mes, ¿cuál ha sido, usualmente, su hora de acostarse?",
         "Durante el último mes, ¿cuánto tiempo ha tardado en dormirse en las noches del último mes?",
-        "Durante el último mes, ¿a qué hora se ha estado levantando por la mañana?",
+        "Durante el último mes, ¿a que hora se ha estado levantando por la mañana?",
         "¿Cuántas horas calcula que habrá dormido verdaderamente cada noche durante el último mes?",
-        "No poder conciliar el sueño en la primera media hora",
-        "Despertarse durante la noche o de madrugada",
-        "Tener que levantarse para ir al sanitario",
-        "No poder respirar bien",
-        "Toser o roncar ruidosamente",
-        "Sentir frío",
-        "Sentir demasiado calor",
-        "Tener pesadillas o “malos sueños”",
-        "Sufrir dolores",
-        "Otras razones (por favor descríbalas a continuación)",
+        "No poder conciliar el sueño en la primera media hora:",
+        "Despertarse durante la noche o de madrugada:",
+        "Tener que levantarse para ir al sanitario:",
+        "No poder respirar bien:",
+        "Toser o roncar ruidosamente:",
+        "Sentir frío:",
+        "Sentir demasiado calor:",
+        "Tener pesadillas o “malos sueños”:",
+        "Sufrir dolores:",
+        "Otras razones (por favor descríbalas a continuación):",
         "Durante el último mes ¿cómo valoraría, en conjunto, la calidad de su dormir?",
         "Durante el último mes, ¿cuántas veces habrá tomado medicinas (por su cuenta o recetadas por el médico) para dormir?",
         "Durante el último mes, ¿cuántas veces ha sentido somnolencia mientras conducía, comía o desarrollaba alguna otra actividad?",
         "Durante el último mes, ¿ha representado para usted mucho problema el “tener ánimos” para realizar alguna de las actividades detalladas en la pregunta anterior?"
+    ],
+
+    "Sociodemografico": [
+        "Sexo",
+        "Edad",
+        "Estado civil",
+        "¿Cuál es su nivel de estudios?",
+        "Ocupación:",
+        "Lugar de residencia",
+        "¿Actualmente está en tratamiento psicológico o psiquiátrico?:",
+        "En caso de haber respondido Sí, ¿toma algún medicamento como parte de este tratamiento?"
     ]
 }
