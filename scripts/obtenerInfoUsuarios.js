@@ -12,13 +12,13 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA0kLe5l_gNuBwhkOOvBr8RO150dHCU31k",
-  authDomain: "serena-mente.firebaseapp.com",
-  projectId: "serena-mente",
-  storageBucket: "serena-mente.appspot.com",
-  messagingSenderId: "183868385167",
-  appId: "1:183868385167:web:442b02f182fc8a28260dfa",
-  measurementId: "G-LVWYEJBRHE"
+  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+  authDomain: "prueba2-31849.firebaseapp.com",
+  databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
+  projectId: "prueba2-31849",
+  storageBucket: "prueba2-31849.appspot.com",
+  messagingSenderId: "593735540788",
+  appId: "1:593735540788:web:4fa918ce020f5050c66a61",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -204,6 +204,7 @@ async function obtenerUsuariosInfo() {
     puntuacionesEvaluacionPreviaElement.appendChild(
       document.createElement("br")
     );
+
     for (const doc of evaluacionPreviaSnapshot.docs) {
       const userId = doc.id;
       const evaluacionPreviaData = doc.data();
@@ -262,6 +263,7 @@ async function obtenerUsuariosInfo() {
           `<span class="campo palabraCuestionarios">Respuestas de cada cuestionario</span>`
         )
       );
+
       let cuestionariosList = document.createElement("ul");
 
       const completarConCeros = (numero, longitud) => {
@@ -275,7 +277,47 @@ async function obtenerUsuariosInfo() {
       // Crear un div para contener todos los cuestionarios
       const cuestionariosContainer = document.createElement("div");
       cuestionariosContainer.classList.add("cuestionarios-container");
+      cuestionariosContainer.classList.add("ocultar");
+      cuestionariosContainer.id = userId;
       puntuacionesEvaluacionPreviaElement.appendChild(cuestionariosContainer);
+
+      // Crea un elemento span para contener el texto "Mostrar"
+      const mostrarTexto = document.createElement("span");
+      mostrarTexto.textContent = "Mostrar";
+      mostrarTexto.classList.add("textoMostrar");
+
+      // Adjunta el texto "Mostrar" al párrafo antes del icono
+      const iconoChevron = document.createElement("i");
+      iconoChevron.classList.add("fas", "fa-chevron-down", "iconoFlecha");
+      iconoChevron.addEventListener("click", function () {
+        // Obtén el contenedor asociado al icono clickeado
+        const userId = this.dataset.userId;
+        const cuestionariosContainer = document.getElementById(userId);
+
+        // Alterna la clase "mostrar" y "ocultar" solo en ese contenedor
+        cuestionariosContainer.classList.toggle("mostrar");
+        cuestionariosContainer.classList.toggle("ocultar");
+
+        // Cambia el texto y el icono según el estado de visualización
+        if (cuestionariosContainer.classList.contains("mostrar")) {
+          mostrarTexto.textContent = "Ocultar";
+          iconoChevron.classList.remove("fa-chevron-down");
+          iconoChevron.classList.add("fa-chevron-up");
+        } else {
+          mostrarTexto.textContent = "Mostrar";
+          iconoChevron.classList.remove("fa-chevron-up");
+          iconoChevron.classList.add("fa-chevron-down");
+        }
+      });
+
+      // Asigna el userId como dataset al icono
+      iconoChevron.dataset.userId = userId;
+
+      // Adjunta el texto y el icono al párrafo
+      puntuacionesEvaluacionPreviaElement.appendChild(mostrarTexto);
+      puntuacionesEvaluacionPreviaElement.appendChild(iconoChevron);
+
+      //aqui sino funciona fgg para pagina
 
       cuestionariosSnapshot.docs.forEach((cuestionarioDoc) => {
         const cuestionarioData = cuestionarioDoc.data();
@@ -460,7 +502,7 @@ async function obtenerUsuariosInfo() {
       const cuestionariosSnapshot = await getDocs(cuestionariosRef);
       puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
         createParagraph(
-          `<span class="campo palabraCuestionarios">Respuestas de cada cuestionario</span>`
+          `<span class="campo palabraCuestionarios">Respuestas de cada cuestionario <i class="fas fa-chevron-down"></i></span>`
         )
       );
       let cuestionariosList = document.createElement("ul");
@@ -474,6 +516,7 @@ async function obtenerUsuariosInfo() {
       );
       const cuestionariosContainer = document.createElement("div");
       cuestionariosContainer.classList.add("cuestionariosContainerAplicacion");
+      cuestionariosContainer.classList.add("ocultar");
       puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
         cuestionariosContainer
       );
@@ -481,13 +524,13 @@ async function obtenerUsuariosInfo() {
       fetch("./../preguntas.json")
         .then((response) => response.json())
         .then((preguntasJSON) => {
-          console.log("Preguntas JSON: ", preguntasJSON);
+          //console.log("Preguntas JSON: ", preguntasJSON);
           const preguntas = JSON.parse(JSON.stringify(preguntasJSON));
 
           cuestionariosSnapshot.docs.forEach((cuestionarioDoc) => {
             const cuestionarioData = cuestionarioDoc.data();
             const cuestionarioNombre = cuestionarioDoc.id;
-            console.log("Cuestionario: ", cuestionarioNombre);
+            //console.log("Cuestionario: ", cuestionarioNombre);
 
             let cuestionarioWrapper = document.createElement("div");
             cuestionarioWrapper.classList.add("campo");
@@ -503,58 +546,66 @@ async function obtenerUsuariosInfo() {
               .sort((a, b) => a.localeCompare(b, "es", { numeric: true }))
               .map((clave) => completarConCeros(clave, 2));
 
-              clavesOrdenadas.forEach((key) => {
-                const value = cuestionarioData[key];
-                let item = document.createElement("div");
-                item.classList.add("campoResultadosAplicacion");
-              
-                let label = document.createElement("span");
-                label.classList.add("campoResultadosAplicacionCampo");
-                label.textContent = key + ":";
-              
-                let valor = document.createElement("span");
-                valor.classList.add("campoResultadosAplicacionValor");
-              
-                if (key === "Pregunta") {
-                  console.log("Valor de Pregunta:", value);
-                  valor.textContent = value;
-              
-                  const cuestionarioEncontrado = Object.entries(preguntas).find(
-                    ([cuestionario, preguntas]) => preguntas.includes(value)
+            clavesOrdenadas.forEach((key) => {
+              const value = cuestionarioData[key];
+              let item = document.createElement("div");
+              item.classList.add("campoResultadosAplicacion");
+
+              let label = document.createElement("span");
+              label.classList.add("campoResultadosAplicacionCampo");
+              label.textContent = key + ":";
+
+              let valor = document.createElement("span");
+              valor.classList.add("campoResultadosAplicacionValor");
+
+              if (key === "Pregunta") {
+                //console.log("Valor de Pregunta:", value);
+                valor.textContent = value;
+
+                const cuestionarioEncontrado = Object.entries(preguntas).find(
+                  ([cuestionario, preguntas]) => preguntas.includes(value)
+                );
+
+                if (cuestionarioEncontrado) {
+                  const [cuestionarioNombre, preguntasArray] =
+                    cuestionarioEncontrado;
+                  const preguntaIndex = preguntasArray.findIndex(
+                    (pregunta) => pregunta === value
                   );
-              
-                  if (cuestionarioEncontrado) {
-                    const [cuestionarioNombre, preguntasArray] = cuestionarioEncontrado;
-                    const preguntaIndex = preguntasArray.findIndex(
-                      (pregunta) => pregunta === value
-                    );
-                    console.log(
+                  /*console.log(
                       `La pregunta "${value}" pertenece al cuestionario "${cuestionarioNombre}" y es la pregunta número ${
                         preguntaIndex + 1
                       }`
-                    );
-              
-                    if (cuestionarioNombre === "ICSP") {
-                      if (preguntaIndex >= 0 && preguntaIndex < 4) {
-                        // Índices 0-3: Pregunta 1-4
-                        cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${preguntaIndex + 1}`;
-                      } else if (preguntaIndex >= 4 && preguntaIndex < 14) {
-                        // Índices 4-13: Pregunta 5a-Pregunta 5j
-                        cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta 5${String.fromCharCode(97 + (preguntaIndex - 4))}`;
-                      } else if (preguntaIndex >= 14 && preguntaIndex < 18) {
-                        // Índices 14-17: Pregunta 6-Pregunta 9
-                        cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${preguntaIndex - 8}`;
-                      }
-                    } else {
-                      // Si no es ICSP, simplemente incrementa el índice para mostrar el número de pregunta
-                      cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${preguntaIndex + 1}`;
-                    }                    
+                    );*/
+
+                  if (cuestionarioNombre === "ICSP") {
+                    if (preguntaIndex >= 0 && preguntaIndex < 4) {
+                      // Índices 0-3: Pregunta 1-4
+                      cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${
+                        preguntaIndex + 1
+                      }`;
+                    } else if (preguntaIndex >= 4 && preguntaIndex < 14) {
+                      // Índices 4-13: Pregunta 5a-Pregunta 5j
+                      cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta 5${String.fromCharCode(
+                        97 + (preguntaIndex - 4)
+                      )}`;
+                    } else if (preguntaIndex >= 14 && preguntaIndex < 18) {
+                      // Índices 14-17: Pregunta 6-Pregunta 9
+                      cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${
+                        preguntaIndex - 8
+                      }`;
+                    }
                   } else {
-                    console.log(
-                      `La pregunta "${value}" no se encuentra en el objeto preguntas`
-                    );
+                    // Si no es ICSP, simplemente incrementa el índice para mostrar el número de pregunta
+                    cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${
+                      preguntaIndex + 1
+                    }`;
                   }
-                
+                } else {
+                  /*console.log(
+                      `La pregunta "${value}" no se encuentra en el objeto preguntas`
+                    );*/
+                }
               } else {
                 if (key.startsWith("Puntuación")) {
                   valor.classList.add("contenidoCuestionario");
@@ -774,4 +825,4 @@ document.addEventListener("DOMContentLoaded", function () {
     link.click();
   }
 });
-//1-5j bien, pero no sigue 6
+//1-5j bien, pero no sigue 6 con iconos

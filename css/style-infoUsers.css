@@ -31,6 +31,20 @@ figure {
 
 /*FIN Rectangulo que dice 'Información de Usuarios'*/
 
+/*.contenidoCuestionario {
+    display: none;
+  }
+  
+  .flecha-abajo {
+    cursor: pointer;
+    margin-left: 8px;
+  }*/
+
+
+  .fa-chevron-down {
+    cursor: pointer;
+  }
+  
 
 /*INICIO Rectangulo que dice 'Página Web'*/
 .infoPaginaTitulo {
@@ -201,9 +215,20 @@ figure {
 /*INICIO ESTILOS RESPUESTAS DE LA PAGINA*/
 .cuestionarios-container {
     display: flex;
-
     flex-wrap: wrap;
 }
+
+/* Clase para ocultar el contenido */
+.ocultar {
+    display: none;
+  }
+  
+  /* Clase para mostrar el contenido */
+  .mostrar {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
 
 .cuestionarioItem {
     width: calc(30%);
@@ -232,6 +257,14 @@ figure {
     color: #2DAAA4;
     font-size: 20px;
     margin-bottom: 0;
+}
+
+.iconoFlecha, .textoMostrar{
+    color: #2DAAA4;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-left: 24px;
 }
 
 .cuestionarioItem {
