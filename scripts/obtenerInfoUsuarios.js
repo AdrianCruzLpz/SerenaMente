@@ -502,7 +502,7 @@ async function obtenerUsuariosInfo() {
       const cuestionariosSnapshot = await getDocs(cuestionariosRef);
       puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
         createParagraph(
-          `<span class="campo palabraCuestionarios">Respuestas de cada cuestionario <i class="fas fa-chevron-down"></i></span>`
+          `<span class="campo palabraCuestionarios">Respuestas de cada cuestionario</span>`
         )
       );
       let cuestionariosList = document.createElement("ul");
@@ -541,6 +541,14 @@ async function obtenerUsuariosInfo() {
 
             let cuestionarioContent = document.createElement("div");
             cuestionarioContent.classList.add("contenidoCuestionario");
+
+            // Crear un contenedor para envolver el contenido del cuestionario
+            const cuestionarioContenedorAplicacion =
+              document.createElement("div");
+            cuestionarioContenedorAplicacion.classList.add(
+              "cuestionarioContenedorAplicacion",
+              "ocultar"
+            );
 
             const clavesOrdenadas = Object.keys(cuestionarioData)
               .sort((a, b) => a.localeCompare(b, "es", { numeric: true }))
@@ -627,11 +635,29 @@ async function obtenerUsuariosInfo() {
               cuestionarioContent.appendChild(item);
             });
 
+            // Agregar el contenido del cuestionario al contenedor
+            cuestionarioContenedorAplicacion.appendChild(cuestionarioContent);
+
+            // Crear un botón o ícono para mostrar/ocultar el contenido del cuestionario
+            const mostrarCuestionarioBoton = document.createElement("i");
+            mostrarCuestionarioBoton.classList.add(
+              "fas",
+              "fa-chevron-down",
+              "iconoFlecha"
+            );
+            mostrarCuestionarioBoton.addEventListener("click", function () {
+              cuestionarioContenedorAplicacion.classList.toggle("ocultar");
+              cuestionarioContenedorAplicacion.classList.toggle("mostrar");
+              this.classList.toggle("fa-chevron-down");
+              this.classList.toggle("fa-chevron-up");
+            });
+
             cuestionarioWrapper.appendChild(cuestionarioTitle);
-            cuestionarioWrapper.appendChild(cuestionarioContent);
+            cuestionarioWrapper.appendChild(mostrarCuestionarioBoton);
+            cuestionarioWrapper.appendChild(cuestionarioContenedorAplicacion);
             cuestionariosContainer.appendChild(cuestionarioWrapper);
           });
-        })
+        })  //buen intento
         .catch((error) => {
           console.error("Error al cargar el archivo preguntas.json:", error);
         });
