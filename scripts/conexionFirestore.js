@@ -3,13 +3,13 @@ import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, reload,
 import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA0kLe5l_gNuBwhkOOvBr8RO150dHCU31k",
-  authDomain: "serena-mente.firebaseapp.com",
-  projectId: "serena-mente",
-  storageBucket: "serena-mente.appspot.com",
-  messagingSenderId: "183868385167",
-  appId: "1:183868385167:web:442b02f182fc8a28260dfa",
-  measurementId: "G-LVWYEJBRHE"
+  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+  authDomain: "prueba2-31849.firebaseapp.com",
+  databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
+  projectId: "prueba2-31849",
+  storageBucket: "prueba2-31849.appspot.com",
+  messagingSenderId: "593735540788",
+  appId: "1:593735540788:web:4fa918ce020f5050c66a61"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -32,7 +32,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   signUpButton.addEventListener("click", (e) => {
     e.preventDefault();
-    registerUser();
+    const formulario = document.getElementById('signupForm');
+    if (validarFormulario(formulario)) {
+      registerUser();
+    }
   });
 
   async function registerUser() {
@@ -106,3 +109,30 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 });
+
+function validarFormulario(formulario) {
+  const inputs = formulario.querySelectorAll("input, select");
+  for (let input of inputs) {
+    if (input.type !== "submit" && input.type !== "button") {
+      if (input.type === "radio") {
+        const name = input.name;
+        const radios = formulario.querySelectorAll(`input[name='${name}']:checked`);
+        if (radios.length === 0) {
+          alert("Por favor complete todas las preguntas.");
+          return false;
+        }
+      } else if (input.tagName === "SELECT") {
+        if (input.value === "") {
+          alert("Por favor complete todas las preguntas.");
+          return false;
+        }
+      } else {
+        if (!input.value) {
+          alert("Por favor complete todas las preguntas.");
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}
