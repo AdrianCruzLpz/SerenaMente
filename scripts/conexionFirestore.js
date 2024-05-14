@@ -126,6 +126,11 @@ function validarFormulario(formulario) {
           alert("Por favor complete todas las preguntas.");
           return false;
         }
+      } else if (input.id === "phone") { // Validación para el número telefónico
+        if (input.value.length !== 10) {
+          alert("El número telefónico debe tener 10 dígitos.");
+          return false;
+        }
       } else {
         if (!input.value) {
           alert("Por favor complete todas las preguntas.");
