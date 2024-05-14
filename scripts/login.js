@@ -60,11 +60,14 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         console.log("Rol de usuario no válido");
       }
-    } catch (error) {
+    }  catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.error("Error al iniciar sesión:", errorCode, errorMessage);
-      alert("Ocurrió un error al iniciar sesión: " + errorMessage);
+      if (errorCode === "auth/invalid-credential") {
+        alert("Credenciales de inicio de sesión inválidas. Por favor, ingresa correctamente tu correo electrónico y contraseña.");
+      } else {
+        alert("Ocurrió un error al iniciar sesión: " + errorMessage);
+      }
     }
   }
   

@@ -104,8 +104,13 @@ document.addEventListener("DOMContentLoaded", function() {
       });
 
     } catch (error) {
-      console.error("Error al registrar usuario:", error.code, error.message);
-      alert("Ocurrió un error al registrar el usuario: " + error.message);
+      if (error.code === "auth/email-already-in-use") {
+        alert("El correo electrónico ya está en uso. Por favor, utiliza otro correo electrónico.");
+      } else if (error.code === "auth/weak-password") {
+        alert("La contraseña debe tener al menos 6 caracteres. Por favor, elige una contraseña más segura.");
+      } else {
+        alert("Ocurrió un error al registrar el usuario: " + error.message);
+      }
     }
   }
 });
@@ -129,6 +134,11 @@ function validarFormulario(formulario) {
       } else if (input.id === "phone") { // Validación para el número telefónico
         if (input.value.length !== 10) {
           alert("El número telefónico debe tener 10 dígitos.");
+          return false;
+        }
+      } else if (input.type === "checkbox" && input.id === "avisoConsentimiento") { // Validación para el checkbox
+        if (!input.checked) {
+          alert("Por favor, acepta el Aviso de Privacidad y el Consentimiento Informado.");
           return false;
         }
       } else {
