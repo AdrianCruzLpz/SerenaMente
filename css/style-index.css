@@ -250,7 +250,7 @@ html, body, figure {
         border-radius: 10px; /* Añadido para bordes redondeados */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ajustado el tamaño de la sombra */
         transition: opacity 0.3s ease, visibility 0.3s ease; /* Añadida una transición suave */
-
+        z-index: 101;
     }
 
     .menu.visible{
@@ -369,4 +369,3 @@ html, body, figure {
         width:35%;
     }
 }
-
