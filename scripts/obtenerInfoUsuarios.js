@@ -1,24 +1,15 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-import {
-  getAuth,
-  onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  collection,
-  getDocs,
-} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import {  getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
-  authDomain: "prueba2-31849.firebaseapp.com",
-  databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
-  projectId: "prueba2-31849",
-  storageBucket: "prueba2-31849.appspot.com",
-  messagingSenderId: "593735540788",
-  appId: "1:593735540788:web:4fa918ce020f5050c66a61",
+  apiKey: "AIzaSyA0kLe5l_gNuBwhkOOvBr8RO150dHCU31k",
+  authDomain: "serena-mente.firebaseapp.com",
+  projectId: "serena-mente",
+  storageBucket: "serena-mente.appspot.com",
+  messagingSenderId: "183868385167",
+  appId: "1:183868385167:web:442b02f182fc8a28260dfa",
+  measurementId: "G-LVWYEJBRHE"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -42,7 +33,7 @@ async function obtenerUsuariosInfo() {
 
     if (user) {
       const userId = user.uid;
-      const userDocRef = doc(db, "users", userId);
+      const userDocRef = doc(db, "psicologos", userId);
       const userDoc = await getDoc(userDocRef);
 
       if (userDoc.exists) {
