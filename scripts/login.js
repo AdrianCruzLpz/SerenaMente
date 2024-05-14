@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           window.location.href = "./evaluacionPrevia.html";
         }
-      } else if (rol === "administrador") {
+      } else if (rol === "psicologo") {
         window.location.href = "./infoUsers.html";
       } else {
         console.log("Rol de usuario no válido");
@@ -73,18 +73,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const db = getFirestore(app);
     const usuariosRef = doc(db, "usuarios", uid);
     const usersRef = doc(db, "users", uid);
-    const administradorRef = doc(db, "administrador", uid);
+    const psicologosRef = doc(db, "psicologos", uid);
   
     const usuariosSnap = await getDoc(usuariosRef);
     const usersSnap = await getDoc(usersRef);
-    const administradorSnap = await getDoc(administradorRef);
+    const psicologosSnap = await getDoc(psicologosRef);
   
-    if (usuariosSnap.exists()) {
-      return "usuario";
+    if (psicologosSnap.exists()) {
+      return "psicologo";
     } else if (usersSnap.exists()) {
       return "usuario";
-    } else if (administradorSnap.exists()) {
-      return "administrador";
+    } else if (usuariosSnap.exists()) {
+      return "usuario";
     }else {
       return null;
     }
