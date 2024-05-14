@@ -672,16 +672,26 @@ document.addEventListener("DOMContentLoaded", obtenerUsuariosInfo);
 
 document.addEventListener("DOMContentLoaded", function () {
   // Botón para exportar usuarios de la página web como CSV
-  const exportWebUsersButton = document.getElementById("exportCSVButton");
+  const exportWebUsersButton = document.getElementById("exportUsersPaginaCSVButton");
   exportWebUsersButton.addEventListener("click", exportWebUsersCSV);
 
   // Botón para exportar usuarios de la aplicación móvil como CSV
-  const exportAppUsersButton = document.getElementById("exportCSVButton");
+  const exportAppUsersButton = document.getElementById("exportUsersAplicacionCSVButton");
   exportAppUsersButton.addEventListener("click", exportAppUsersCSV);
 
   // Botón para exportar usuarios que han realizado la evpre como CSV
-  const exportAppUsersEvPrevButton = document.getElementById("exportCSVButton");
+  const exportAppUsersEvPrevButton = document.getElementById("exportUsersEvPrevRealizadaCSVButton");
   exportAppUsersEvPrevButton.addEventListener("click", exportAppUsersEvPrevCSV);
+
+  // Botón para exportar todos los datos de usuarios como CSV
+  const exportAllDataUsersEvPrevButton = document.getElementById("exportAllDataUsersCSVButton");
+  exportAllDataUsersEvPrevButton.addEventListener("click", exportAllDataAsCSV);
+
+  function exportAllDataAsCSV() {
+    exportWebUsersCSV();
+    exportAppUsersCSV();
+    exportAppUsersEvPrevCSV();
+  }
 
   // Función para exportar las puntuaciones y respuestas de la evaluación previa como CSV
   const exportEvaluacionPreviaButton =
@@ -706,7 +716,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function exportAppUsersEvPrevCSV() {
     const appUsersContainer = document.getElementById("evaluacionPreviaInfo");
     const csvContent = generateCSVWithEvalInfo(appUsersContainer);
-    downloadCSV(csvContent, "UsuariosEvaluacionPrevia.csv");
+    downloadCSV(csvContent, "UsuariosEvaluacionPreviaRealizada.csv");
   }
 
   function exportEvaluacionPreviaCSV() {

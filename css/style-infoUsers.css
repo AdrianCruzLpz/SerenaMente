@@ -344,6 +344,29 @@ p{
     margin-bottom: 8px;
 }
 
+.btn-container {
+    text-align: center;
+}
+
+.btn-next_prev {
+    display: inline-block;
+    width: 152px;
+    margin: 16px 8px;
+    padding: 8px;
+    background-color: #2DAAA4;
+    font-family: "Montserrat";
+    color: #FFF;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-next_prev:hover {
+    background-color: #0056B3;
+}
+
 @media screen and (min-width: 320px) and (max-width: 900px) {
 
     .rectanguloInicio {
