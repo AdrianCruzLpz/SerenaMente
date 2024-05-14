@@ -92,10 +92,12 @@
                 <p>Una aplicación móvil diseñada por profesionales en salud mental para mejorar tu bienestar emocional
                     con herramientas respaldadas por la ciencia.</p>
             </div>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/EmIdLiK-iOg?si=dPhsOg7FIkxOVHeF"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <div id="youtube-placeholder" style="width: 560px; height: 315px; position: relative; overflow: hidden; background-color: #f0f0f0; border-radius: 8px; display: flex; justify-content: center; align-items: center;">
+                <img src="https://img.youtube.com/vi/EmIdLiK-iOg/maxresdefault.jpg" alt="Video de SerenaMente" style="width: 100%; height: auto; cursor: pointer;" onclick="loadYouTubeVideo()">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; padding: 20px;">
+                    <i class="fab fa-youtube" style="color: #ff0000; font-size: 48px;"></i>
+                </div>
+            </div>
 
             <div style="width: 30%;" class="bienvenida">
                 <h1 class="titulo">Bienvenida/o a SerenaMente</h1>
@@ -184,7 +186,7 @@
         </div>
     </footer>
 
-    <script src="script-slider.js"></script>
+    <script src="./scripts/script-slider.js"></script>
 
 </body>
 

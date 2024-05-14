@@ -49,3 +49,8 @@ abrir.addEventListener("click", () => {
 cerrar.addEventListener("click", () => {
     menu.classList.remove("visible");
 })
+
+function loadYouTubeVideo() {
+    var youtubePlaceholder = document.getElementById('youtube-placeholder');
+    youtubePlaceholder.innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/EmIdLiK-iOg?si=dPhsOg7FIkxOVHeF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+}
