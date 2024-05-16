@@ -93,6 +93,23 @@
     font-size: 22px;
 }
 
+.container {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoPlayStore img {
+    height: 80px;
+    margin-right: 40px;
+}
+
+.qrApp img{
+    height: 184px;
+    margin-left: 40px;
+}
+
 @media screen and (min-width: 320px) and (max-width: 900px){
     article p{
         font-size: 18px;

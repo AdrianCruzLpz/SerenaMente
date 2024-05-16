@@ -47,7 +47,7 @@
                 <div class="contenedor-derecha-fila-redes">
                     <div class="contenedor-derecha-columna">
                         <ul>
-                            <li><img src="./img/envelope-regular.svg" class="redeSociales" alt="iconoCorreo"></li>
+                            <li><img src="./img/envelope-regular.svg" class="redeSociales"></li>
                             <li><a
                                     href="mailto:serenamente@iztacala.unam.mx?subject=Asunto del correo">serenamente@iztacala.unam.mx</a>
                             </li>
@@ -97,12 +97,11 @@
                     salud mental. Las herramientas y estrategias implementadas están fundamentadas en la evidencia
                     científica, asegurando su eficacia y seguridad.</p>
             </div>
-            <div id="youtube-placeholder" style="width: 560px; height: 315px; position: relative; overflow: hidden; background-color: #f0f0f0; border-radius: 8px; display: flex; justify-content: center; align-items: center;">
-                <img src="https://img.youtube.com/vi/EmIdLiK-iOg/maxresdefault.jpg" alt="Video de SerenaMente" style="width: 100%; height: auto; cursor: pointer;" onclick="loadYouTubeVideo()">
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; padding: 20px;">
-                    <i class="fab fa-youtube" style="color: #ff0000; font-size: 48px;"></i>
-                </div>
-            </div>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/EmIdLiK-iOg?si=dPhsOg7FIkxOVHeF"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
             <div style="width: 30%;" class="bienvenida">
                 <p>SerenaMente está respaldada por la investigación y la experiencia de un grupo de investigadores en
                     salud mental. Las herramientas y estrategias implementadas están fundamentadas en la evidencia
@@ -127,11 +126,15 @@
                         <p>Encontrarás información psicoemocional, que te auxiliara a comprender mejor lo que sientes y
                             cómo
                             abordar esas emociones.</p>
-                        
+                        <!--<p> Puede llevar un registro de cómo te sientes día a día, ayudándote a ver patrones y progresos en
+                        tu estado de ánimo.</p>-->
                         <p>En SerenaMente se cuenta con una interfaz fácil de usar, diseñada para que los usuarios
                             puedan
                             navegar sin complicaciones.</p>
-                        </div>
+                        <!--<p>SerenaMente aborda la salud mental desde un enfoque holístico, incluyendo herramientas para el
+                        manejo del estrés, la promoción del bienestar emocional, generar nuevas habilidades que mejoren
+                        tu calidad de vida, y más. Se trata de una solución integral para el cuidado mental.</p>-->
+                    </div>
                 </div>
             </div>
         </section>
@@ -175,12 +178,19 @@
                     <br><br>¡Esperamos ser parte de tu camino hacia el bienestar!
                 </p>
             </div>
-        </div>     
+        </div>
+
+        <section id="gallery" class="gallery">
+            <nav class="gallery-navigation">
+                <button class="nav-button prev-button"><span>&#129092;</span></button>
+                <button class="nav-button next-button"><span>&#129094;</span></button>
+            </nav>
+        </section>
     </main>
 
     <footer>
         <div class="contenedorFooter">
-            <div><div><img src="./img/LogoSerenaMente.png" width="206px" height="190px" class="logoFotter" alt="LogoSerenaMente"></div></div>
+            <div><img src="./img/LogoSerenaMente.png" width="206px" height="190px" class="logoFotter"></div>
             <div><a
                     href="mailto:serenamente@iztacala.unam.mx?subject=Asunto del correo">serenamente@iztacala.unam.mx</a>
             </div>
