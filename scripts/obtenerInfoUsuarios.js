@@ -1,15 +1,15 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-import {  getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA0kLe5l_gNuBwhkOOvBr8RO150dHCU31k",
-  authDomain: "serena-mente.firebaseapp.com",
-  projectId: "serena-mente",
-  storageBucket: "serena-mente.appspot.com",
-  messagingSenderId: "183868385167",
-  appId: "1:183868385167:web:442b02f182fc8a28260dfa",
-  measurementId: "G-LVWYEJBRHE"
+  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+  authDomain: "prueba2-31849.firebaseapp.com",
+  databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
+  projectId: "prueba2-31849",
+  storageBucket: "prueba2-31849.appspot.com",
+  messagingSenderId: "593735540788",
+  appId: "1:593735540788:web:4fa918ce020f5050c66a61",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -648,7 +648,7 @@ async function obtenerUsuariosInfo() {
             cuestionarioWrapper.appendChild(cuestionarioContenedorAplicacion);
             cuestionariosContainer.appendChild(cuestionarioWrapper);
           });
-        })  //buen intento
+        })
         .catch((error) => {
           console.error("Error al cargar el archivo preguntas.json:", error);
         });
@@ -659,6 +659,62 @@ async function obtenerUsuariosInfo() {
         document.createElement("hr")
       );
     }
+
+    const contenedorInterbloque = document.createElement("div");
+    const divRectanguloTitulos = document.createElement("div");
+    divRectanguloTitulos.classList.add("rectanguloTitulos");
+    const evaluacionesInterbloque = document.createElement("h2");
+    evaluacionesInterbloque.textContent = "Evaluaciones Interbloque";
+    evaluacionesInterbloque.classList.add("titulos");
+    divRectanguloTitulos.appendChild(evaluacionesInterbloque);
+    contenedorInterbloque.appendChild(divRectanguloTitulos);
+
+    puntuacionesEvaluacionPreviaAplicacionElement.appendChild(contenedorInterbloque);
+
+    // Ciclo para obtener los usuarios de cada evaluación interbloque
+    for (let i = 1; i <= 6; i++) {
+      const interBloqueCollectionRef = collection(db, `interBloque${i}`);
+      const interBloqueSnapshot = await getDocs(interBloqueCollectionRef);
+
+      if (!interBloqueSnapshot.empty) {
+        const interBloqueTitle = document.createElement("h3");
+        interBloqueTitle.textContent = `Usuarios que realizaron la evaluación interbloque ${i}`;
+        interBloqueTitle.classList.add("titulos");
+        contenedorInterbloque.appendChild(interBloqueTitle);
+
+        interBloqueSnapshot.forEach((doc) => {
+          const userId = doc.id;
+          const docData = doc.data();
+          const sentimiento = docData.sentimiento;
+
+          const userDiv = document.createElement("div");
+          userDiv.classList.add("usuario-info", "usuario-evaluacion-previa");
+
+          const idUsuarioRow = document.createElement("div");
+          idUsuarioRow.classList.add("usuario-row");
+          idUsuarioRow.innerHTML = `
+            <div class="campo">ID del usuario:</div>
+            <div class="valor">${userId}</div>
+          `;
+          userDiv.appendChild(idUsuarioRow);
+
+          const sentimientoRow = document.createElement("div");
+          sentimientoRow.classList.add("usuario-row");
+          sentimientoRow.innerHTML = `
+            <div class="campo">Sentimiento:</div>
+            <div class="valor">${sentimiento}</div>
+          `;
+          userDiv.appendChild(sentimientoRow);
+
+          contenedorInterbloque.appendChild(userDiv);
+          contenedorInterbloque.appendChild(document.createElement("hr"));
+        });
+      } else {
+        const noUsersMessage = document.createElement("p");
+        noUsersMessage.textContent = `No hay usuarios que hayan realizado la evaluación interbloque ${i}`;
+        contenedorInterbloque.appendChild(noUsersMessage);
+      }
+    }//muestra bien solo hay que acomodar el boton
   });
 }
 
@@ -672,28 +728,46 @@ document.addEventListener("DOMContentLoaded", obtenerUsuariosInfo);
 
 document.addEventListener("DOMContentLoaded", function () {
   // Botón para exportar usuarios de la página web como CSV
-  const exportWebUsersButton = document.getElementById("exportUsersPaginaCSVButton");
+  const exportWebUsersButton = document.getElementById(
+    "exportUsersPaginaCSVButton"
+  );
   exportWebUsersButton.addEventListener("click", exportWebUsersCSV);
 
   // Botón para exportar usuarios de la aplicación móvil como CSV
-  const exportAppUsersButton = document.getElementById("exportUsersAplicacionCSVButton");
+  const exportAppUsersButton = document.getElementById(
+    "exportUsersAplicacionCSVButton"
+  );
   exportAppUsersButton.addEventListener("click", exportAppUsersCSV);
 
   // Botón para exportar usuarios que han realizado la evpre como CSV
-  const exportAppUsersEvPrevButton = document.getElementById("exportUsersEvPrevRealizadaCSVButton");
+  const exportAppUsersEvPrevButton = document.getElementById(
+    "exportUsersEvPrevRealizadaCSVButton"
+  );
   exportAppUsersEvPrevButton.addEventListener("click", exportAppUsersEvPrevCSV);
 
   // Botón para exportar todos los datos de usuarios como CSV
-  const exportAllDataUsersEvPrevButton = document.getElementById("exportAllDataUsersCSVButton");
+  const exportAllDataUsersEvPrevButton = document.getElementById(
+    "exportAllDataUsersCSVButton"
+  );
   exportAllDataUsersEvPrevButton.addEventListener("click", exportAllDataAsCSV);
 
   // Botón para exportar puntuaciones y respuestas de evaluaciones previas como CSV
-  const exportEvaluacionPreviaButton = document.getElementById("exportEvaluacionPreviaPaginaCSVButton");
-  exportEvaluacionPreviaButton.addEventListener("click", exportEvaluacionPreviaPaginaCSV);
+  const exportEvaluacionPreviaButton = document.getElementById(
+    "exportEvaluacionPreviaPaginaCSVButton"
+  );
+  exportEvaluacionPreviaButton.addEventListener(
+    "click",
+    exportEvaluacionPreviaPaginaCSV
+  );
 
   // Botón para exportar puntuaciones y respuestas de evaluaciones previas en la aplicación como CSV
-  const exportEvaluacionPreviaAplicacionButton = document.getElementById("exportEvaluacionPreviaAplicacionCSVButton");
-  exportEvaluacionPreviaAplicacionButton.addEventListener("click", exportEvaluacionPreviaAplicacionCSV);
+  const exportEvaluacionPreviaAplicacionButton = document.getElementById(
+    "exportEvaluacionPreviaAplicacionCSVButton"
+  );
+  exportEvaluacionPreviaAplicacionButton.addEventListener(
+    "click",
+    exportEvaluacionPreviaAplicacionCSV
+  );
 
   function exportAllDataAsCSV() {
     exportWebUsersCSV();
@@ -730,58 +804,88 @@ document.addEventListener("DOMContentLoaded", function () {
   }*/
 
   function exportEvaluacionPreviaPaginaCSV() {
-    const evaluacionPreviaContainer = document.getElementById("puntuacionesEvaluacionPrevia");
-    const csvContent = generateEvaluacionPreviaPaginaCSV(evaluacionPreviaContainer);
+    const evaluacionPreviaContainer = document.getElementById(
+      "puntuacionesEvaluacionPrevia"
+    );
+    const csvContent = generateEvaluacionPreviaPaginaCSV(
+      evaluacionPreviaContainer
+    );
     downloadCSV(csvContent, "PuntuacionesEvaluacionesPreviasPagina.csv");
   }
 
   function generateEvaluacionPreviaPaginaCSV(container) {
-    const usuariosEvaluacionPrevia = container.querySelectorAll('.usuario-evaluacion-previa');
-    let csvContent = 'data:text/csv;charset=utf-8,\uFEFF'; // Incluir BOM para asegurar la codificación UTF-8
-  
+    const usuariosEvaluacionPrevia = container.querySelectorAll(
+      ".usuario-evaluacion-previa"
+    );
+    let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Incluir BOM para asegurar la codificación UTF-8
+
     // Obtener los nombres de los campos del primer usuario
-    const firstUserFields = usuariosEvaluacionPrevia[0].querySelectorAll('.campo');
-    const fieldNames = Array.from(firstUserFields).map(field => field.textContent.trim());
-    const fieldRowCSV = fieldNames.map(field => `"${field.replace(/"/g, '""')}"`).join(',');
-  
-    csvContent += fieldRowCSV + '\r\n'; // Agregar la fila con los nombres de los campos
-  
+    const firstUserFields =
+      usuariosEvaluacionPrevia[0].querySelectorAll(".campo");
+    const fieldNames = Array.from(firstUserFields).map((field) =>
+      field.textContent.trim()
+    );
+    const fieldRowCSV = fieldNames
+      .map((field) => `"${field.replace(/"/g, '""')}"`)
+      .join(",");
+
+    csvContent += fieldRowCSV + "\r\n"; // Agregar la fila con los nombres de los campos
+
     // Agregar las filas con las puntuaciones y respuestas de cada usuario
-    usuariosEvaluacionPrevia.forEach(usuario => {
-      const fields = usuario.querySelectorAll('.valor');
-      const rowData = Array.from(fields).map(field => field.textContent.trim());
-      const rowCSV = rowData.map(field => `"${field.replace(/"/g, '""')}"`).join(','); // Agregar comillas y escapar comillas dobles
-      csvContent += rowCSV + '\r\n';
+    usuariosEvaluacionPrevia.forEach((usuario) => {
+      const fields = usuario.querySelectorAll(".valor");
+      const rowData = Array.from(fields).map((field) =>
+        field.textContent.trim()
+      );
+      const rowCSV = rowData
+        .map((field) => `"${field.replace(/"/g, '""')}"`)
+        .join(","); // Agregar comillas y escapar comillas dobles
+      csvContent += rowCSV + "\r\n";
     });
-  
+
     return csvContent;
   }
 
   function exportEvaluacionPreviaAplicacionCSV() {
-    const evaluacionPreviaAplicacionContainer = document.getElementById("puntuacionesEvaluacionPreviaAplicacion");
-    const csvContent = generateEvaluacionPreviaAplicacionCSV(evaluacionPreviaAplicacionContainer);
+    const evaluacionPreviaAplicacionContainer = document.getElementById(
+      "puntuacionesEvaluacionPreviaAplicacion"
+    );
+    const csvContent = generateEvaluacionPreviaAplicacionCSV(
+      evaluacionPreviaAplicacionContainer
+    );
     downloadCSV(csvContent, "PuntuacionesEvaluacionesPreviasAplicacion.csv");
   }
 
   function generateEvaluacionPreviaAplicacionCSV(container) {
-    const usuariosEvaluacionPrevia = container.querySelectorAll('.usuario-evaluacion-previa');
-    let csvContent = 'data:text/csv;charset=utf-8,\uFEFF'; // Incluir BOM para asegurar la codificación UTF-8
-  
+    const usuariosEvaluacionPrevia = container.querySelectorAll(
+      ".usuario-evaluacion-previa"
+    );
+    let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Incluir BOM para asegurar la codificación UTF-8
+
     // Obtener los nombres de los campos del primer usuario
-    const firstUserFields = usuariosEvaluacionPrevia[0].querySelectorAll('.campo');
-    const fieldNames = Array.from(firstUserFields).map(field => field.textContent.trim());
-    const fieldRowCSV = fieldNames.map(field => `"${field.replace(/"/g, '""')}"`).join(',');
-  
-    csvContent += fieldRowCSV + '\r\n'; // Agregar la fila con los nombres de los campos
-  
+    const firstUserFields =
+      usuariosEvaluacionPrevia[0].querySelectorAll(".campo");
+    const fieldNames = Array.from(firstUserFields).map((field) =>
+      field.textContent.trim()
+    );
+    const fieldRowCSV = fieldNames
+      .map((field) => `"${field.replace(/"/g, '""')}"`)
+      .join(",");
+
+    csvContent += fieldRowCSV + "\r\n"; // Agregar la fila con los nombres de los campos
+
     // Agregar las filas con las puntuaciones y respuestas de cada usuario
-    usuariosEvaluacionPrevia.forEach(usuario => {
-      const fields = usuario.querySelectorAll('.valor');
-      const rowData = Array.from(fields).map(field => field.textContent.trim());
-      const rowCSV = rowData.map(field => `"${field.replace(/"/g, '""')}"`).join(','); // Agregar comillas y escapar comillas dobles
-      csvContent += rowCSV + '\r\n';
+    usuariosEvaluacionPrevia.forEach((usuario) => {
+      const fields = usuario.querySelectorAll(".valor");
+      const rowData = Array.from(fields).map((field) =>
+        field.textContent.trim()
+      );
+      const rowCSV = rowData
+        .map((field) => `"${field.replace(/"/g, '""')}"`)
+        .join(","); // Agregar comillas y escapar comillas dobles
+      csvContent += rowCSV + "\r\n";
     });
-  
+
     return csvContent;
   }
 
