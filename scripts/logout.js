@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       await signOut(auth);
       alert("Cerrar sesión exitoso");
-      window.location.href = './index.html';
+      window.location.href = './../index.html';
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
