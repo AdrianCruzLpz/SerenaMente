@@ -3,13 +3,13 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
-  authDomain: "prueba2-31849.firebaseapp.com",
-  databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
-  projectId: "prueba2-31849",
-  storageBucket: "prueba2-31849.appspot.com",
-  messagingSenderId: "593735540788",
-  appId: "1:593735540788:web:4fa918ce020f5050c66a61",
+  apiKey: "AIzaSyA0kLe5l_gNuBwhkOOvBr8RO150dHCU31k",
+  authDomain: "serena-mente.firebaseapp.com",
+  projectId: "serena-mente",
+  storageBucket: "serena-mente.appspot.com",
+  messagingSenderId: "183868385167",
+  appId: "1:183868385167:web:442b02f182fc8a28260dfa",
+  measurementId: "G-LVWYEJBRHE"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -249,11 +249,11 @@ async function obtenerUsuariosInfo() {
 
       const cuestionariosRef = collection(doc.ref, "cuestionarios");
       const cuestionariosSnapshot = await getDocs(cuestionariosRef);
-      puntuacionesEvaluacionPreviaElement.appendChild(
+      /*puntuacionesEvaluacionPreviaElement.appendChild(
         createParagraph(
           `<span class="campo palabraCuestionarios">Respuestas de cada cuestionario</span>`
         )
-      );
+      );*/
 
       let cuestionariosList = document.createElement("ul");
 
@@ -262,9 +262,9 @@ async function obtenerUsuariosInfo() {
       };
 
       // Después de imprimir "Cuestionarios:"
-      puntuacionesEvaluacionPreviaElement.appendChild(
+      /*puntuacionesEvaluacionPreviaElement.appendChild(
         document.createElement("br")
-      );
+      );*/
       // Crear un div para contener todos los cuestionarios
       const cuestionariosContainer = document.createElement("div");
       cuestionariosContainer.classList.add("cuestionarios-container");
@@ -274,12 +274,12 @@ async function obtenerUsuariosInfo() {
 
       // Crea un elemento span para contener el texto "Mostrar"
       const mostrarTexto = document.createElement("span");
-      mostrarTexto.textContent = "Mostrar";
-      mostrarTexto.classList.add("textoMostrar");
+      /*mostrarTexto.textContent = "Mostrar";
+      mostrarTexto.classList.add("textoMostrar");*/
 
       // Adjunta el texto "Mostrar" al párrafo antes del icono
       const iconoChevron = document.createElement("i");
-      iconoChevron.classList.add("fas", "fa-chevron-down", "iconoFlecha");
+      /*iconoChevron.classList.add("fas", "fa-chevron-down", "iconoFlecha");*/
       iconoChevron.addEventListener("click", function () {
         // Obtén el contenedor asociado al icono clickeado
         const userId = this.dataset.userId;
@@ -368,9 +368,9 @@ async function obtenerUsuariosInfo() {
       });
 
       puntuacionesEvaluacionPreviaElement.appendChild(cuestionariosList);
-      puntuacionesEvaluacionPreviaElement.appendChild(
+      /*puntuacionesEvaluacionPreviaElement.appendChild(
         document.createElement("hr")
-      );
+      );*/
 
       /*const hrElement = document.createElement('hr');
           hrElement.classList.add('usuario-separator');*/
@@ -487,30 +487,30 @@ async function obtenerUsuariosInfo() {
 
       const hrElement = document.createElement("hr");
       hrElement.classList.add("usuario-separator");
-      puntuacionesEvaluacionPreviaAplicacionElement.appendChild(hrElement);
+      //puntuacionesEvaluacionPreviaAplicacionElement.appendChild(hrElement);
 
-      const cuestionariosRef = collection(doc.ref, "preguntas");
-      const cuestionariosSnapshot = await getDocs(cuestionariosRef);
-      puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
+      /*const cuestionariosRef = collection(doc.ref, "preguntas");
+      const cuestionariosSnapshot = await getDocs(cuestionariosRef);*/
+      /*puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
         createParagraph(
           `<span class="campo palabraCuestionarios">Respuestas de cada cuestionario</span>`
         )
-      );
+      );*/
       let cuestionariosList = document.createElement("ul");
 
-      const completarConCeros = (numero, longitud) => {
+      /*const completarConCeros = (numero, longitud) => {
         return String(numero).padStart(longitud, "0");
-      };
+      };*/
 
-      puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
+      /*puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
         document.createElement("br")
-      );
-      const cuestionariosContainer = document.createElement("div");
+      );*/
+      /*const cuestionariosContainer = document.createElement("div");
       cuestionariosContainer.classList.add("cuestionariosContainerAplicacion");
       cuestionariosContainer.classList.add("ocultar");
       puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
         cuestionariosContainer
-      );
+      );*/
 
       fetch("./../preguntas.json")
         .then((response) => response.json())
@@ -545,7 +545,7 @@ async function obtenerUsuariosInfo() {
               .sort((a, b) => a.localeCompare(b, "es", { numeric: true }))
               .map((clave) => completarConCeros(clave, 2));
 
-            clavesOrdenadas.forEach((key) => {
+            /*clavesOrdenadas.forEach((key) => {
               const value = cuestionarioData[key];
               let item = document.createElement("div");
               item.classList.add("campoResultadosAplicacion");
@@ -577,7 +577,7 @@ async function obtenerUsuariosInfo() {
                       }`
                     );*/
 
-                  if (cuestionarioNombre === "ICSP") {
+                  /*if (cuestionarioNombre === "ICSP") {
                     if (preguntaIndex >= 0 && preguntaIndex < 4) {
                       // Índices 0-3: Pregunta 1-4
                       cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${
@@ -604,7 +604,7 @@ async function obtenerUsuariosInfo() {
                   /*console.log(
                       `La pregunta "${value}" no se encuentra en el objeto preguntas`
                     );*/
-                }
+                /*}
               } else {
                 if (key.startsWith("Puntuación")) {
                   valor.classList.add("contenidoCuestionario");
@@ -624,24 +624,24 @@ async function obtenerUsuariosInfo() {
               item.appendChild(label);
               item.appendChild(valor);
               cuestionarioContent.appendChild(item);
-            });
+            });*/
 
             // Agregar el contenido del cuestionario al contenedor
-            cuestionarioContenedorAplicacion.appendChild(cuestionarioContent);
+            //cuestionarioContenedorAplicacion.appendChild(cuestionarioContent);
 
             // Crear un botón o ícono para mostrar/ocultar el contenido del cuestionario
-            const mostrarCuestionarioBoton = document.createElement("i");
+            /*const mostrarCuestionarioBoton = document.createElement("i");
             mostrarCuestionarioBoton.classList.add(
               "fas",
               "fa-chevron-down",
               "iconoFlecha"
-            );
-            mostrarCuestionarioBoton.addEventListener("click", function () {
+            );*/
+            /*mostrarCuestionarioBoton.addEventListener("click", function () {
               cuestionarioContenedorAplicacion.classList.toggle("ocultar");
               cuestionarioContenedorAplicacion.classList.toggle("mostrar");
               this.classList.toggle("fa-chevron-down");
               this.classList.toggle("fa-chevron-up");
-            });
+            });*/
 
             cuestionarioWrapper.appendChild(cuestionarioTitle);
             cuestionarioWrapper.appendChild(mostrarCuestionarioBoton);
@@ -649,9 +649,9 @@ async function obtenerUsuariosInfo() {
             cuestionariosContainer.appendChild(cuestionarioWrapper);
           });
         })
-        .catch((error) => {
+        /*.catch((error) => {
           console.error("Error al cargar el archivo preguntas.json:", error);
-        });
+        });*/
       puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
         cuestionariosList
       );
