@@ -3,13 +3,13 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA0kLe5l_gNuBwhkOOvBr8RO150dHCU31k",
-  authDomain: "serena-mente.firebaseapp.com",
-  projectId: "serena-mente",
-  storageBucket: "serena-mente.appspot.com",
-  messagingSenderId: "183868385167",
-  appId: "1:183868385167:web:442b02f182fc8a28260dfa",
-  measurementId: "G-LVWYEJBRHE"
+  apiKey: "AIzaSyAnSAUDBaTQQJdcgtu9MFZ2Xpr3oOKNdqw",
+  authDomain: "prueba2-31849.firebaseapp.com",
+  databaseURL: "https://prueba2-31849-default-rtdb.firebaseio.com",
+  projectId: "prueba2-31849",
+  storageBucket: "prueba2-31849.appspot.com",
+  messagingSenderId: "593735540788",
+  appId: "1:593735540788:web:4fa918ce020f5050c66a61"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -20,12 +20,8 @@ async function obtenerUsuariosInfo() {
   onAuthStateChanged(auth, async (user) => {
     const userInfoElement = document.getElementById("userInfo");
     const allUsersInfoElement = document.getElementById("allUsersInfo");
-    const evaluacionPreviaInfoElement = document.getElementById(
-      "evaluacionPreviaInfo"
-    );
-    const puntuacionesEvaluacionPreviaElement = document.getElementById(
-      "puntuacionesEvaluacionPrevia"
-    );
+    const evaluacionPreviaInfoElement = document.getElementById("evaluacionPreviaInfo");
+    const puntuacionesEvaluacionPreviaElement = document.getElementById("puntuacionesEvaluacionPrevia");
     userInfoElement.innerHTML = "";
     allUsersInfoElement.innerHTML = "";
     evaluacionPreviaInfoElement.innerHTML = "";
@@ -38,7 +34,6 @@ async function obtenerUsuariosInfo() {
 
       if (userDoc.exists) {
         const userData = userDoc.data();
-
         const userInfoDiv = document.createElement("div");
         userInfoDiv.classList.add("usuario-info");
         userInfoDiv.classList.add("usuario-autenticado");
@@ -61,34 +56,26 @@ async function obtenerUsuariosInfo() {
         });
 
         userInfoElement.appendChild(userInfoDiv);
-
         const hrElement = document.createElement("hr");
         hrElement.classList.add("usuario-separator");
         userInfoElement.appendChild(hrElement);
       } else {
-        userInfoElement.appendChild(
-          createParagraph("El documento del usuario autenticado no existe")
-        );
+        userInfoElement.appendChild(createParagraph("El documento del usuario autenticado no existe"));
       }
     } else {
-      userInfoElement.appendChild(
-        createParagraph("No hay usuario autenticado")
-      );
+      userInfoElement.appendChild(createParagraph("No hay usuario autenticado"));
     }
 
     const usersCollectionRef = collection(db, "users");
     const usersSnapshot = await getDocs(usersCollectionRef);
     const totalUsuariosRegistrados = usersSnapshot.size;
-    const totalUsuariosRegistradosElement = document.getElementById(
-      "totalUsuariosRegistrados"
-    );
+    const totalUsuariosRegistradosElement = document.getElementById("totalUsuariosRegistrados");
     totalUsuariosRegistradosElement.innerHTML = `<strong style="color: #2DAAA7; font-size: 18px;">Total de registrados: </strong>${totalUsuariosRegistrados}`;
     totalUsuariosRegistradosElement.insertAdjacentHTML("afterend", "<hr>");
 
     for (const doc of usersSnapshot.docs) {
       const userData = doc.data();
       const userId = doc.id;
-
       const userDiv = document.createElement("div");
       userDiv.classList.add("usuario-info");
 
@@ -114,21 +101,14 @@ async function obtenerUsuariosInfo() {
         `;
         userDiv.appendChild(rowDiv);
       });
-
       allUsersInfoElement.appendChild(userDiv);
-
       const hrElement = document.createElement("hr");
       hrElement.classList.add("usuario-separator");
       allUsersInfoElement.appendChild(hrElement);
     }
 
-    const evaluacionRealizadaCollectionRef = collection(
-      db,
-      "evaluacionRealizada"
-    );
-    const evaluacionRealizadaSnapshot = await getDocs(
-      evaluacionRealizadaCollectionRef
-    );
+    const evaluacionRealizadaCollectionRef = collection(db, "evaluacionRealizada");
+    const evaluacionRealizadaSnapshot = await getDocs(evaluacionRealizadaCollectionRef);
 
     evaluacionPreviaInfoElement.appendChild(document.createElement("br"));
     let totalRealizada = 0;
@@ -136,10 +116,7 @@ async function obtenerUsuariosInfo() {
     for (const doc of evaluacionRealizadaSnapshot.docs) {
       const userId = doc.id;
       const evaluacionRealizadaData = doc.data();
-      const evaluacionPreviaRealizada =
-        evaluacionRealizadaData.evaluacionPreviaRealizada
-          ? "Realizada"
-          : "No realizada";
+      const evaluacionPreviaRealizada = evaluacionRealizadaData.evaluacionPreviaRealizada ? "Realizada" : "No realizada";
 
       const evaluacionPreviaRowDiv = document.createElement("div");
       evaluacionPreviaRowDiv.classList.add("usuario-row");
@@ -185,50 +162,26 @@ async function obtenerUsuariosInfo() {
     );
     evaluacionPreviaInfoElement.insertAdjacentHTML("beforeend", "<hr>");
 
-    const evaluacionPreviaCollectionRef = collection(
-      db,
-      "resultadosEvaluacionPrevia"
-    );
-    const evaluacionPreviaSnapshot = await getDocs(
-      evaluacionPreviaCollectionRef
-    );
-    puntuacionesEvaluacionPreviaElement.appendChild(
-      document.createElement("br")
-    );
+    const evaluacionPreviaCollectionRef = collection(db, "resultadosEvaluacionPrevia");
+    const evaluacionPreviaSnapshot = await getDocs(evaluacionPreviaCollectionRef);
+    puntuacionesEvaluacionPreviaElement.appendChild(document.createElement("br"));
 
     for (const doc of evaluacionPreviaSnapshot.docs) {
       const userId = doc.id;
       const evaluacionPreviaData = doc.data();
-
       const userDiv = document.createElement("div");
       userDiv.classList.add("usuario-info", "usuario-evaluacion-previa");
 
       const fields = [
         { label: "ID del usuario", value: userId },
-        {
-          label: "Puntuación Total BAI",
-          value: evaluacionPreviaData.puntuacionTotalBAI,
-        },
-        {
-          label: "Puntuación Total BDI",
-          value: evaluacionPreviaData.puntuacionTotalBDI,
-        },
-        {
-          label: "Puntuación Total PSS",
-          value: evaluacionPreviaData.puntuacionTotalPSS,
-        },
-        {
-          label: "Puntuación Total MINI",
+        { label: "Puntuación Total BAI", value: evaluacionPreviaData.puntuacionTotalBAI,},
+        { label: "Puntuación Total BDI", value: evaluacionPreviaData.puntuacionTotalBDI,},
+        { label: "Puntuación Total PSS", value: evaluacionPreviaData.puntuacionTotalPSS,},
+        { label: "Puntuación Total MINI",
           value: `${evaluacionPreviaData.puntuacionTotalMINI.count} - ${evaluacionPreviaData.puntuacionTotalMINI.nivel}`,
         },
-        {
-          label: "Puntuación Total WBI",
-          value: evaluacionPreviaData.puntuacionTotalWBI,
-        },
-        {
-          label: "Puntuación Total ICSP",
-          value: evaluacionPreviaData.puntuacionTotalICSP,
-        },
+        { label: "Puntuación Total WBI", value: evaluacionPreviaData.puntuacionTotalWBI,},
+        { label: "Puntuación Total ICSP", value: evaluacionPreviaData.puntuacionTotalICSP,},
       ];
 
       fields.forEach((field) => {
@@ -249,22 +202,21 @@ async function obtenerUsuariosInfo() {
 
       const cuestionariosRef = collection(doc.ref, "cuestionarios");
       const cuestionariosSnapshot = await getDocs(cuestionariosRef);
-      /*puntuacionesEvaluacionPreviaElement.appendChild(
+      puntuacionesEvaluacionPreviaElement.appendChild(
         createParagraph(
           `<span class="campo palabraCuestionarios">Respuestas de cada cuestionario</span>`
         )
-      );*/
+      );
 
       let cuestionariosList = document.createElement("ul");
-
       const completarConCeros = (numero, longitud) => {
         return String(numero).padStart(longitud, "0");
       };
 
       // Después de imprimir "Cuestionarios:"
-      /*puntuacionesEvaluacionPreviaElement.appendChild(
+      puntuacionesEvaluacionPreviaElement.appendChild(
         document.createElement("br")
-      );*/
+      );
       // Crear un div para contener todos los cuestionarios
       const cuestionariosContainer = document.createElement("div");
       cuestionariosContainer.classList.add("cuestionarios-container");
@@ -274,12 +226,12 @@ async function obtenerUsuariosInfo() {
 
       // Crea un elemento span para contener el texto "Mostrar"
       const mostrarTexto = document.createElement("span");
-      /*mostrarTexto.textContent = "Mostrar";
-      mostrarTexto.classList.add("textoMostrar");*/
+      mostrarTexto.textContent = "Mostrar";
+      mostrarTexto.classList.add("textoMostrar");
 
       // Adjunta el texto "Mostrar" al párrafo antes del icono
       const iconoChevron = document.createElement("i");
-      /*iconoChevron.classList.add("fas", "fa-chevron-down", "iconoFlecha");*/
+      iconoChevron.classList.add("fas", "fa-chevron-down", "iconoFlecha");
       iconoChevron.addEventListener("click", function () {
         // Obtén el contenedor asociado al icono clickeado
         const userId = this.dataset.userId;
@@ -303,12 +255,9 @@ async function obtenerUsuariosInfo() {
 
       // Asigna el userId como dataset al icono
       iconoChevron.dataset.userId = userId;
-
       // Adjunta el texto y el icono al párrafo
       puntuacionesEvaluacionPreviaElement.appendChild(mostrarTexto);
       puntuacionesEvaluacionPreviaElement.appendChild(iconoChevron);
-
-      //aqui sino funciona fgg para pagina
 
       cuestionariosSnapshot.docs.forEach((cuestionarioDoc) => {
         const cuestionarioData = cuestionarioDoc.data();
@@ -368,35 +317,22 @@ async function obtenerUsuariosInfo() {
       });
 
       puntuacionesEvaluacionPreviaElement.appendChild(cuestionariosList);
-      /*puntuacionesEvaluacionPreviaElement.appendChild(
-        document.createElement("hr")
-      );*/
-
-      /*const hrElement = document.createElement('hr');
-          hrElement.classList.add('usuario-separator');*/
+      puntuacionesEvaluacionPreviaElement.appendChild(document.createElement("hr"));
     }
 
-    const allUsersInfoAplicacionElement = document.getElementById(
-      "allUsersInfoAplicacion"
-    );
+    const allUsersInfoAplicacionElement = document.getElementById("allUsersInfoAplicacion");
     allUsersInfoAplicacionElement.innerHTML = ""; // Limpiar el contenido previo
 
     const usersCollectionRefApp = collection(db, "usuarios");
     const usersSnapshotApp = await getDocs(usersCollectionRefApp);
     const totalUsuariosRegistradosAplicacion = usersSnapshotApp.size;
-    const totalUsuariosRegistradosAplicacionElement = document.getElementById(
-      "totalUsuariosRegistradosAplicacion"
-    );
+    const totalUsuariosRegistradosAplicacionElement = document.getElementById("totalUsuariosRegistradosAplicacion");
     totalUsuariosRegistradosAplicacionElement.innerHTML = `<strong style="color: #2DAAA7; font-size: 18px;">Total de registrados: </strong>${totalUsuariosRegistradosAplicacion}`;
-    totalUsuariosRegistradosAplicacionElement.insertAdjacentHTML(
-      "afterend",
-      "<hr>"
-    );
+    totalUsuariosRegistradosAplicacionElement.insertAdjacentHTML("afterend", "<hr>");
 
     for (const doc of usersSnapshotApp.docs) {
       const userData = doc.data();
       const userId = doc.id;
-
       const userDiv = document.createElement("div");
       userDiv.classList.add("usuario-info");
 
@@ -432,45 +368,23 @@ async function obtenerUsuariosInfo() {
       evaluacionPreviaAppCollectionRef
     );
 
-    const puntuacionesEvaluacionPreviaAplicacionElement =
-      document.getElementById("puntuacionesEvaluacionPreviaAplicacion");
+    const puntuacionesEvaluacionPreviaAplicacionElement = document.getElementById("puntuacionesEvaluacionPreviaAplicacion");
     puntuacionesEvaluacionPreviaAplicacionElement.innerHTML = "";
-    puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
-      document.createElement("br")
-    );
+    puntuacionesEvaluacionPreviaAplicacionElement.appendChild(document.createElement("br"));
     for (const doc of evaluacionPreviaAppSnapshot.docs) {
       const userId = doc.id;
       const evaluacionPreviaData = doc.data();
-
       const userDiv = document.createElement("div");
       userDiv.classList.add("usuario-info", "usuario-evaluacion-previa");
 
       const fields = [
         { label: "ID del usuario", value: userId },
-        {
-          label: "Puntuación Total BAI",
-          value: evaluacionPreviaData.puntuacionTotalBAI,
-        },
-        {
-          label: "Puntuación Total BDI",
-          value: evaluacionPreviaData.puntuacionTotalBDI,
-        },
-        {
-          label: "Puntuación Total PSS",
-          value: evaluacionPreviaData.puntuacionTotalPSS,
-        },
-        {
-          label: "Puntuación Total MINI",
-          value: evaluacionPreviaData.puntuacionTotalMINI,
-        },
-        {
-          label: "Puntuación Total WBI",
-          value: evaluacionPreviaData.puntuacionTotalWBI,
-        },
-        {
-          label: "Puntuación Total ICSP",
-          value: evaluacionPreviaData.puntuacionTotalICSP,
-        },
+        { label: "Puntuación Total BAI",value: evaluacionPreviaData.puntuacionTotalBAI,    },
+        { label: "Puntuación Total BDI", value: evaluacionPreviaData.puntuacionTotalBDI,   },
+        { label: "Puntuación Total PSS", value: evaluacionPreviaData.puntuacionTotalPSS,   },
+        { label: "Puntuación Total MINI", value: evaluacionPreviaData.puntuacionTotalMINI, },
+        { label: "Puntuación Total WBI", value: evaluacionPreviaData.puntuacionTotalWBI,   },
+        { label: "Puntuación Total ICSP", value: evaluacionPreviaData.puntuacionTotalICSP, },
       ];
 
       fields.forEach((field) => {
@@ -484,68 +398,49 @@ async function obtenerUsuariosInfo() {
       });
 
       puntuacionesEvaluacionPreviaAplicacionElement.appendChild(userDiv);
-
       const hrElement = document.createElement("hr");
       hrElement.classList.add("usuario-separator");
-      //puntuacionesEvaluacionPreviaAplicacionElement.appendChild(hrElement);
-
-      /*const cuestionariosRef = collection(doc.ref, "preguntas");
-      const cuestionariosSnapshot = await getDocs(cuestionariosRef);*/
-      /*puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
+      puntuacionesEvaluacionPreviaAplicacionElement.appendChild(hrElement);
+      const cuestionariosRef = collection(doc.ref, "preguntas");
+      const cuestionariosSnapshot = await getDocs(cuestionariosRef);
+      puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
         createParagraph(
           `<span class="campo palabraCuestionarios">Respuestas de cada cuestionario</span>`
         )
-      );*/
+      );
       let cuestionariosList = document.createElement("ul");
-
-      /*const completarConCeros = (numero, longitud) => {
+      const completarConCeros = (numero, longitud) => {
         return String(numero).padStart(longitud, "0");
-      };*/
-
-      /*puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
-        document.createElement("br")
-      );*/
-      /*const cuestionariosContainer = document.createElement("div");
+      };
+      puntuacionesEvaluacionPreviaAplicacionElement.appendChild(document.createElement("br"));
+      const cuestionariosContainer = document.createElement("div");
       cuestionariosContainer.classList.add("cuestionariosContainerAplicacion");
       cuestionariosContainer.classList.add("ocultar");
-      puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
-        cuestionariosContainer
-      );*/
+      puntuacionesEvaluacionPreviaAplicacionElement.appendChild(cuestionariosContainer);
 
       fetch("./../preguntas.json")
         .then((response) => response.json())
         .then((preguntasJSON) => {
-          //console.log("Preguntas JSON: ", preguntasJSON);
           const preguntas = JSON.parse(JSON.stringify(preguntasJSON));
 
           cuestionariosSnapshot.docs.forEach((cuestionarioDoc) => {
             const cuestionarioData = cuestionarioDoc.data();
             const cuestionarioNombre = cuestionarioDoc.id;
-            //console.log("Cuestionario: ", cuestionarioNombre);
-
             let cuestionarioWrapper = document.createElement("div");
             cuestionarioWrapper.classList.add("campo");
             cuestionarioWrapper.classList.add("cuestionarioItemAplicacion");
-
             let cuestionarioTitle = document.createElement("h3");
             cuestionarioTitle.classList.add("campoAplicacion");
-
             let cuestionarioContent = document.createElement("div");
             cuestionarioContent.classList.add("contenidoCuestionario");
-
-            // Crear un contenedor para envolver el contenido del cuestionario
-            const cuestionarioContenedorAplicacion =
-              document.createElement("div");
-            cuestionarioContenedorAplicacion.classList.add(
-              "cuestionarioContenedorAplicacion",
-              "ocultar"
-            );
+            const cuestionarioContenedorAplicacion = document.createElement("div");
+            cuestionarioContenedorAplicacion.classList.add("cuestionarioContenedorAplicacion", "ocultar");
 
             const clavesOrdenadas = Object.keys(cuestionarioData)
               .sort((a, b) => a.localeCompare(b, "es", { numeric: true }))
               .map((clave) => completarConCeros(clave, 2));
 
-            /*clavesOrdenadas.forEach((key) => {
+            clavesOrdenadas.forEach((key) => {
               const value = cuestionarioData[key];
               let item = document.createElement("div");
               item.classList.add("campoResultadosAplicacion");
@@ -577,34 +472,24 @@ async function obtenerUsuariosInfo() {
                       }`
                     );*/
 
-                  /*if (cuestionarioNombre === "ICSP") {
+                  if (cuestionarioNombre === "ICSP") {
                     if (preguntaIndex >= 0 && preguntaIndex < 4) {
-                      // Índices 0-3: Pregunta 1-4
-                      cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${
-                        preguntaIndex + 1
-                      }`;
+                      cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${ preguntaIndex + 1 }`;
                     } else if (preguntaIndex >= 4 && preguntaIndex < 14) {
-                      // Índices 4-13: Pregunta 5a-Pregunta 5j
                       cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta 5${String.fromCharCode(
                         97 + (preguntaIndex - 4)
                       )}`;
                     } else if (preguntaIndex >= 14 && preguntaIndex < 18) {
-                      // Índices 14-17: Pregunta 6-Pregunta 9
-                      cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${
-                        preguntaIndex - 8
-                      }`;
+                      cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${ preguntaIndex - 8 }`;
                     }
                   } else {
-                    // Si no es ICSP, simplemente incrementa el índice para mostrar el número de pregunta
                     cuestionarioTitle.textContent = `${cuestionarioNombre} Pregunta ${
                       preguntaIndex + 1
                     }`;
                   }
                 } else {
-                  /*console.log(
-                      `La pregunta "${value}" no se encuentra en el objeto preguntas`
-                    );*/
-                /*}
+                  console.log(`La pregunta "${value}" no se encuentra en el objeto preguntas`);
+                }
               } else {
                 if (key.startsWith("Puntuación")) {
                   valor.classList.add("contenidoCuestionario");
@@ -620,28 +505,20 @@ async function obtenerUsuariosInfo() {
                   valor.textContent = value;
                 }
               }
-
               item.appendChild(label);
               item.appendChild(valor);
               cuestionarioContent.appendChild(item);
-            });*/
+            });
 
-            // Agregar el contenido del cuestionario al contenedor
-            //cuestionarioContenedorAplicacion.appendChild(cuestionarioContent);
-
-            // Crear un botón o ícono para mostrar/ocultar el contenido del cuestionario
-            /*const mostrarCuestionarioBoton = document.createElement("i");
-            mostrarCuestionarioBoton.classList.add(
-              "fas",
-              "fa-chevron-down",
-              "iconoFlecha"
-            );*/
-            /*mostrarCuestionarioBoton.addEventListener("click", function () {
+            cuestionarioContenedorAplicacion.appendChild(cuestionarioContent);
+            const mostrarCuestionarioBoton = document.createElement("i");
+            mostrarCuestionarioBoton.classList.add("fas", "fa-chevron-down", "iconoFlecha");
+            mostrarCuestionarioBoton.addEventListener("click", function () {
               cuestionarioContenedorAplicacion.classList.toggle("ocultar");
               cuestionarioContenedorAplicacion.classList.toggle("mostrar");
               this.classList.toggle("fa-chevron-down");
               this.classList.toggle("fa-chevron-up");
-            });*/
+            });
 
             cuestionarioWrapper.appendChild(cuestionarioTitle);
             cuestionarioWrapper.appendChild(mostrarCuestionarioBoton);
@@ -649,9 +526,9 @@ async function obtenerUsuariosInfo() {
             cuestionariosContainer.appendChild(cuestionarioWrapper);
           });
         })
-        /*.catch((error) => {
+        .catch((error) => {
           console.error("Error al cargar el archivo preguntas.json:", error);
-        });*/
+        });
       puntuacionesEvaluacionPreviaAplicacionElement.appendChild(
         cuestionariosList
       );
@@ -727,47 +604,23 @@ function createParagraph(html) {
 document.addEventListener("DOMContentLoaded", obtenerUsuariosInfo);
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Botón para exportar usuarios de la página web como CSV
-  const exportWebUsersButton = document.getElementById(
-    "exportUsersPaginaCSVButton"
-  );
+  const exportWebUsersButton = document.getElementById("exportUsersPaginaCSVButton");
   exportWebUsersButton.addEventListener("click", exportWebUsersCSV);
 
-  // Botón para exportar usuarios de la aplicación móvil como CSV
-  const exportAppUsersButton = document.getElementById(
-    "exportUsersAplicacionCSVButton"
-  );
+  const exportAppUsersButton = document.getElementById("exportUsersAplicacionCSVButton");
   exportAppUsersButton.addEventListener("click", exportAppUsersCSV);
 
-  // Botón para exportar usuarios que han realizado la evpre como CSV
-  const exportAppUsersEvPrevButton = document.getElementById(
-    "exportUsersEvPrevRealizadaCSVButton"
-  );
+  const exportAppUsersEvPrevButton = document.getElementById("exportUsersEvPrevRealizadaCSVButton");
   exportAppUsersEvPrevButton.addEventListener("click", exportAppUsersEvPrevCSV);
 
-  // Botón para exportar todos los datos de usuarios como CSV
-  const exportAllDataUsersEvPrevButton = document.getElementById(
-    "exportAllDataUsersCSVButton"
-  );
+  const exportAllDataUsersEvPrevButton = document.getElementById("exportAllDataUsersCSVButton");
   exportAllDataUsersEvPrevButton.addEventListener("click", exportAllDataAsCSV);
 
-  // Botón para exportar puntuaciones y respuestas de evaluaciones previas como CSV
-  const exportEvaluacionPreviaButton = document.getElementById(
-    "exportEvaluacionPreviaPaginaCSVButton"
-  );
-  exportEvaluacionPreviaButton.addEventListener(
-    "click",
-    exportEvaluacionPreviaPaginaCSV
-  );
+  const exportEvaluacionPreviaButton = document.getElementById("exportEvaluacionPreviaPaginaCSVButton");
+  exportEvaluacionPreviaButton.addEventListener("click", exportEvaluacionPreviaPaginaCSV);
 
-  // Botón para exportar puntuaciones y respuestas de evaluaciones previas en la aplicación como CSV
-  const exportEvaluacionPreviaAplicacionButton = document.getElementById(
-    "exportEvaluacionPreviaAplicacionCSVButton"
-  );
-  exportEvaluacionPreviaAplicacionButton.addEventListener(
-    "click",
-    exportEvaluacionPreviaAplicacionCSV
-  );
+  const exportEvaluacionPreviaAplicacionButton = document.getElementById("exportEvaluacionPreviaAplicacionCSVButton");
+  exportEvaluacionPreviaAplicacionButton.addEventListener("click", exportEvaluacionPreviaAplicacionCSV);
 
   function exportAllDataAsCSV() {
     exportWebUsersCSV();
@@ -795,109 +648,67 @@ document.addEventListener("DOMContentLoaded", function () {
     downloadCSV(csvContent, "UsuariosEvaluacionPreviaRealizada.csv");
   }
 
-  /*function exportEvaluacionPreviaPaginaCSV() {
-    const evaluacionPreviaContainer = document.getElementById(
-      "puntuacionesEvaluacionPrevia"
-    );
-    const csvContent = generateEvaluacionPreviaPaginaCSV(evaluacionPreviaContainer);
-    downloadCSV(csvContent, "EvaluacionPrevia.csv");
-  }*/
-
   function exportEvaluacionPreviaPaginaCSV() {
-    const evaluacionPreviaContainer = document.getElementById(
-      "puntuacionesEvaluacionPrevia"
-    );
-    const csvContent = generateEvaluacionPreviaPaginaCSV(
-      evaluacionPreviaContainer
-    );
+    const evaluacionPreviaContainer = document.getElementById("puntuacionesEvaluacionPrevia");
+    const csvContent = generateEvaluacionPreviaPaginaCSV(evaluacionPreviaContainer);
     downloadCSV(csvContent, "PuntuacionesEvaluacionesPreviasPagina.csv");
   }
 
   function generateEvaluacionPreviaPaginaCSV(container) {
-    const usuariosEvaluacionPrevia = container.querySelectorAll(
-      ".usuario-evaluacion-previa"
-    );
-    let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Incluir BOM para asegurar la codificación UTF-8
+    const usuariosEvaluacionPrevia = container.querySelectorAll(".usuario-evaluacion-previa");
+    let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; 
 
-    // Obtener los nombres de los campos del primer usuario
-    const firstUserFields =
-      usuariosEvaluacionPrevia[0].querySelectorAll(".campo");
-    const fieldNames = Array.from(firstUserFields).map((field) =>
-      field.textContent.trim()
-    );
+    const firstUserFields = usuariosEvaluacionPrevia[0].querySelectorAll(".campo");
+    const fieldNames = Array.from(firstUserFields).map((field) => field.textContent.trim());
     const fieldRowCSV = fieldNames
       .map((field) => `"${field.replace(/"/g, '""')}"`)
       .join(",");
 
-    csvContent += fieldRowCSV + "\r\n"; // Agregar la fila con los nombres de los campos
+    csvContent += fieldRowCSV + "\r\n";
 
-    // Agregar las filas con las puntuaciones y respuestas de cada usuario
     usuariosEvaluacionPrevia.forEach((usuario) => {
       const fields = usuario.querySelectorAll(".valor");
-      const rowData = Array.from(fields).map((field) =>
-        field.textContent.trim()
-      );
+      const rowData = Array.from(fields).map((field) => field.textContent.trim());
       const rowCSV = rowData
         .map((field) => `"${field.replace(/"/g, '""')}"`)
-        .join(","); // Agregar comillas y escapar comillas dobles
+        .join(",");
       csvContent += rowCSV + "\r\n";
     });
-
     return csvContent;
   }
 
   function exportEvaluacionPreviaAplicacionCSV() {
-    const evaluacionPreviaAplicacionContainer = document.getElementById(
-      "puntuacionesEvaluacionPreviaAplicacion"
-    );
-    const csvContent = generateEvaluacionPreviaAplicacionCSV(
-      evaluacionPreviaAplicacionContainer
-    );
+    const evaluacionPreviaAplicacionContainer = document.getElementById("puntuacionesEvaluacionPreviaAplicacion");
+    const csvContent = generateEvaluacionPreviaAplicacionCSV(evaluacionPreviaAplicacionContainer);
     downloadCSV(csvContent, "PuntuacionesEvaluacionesPreviasAplicacion.csv");
   }
 
   function generateEvaluacionPreviaAplicacionCSV(container) {
-    const usuariosEvaluacionPrevia = container.querySelectorAll(
-      ".usuario-evaluacion-previa"
-    );
-    let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Incluir BOM para asegurar la codificación UTF-8
-
-    // Obtener los nombres de los campos del primer usuario
-    const firstUserFields =
-      usuariosEvaluacionPrevia[0].querySelectorAll(".campo");
-    const fieldNames = Array.from(firstUserFields).map((field) =>
-      field.textContent.trim()
-    );
+    const usuariosEvaluacionPrevia = container.querySelectorAll(".usuario-evaluacion-previa");
+    let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+    const firstUserFields = usuariosEvaluacionPrevia[0].querySelectorAll(".campo");
+    const fieldNames = Array.from(firstUserFields).map((field) => field.textContent.trim());
     const fieldRowCSV = fieldNames
       .map((field) => `"${field.replace(/"/g, '""')}"`)
       .join(",");
+    csvContent += fieldRowCSV + "\r\n";
 
-    csvContent += fieldRowCSV + "\r\n"; // Agregar la fila con los nombres de los campos
-
-    // Agregar las filas con las puntuaciones y respuestas de cada usuario
     usuariosEvaluacionPrevia.forEach((usuario) => {
       const fields = usuario.querySelectorAll(".valor");
-      const rowData = Array.from(fields).map((field) =>
-        field.textContent.trim()
-      );
+      const rowData = Array.from(fields).map((field) => field.textContent.trim());
       const rowCSV = rowData
         .map((field) => `"${field.replace(/"/g, '""')}"`)
-        .join(","); // Agregar comillas y escapar comillas dobles
+        .join(",");
       csvContent += rowCSV + "\r\n";
     });
-
     return csvContent;
   }
 
   function generateCSVWithEvalInfo(container) {
     const rows = container.querySelectorAll(".usuario-row");
-    let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Incluir BOM para asegurar la codificación UTF-8
+    let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; 
+    csvContent += '"ID del usuario","Evaluación Previa Realizada - No Realizada"\r\n';
 
-    // Agregar encabezados adicionales para ID de usuario y si la evaluación previa está realizada
-    csvContent +=
-      '"ID del usuario","Evaluación Previa Realizada - No Realizada"\r\n';
-
-    // Agregar los datos de cada usuario y si la evaluación previa está realizada o no
     rows.forEach((row) => {
       const idUsuario = row.querySelector(".valor").textContent.trim();
       const evaluacionPrevia = row
@@ -909,61 +720,30 @@ document.addEventListener("DOMContentLoaded", function () {
       )}","${evaluacionPrevia.replace(/"/g, '""')}"`;
       csvContent += rowData + "\r\n";
     });
-
     return csvContent;
   }
 
   function generateCSV(container) {
     const rows = container.querySelectorAll(".usuario-info");
-    let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Incluir BOM para asegurar la codificación UTF-8
+    let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
 
-    // Obtener los nombres de los campos del primer usuario
     const firstUserFields = rows[0].querySelectorAll(".campo");
-    const fieldNames = Array.from(firstUserFields).map((field) =>
-      field.textContent.trim()
-    );
+    const fieldNames = Array.from(firstUserFields).map((field) => field.textContent.trim());
     const fieldRowCSV = fieldNames
       .map((field) => `"${field.replace(/"/g, '""')}"`)
       .join(",");
-
     csvContent += fieldRowCSV + "\r\n";
 
-    // Agregar las filas con los valores de cada usuario
     rows.forEach((row) => {
       const fields = row.querySelectorAll(".valor");
-      const rowData = Array.from(fields).map((field) =>
-        field.textContent.trim()
-      );
+      const rowData = Array.from(fields).map((field) => field.textContent.trim());
       const rowCSV = rowData
         .map((field) => `"${field.replace(/"/g, '""')}"`)
-        .join(","); // Agregar comillas y escapar comillas dobles
+        .join(","); 
       csvContent += rowCSV + "\r\n";
     });
-
     return csvContent;
   }
-
-  /*function generateEvaluacionPreviaPaginaCSV(container) {
-        const usuariosEvaluacionPrevia = container.querySelectorAll('.usuario-evaluacion-previa');
-        let csvContent = 'data:text/csv;charset=utf-8,\uFEFF'; // Incluir BOM para asegurar la codificación UTF-8
-
-        // Obtener los nombres de los campos del primer usuario
-        const firstUserFields = usuariosEvaluacionPrevia[0].querySelectorAll('.campo');
-        const fieldNames = Array.from(firstUserFields).map(field => field.textContent.trim());
-        const fieldRowCSV = fieldNames.map(field => `"${field.replace(/"/g, '""')}"`).join(',');
-
-        csvContent += fieldRowCSV + '\r\n'; // Agregar la fila con los nombres de los campos
-
-        // Agregar las filas con las puntuaciones y respuestas de cada usuario
-        usuariosEvaluacionPrevia.forEach(usuario => {
-          const fields = usuario.querySelectorAll('.valor');
-          const rowData = Array.from(fields).map(field => field.textContent.trim());
-          const rowCSV = rowData.map(field => `"${field.replace(/"/g, '""')}"`).join(','); // Agregar comillas y escapar comillas dobles
-          csvContent += rowCSV + '\r\n';
-        });
-
-        return csvContent;
-  }//aqui genera las de pagina revisar si tambien de aplicacion intentar*/
 
   function downloadCSV(csvContent, filename) {
     const encodedUri = encodeURI(csvContent);
