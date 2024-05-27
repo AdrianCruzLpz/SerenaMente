@@ -441,7 +441,13 @@ document.addEventListener("DOMContentLoaded", function () {
         "Tus respuestas nos hacen considerar que mejorar tu estado emocional de intranquilidad puede ser un objetivo de trabajo. Puedes beneficiarte de identificar estrategias de manejo de la ansiedad como las que realizarás a lo largo de SerenaMente.";
       termometroColor = "naranja";
     } else if (puntuacionTotalBAI >= 32 && puntuacionTotalBAI <= 60) {
-      window.location.href = './atencionEspecializada.html';
+      setDoc(doc(db, "rechazado", auth.currentUser.uid), {
+        rechazado: true,
+      }).then(() => {
+        window.location.href = './atencionEspecializada.html';
+      }).catch(error => {
+        console.error("Error al agregar usuario a la colección 'rechazado':", error);
+      });
       return;
     } else {
       mensaje = "ERROR Fuera de rango.";
@@ -471,7 +477,13 @@ document.addEventListener("DOMContentLoaded", function () {
         "Tus respuestas nos llevan a pensar que trabajar en la mejora de tu estado emocional podría ser un objetivo valioso. En SerenaMente puedes beneficiarte al identificar estrategias, tal como las que llevarás a cabo a lo largo de los bloques en SerenaMente, y de esta manera, incrementar la plenitud en tu vida.";
       termometroColorBDI = "naranja";
     } else if (puntuacionTotalBDI >= 30 && puntuacionTotalBDI <= 63) {
-      window.location.href = './atencionEspecializada.html';
+      setDoc(doc(db, "rechazado", auth.currentUser.uid), {
+        rechazado: true,
+      }).then(() => {
+        window.location.href = './atencionEspecializada.html';
+      }).catch(error => {
+        console.error("Error al agregar usuario a la colección 'rechazado':", error);
+      });
       return;
     } else {
       mensajeBDI = "ERROR Fuera de rango.";
@@ -524,10 +536,22 @@ document.addEventListener("DOMContentLoaded", function () {
     let mensajeMINI = "";
 
     if (nivel === "MODERADO") {
-      window.location.href = './atencionEspecializada.html';
+      setDoc(doc(db, "rechazado", auth.currentUser.uid), {
+        rechazado: true,
+      }).then(() => {
+        window.location.href = './atencionEspecializada.html';
+      }).catch(error => {
+        console.error("Error al agregar usuario a la colección 'rechazado':", error);
+      });
       return;
     } else if (nivel === "SEVERO") {
-      window.location.href = './atencionEspecializada.html';
+      setDoc(doc(db, "rechazado", auth.currentUser.uid), {
+        rechazado: true,
+      }).then(() => {
+        window.location.href = './atencionEspecializada.html';
+      }).catch(error => {
+        console.error("Error al agregar usuario a la colección 'rechazado':", error);
+      });
       return;
     } else {
       mensajeMINI = "Riesgo suicida ligero.";
