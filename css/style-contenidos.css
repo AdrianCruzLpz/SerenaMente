@@ -123,8 +123,56 @@
         font-size: 18px;
         text-align: center;
     }
+}
+
+@media screen and (max-width: 767px) {
+    .contenedor-imagen-izquierda,
+    .contenedor-imagen-derecha {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+
+    .contenedor-imagen-izquierda-Fondo,
+    .contenedor-imagen-derecha-Fondo {
+        padding: 10px;
+        background-color: transparent;
+    }
+
+    .contenedor-imagen-izquierda-Imagen,
+    .contenedor-imagen-derecha-Imagen {
+        order: 1;
+        padding: 0;
+    }
+
+    .contenedor-imagen-izquierda-Imagen img,
+    .contenedor-imagen-derecha-Imagen img {
+        max-width: 55%; /* Ajusta el ancho máximo de las imágenes al 80% */
+        height: auto;
+    }
+
+    .contenedor-imagen-izquierda-Texto,
+    .contenedor-imagen-derecha-Texto {
+        order: 2;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .container{
+        margin: 16px auto;
+    }
     
-    
+    .container-play-store {
+        margin: 20px auto;
+    }
+
+    .logoPlayStore img {
+        height: 55px;
+    }
 }
 
 @media screen and (min-width: 900px){
