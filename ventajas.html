@@ -97,10 +97,12 @@
                     salud mental. Las herramientas y estrategias implementadas están fundamentadas en la evidencia
                     científica, asegurando su eficacia y seguridad.</p>
             </div>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/EmIdLiK-iOg?si=dPhsOg7FIkxOVHeF"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <div id="youtube-placeholder" style="width: 560px; height: 315px; position: relative; overflow: hidden; background-color: #f0f0f0; border-radius: 8px; display: flex; justify-content: center; align-items: center;">
+                <img src="https://img.youtube.com/vi/EmIdLiK-iOg/maxresdefault.jpg" alt="Video de SerenaMente" style="width: 100%; height: auto; cursor: pointer;" onclick="loadYouTubeVideo()">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; padding: 20px;">
+                    <i class="fab fa-youtube" style="color: #ff0000; font-size: 48px;"></i>
+                </div>
+            </div>
 
             <div style="width: 30%;" class="bienvenida">
                 <p>SerenaMente está respaldada por la investigación y la experiencia de un grupo de investigadores en
@@ -118,7 +120,7 @@
                     <img src="./img/imagenVentajasCel.png" alt="Ventajas" style="width: 100%;">
                 </div>
                 <div class="contenedorTextoImagen">
-                    <img src="./img/iconosVentajas.png" class="iconos">
+                    <img src="./img/iconosVentajas.png" class="iconos" alt="ventajas">
                     <div class="contendorTexto">
                         <p>Esta apliación se encuentra disponibles las 24 horas del día, los 7 días de la semana,
                             permitiéndote acceder a recurso de salud mental en cualquer momento y lugar que te resulte
@@ -158,7 +160,7 @@
                     <ul>
                         <li><label for="name">NOMBRE</label><input type="text" id="name" name="user_name"
                                 class="input" /></li>
-                        <li><label for="email">CORREO ELECTRÓNICO</label><input type="text" id="mail" name="user_mail"
+                        <li><label for="email">CORREO ELECTRÓNICO</label><input type="text" id="email" name="user_email"
                                 class="input" /></li>
                         <li><label for="message">MENSAJE</label><textarea name="user_message" id="message" cols="30"
                                 rows="10" class="input"></textarea></li>
