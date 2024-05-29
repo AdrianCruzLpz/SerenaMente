@@ -25,6 +25,17 @@
         display: none;
     }
 
+    .contendorTexto p{
+        width: 85%;
+        margin: 8px auto;
+    }
+
+    .contenedorImagenCel :where(img),
+    .contenedorImagen :where(img),
+    .contenedorTextoImagen :where(img) {
+        display: none;
+    }
+
     .contenedorTextoImagen{
         display: flex;
     }
