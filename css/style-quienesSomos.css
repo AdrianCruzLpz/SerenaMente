@@ -330,3 +330,33 @@ h2{
     }
 }
 
+@media screen and (max-width: 767px) {
+    .formulario li {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .formulario label {
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+  
+    .formulario {
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      text-align: center; /* Centrar el contenido */
+    }
+  
+    .input {
+      width: 100%;
+    }
+  
+    .formulario h3 {
+      margin: 0 auto 20px; /* Centrar "Contacto" */
+    }
+  
+    .boton {
+      margin: 0 auto; /* Centrar el botón "Enviar" */
+    }
+}
